@@ -101,6 +101,7 @@ const MainAppContent = () => {
     "/manage-sales",
     "/productions",
     "/products",
+    "/inventory-dashboard",
   ];
 
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);
