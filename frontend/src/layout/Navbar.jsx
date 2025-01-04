@@ -4,6 +4,7 @@ import { logout } from "@/store/slices/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "@/assets/logo.png";
 import notification_icon from "../assets/notification.jpg"
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -13,13 +14,14 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/dashboard");
+    toast.success("Logout Successfully");
+    navigate("/");
   };
 
   return (
     <div className="flex items-center justify-between py-5 px-10 bg-[#4A628A] text-white">
       {/* Logo and Link to Home */}
-      <Link to="/MainHomePage">
+      <Link to="/">
         <img src={logo} className="h-20" alt="Company Logo" /> {/* Increased height to 20 */}
       </Link>
 

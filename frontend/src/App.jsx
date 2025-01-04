@@ -21,20 +21,22 @@ import Contact from "./pages/Contact";
 import UserProfile from "./pages/UserProfile";
 import HeroSection from "./pages/Home";
 import MainHomePage from "./pages/MainHomePage";
-import Delivery from './pages/Delivery';
-import InventoryManagement from './pages/InventoryManagement';
-import StockManagement from './pages/StockManagement';
-import ResourceManagement from './pages/ResourceManagement';
-import Vehicle from './pages/Vehicle';
-import Footer1 from './components/Footer';
-import Machine from './pages/Machine';
-import Sidebar from './components/Sidebar';
-import AddProduct from './pages/AddProduct';
-import Dashboard from './pages/Dashboard';
-import ManageProducts from './pages/ManageProducts';
-import ManageSales from './pages/ManageSales';
-import { ProductProvider } from './context/ProductContext';
-import Productions from './pages/Productions';
+import Delivery from "./pages/Delivery";
+import StockManagement from "./pages/StockManagement";
+import ResourceManagement from "./pages/ResourceManagement";
+import Vehicle from "./pages/Vehicle";
+import Footer1 from "./components/Footer";
+import Machine from "./pages/Machine";
+import Sidebar from "./components/Sidebar";
+import AddProduct from "./pages/AddProduct";
+import Dashboard from "./pages/Dashboard";
+import ManageProducts from "./pages/ManageProducts";
+import ManageSales from "./pages/ManageSales";
+import { ProductProvider } from "./context/ProductContext";
+import Productions from "./pages/Productions";
+import InventorySidebar from "./pages/inventoryManagement/InventorySidebar";
+import InventoryDashboard from "./pages/inventoryManagement/InventoryDashoboard";
+import Products from "./pages/inventoryManagement/InventoryManagementassets/Products";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -67,17 +69,19 @@ const MainAppContent = () => {
     { path: "/me", element: <UserProfile /> },
     { path: "/mainhomepage", element: <MainHomePage /> },
     { path: "/delivery", element: <Delivery /> },
-    { path: "/inventory", element: <InventoryManagement /> },
     { path: "/resource", element: <ResourceManagement /> },
     { path: "/stock", element: <StockManagement />, withSidebar: true },
     { path: "/vehicle", element: <Vehicle />, withSidebar: true },
     { path: "/machine", element: <Machine />, withSidebar: true },
     { path: "/add-product", element: <AddProduct />, withSidebar: true },
-    { path: "/manage-products", element: <ManageProducts />, withSidebar: true },
+    { path: "/manage-products", element: <ManageProducts /> },
     { path: "/dashboard", element: <Dashboard />, withSidebar: true },
     { path: "/manage-sales", element: <ManageSales />, withSidebar: true },
     { path: "/productions", element: <Productions />, withSidebar: true },
     { path: "/profile", element: <UserProfile />, withSidebar: true },
+    { path: "/product", element: <Products />, withInventorySidebar: true },
+    { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true },
+    { path: "/products", element: <AddProduct />, withInventorySidebar: true },
   ];
 
   // Pages where Footer should not appear
@@ -85,7 +89,7 @@ const MainAppContent = () => {
     "/add-product",
     "/products",
     "/adjustments",
-    "/inventory-management",
+    "/inventory",
     "/categories",
     "/suppliers",
     "/reports",
@@ -95,7 +99,8 @@ const MainAppContent = () => {
     "/machine",
     "/manage-products",
     "/manage-sales",
-    "/productions"
+    "/productions",
+    "/products",
   ];
 
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);
@@ -103,18 +108,23 @@ const MainAppContent = () => {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="flex flex-col ">
         <Routes>
-          {routes.map(({ path, element, withSidebar }) => (
+          {routes.map(({ path, element, withSidebar, withInventorySidebar }) => (
             <Route
               key={path}
               path={path}
               element={
                 withSidebar ? (
-                  <>
+                  <div className="flex-center">
                     <Sidebar />
-                    {element}
-                  </>
+                    <div className="flex-center">{element}</div>
+                  </div>
+                ) : withInventorySidebar ? (
+                  <div className="flex">
+                    <InventorySidebar />
+                    <div className="flex-grow">{element}</div>
+                  </div>
                 ) : (
                   element
                 )
