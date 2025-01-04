@@ -6,6 +6,7 @@ import fileUpload from "express-fileupload";
 import { connection } from "./database/connection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import userRouter from "./router/userRoutes.js";
+import productRoutes from './router/products.js';
 
 const app = express();
 config({
@@ -34,7 +35,6 @@ app.use("/api/v1/user", userRouter);
 connection();
 app.use(errorMiddleware);
 
-const productRoutes = require('./routes/products');
-app.use('/api/products', productRoute);
+app.use('/api/products', productRoutes);
 
 export default app;
