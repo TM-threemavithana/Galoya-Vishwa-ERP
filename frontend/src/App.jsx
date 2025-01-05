@@ -35,7 +35,7 @@ import ManageSales from "./pages/ManageSales";
 import { ProductProvider } from "./context/ProductContext";
 import Productions from "./pages/Productions";
 import InventorySidebar from "./pages/inventoryManagement/InventorySidebar";
-import InventoryDashboard from "./pages/inventoryManagement/InventoryDashoboard";
+import InventoryDashboard from "./pages/inventoryManagement/InventoryDashboard";
 import AddInventories from "./pages/inventoryManagement/InventoryManagementassets/AddInventories";
 import DailyDistribution from "./pages/inventoryManagement/InventoryManagementassets/DailyDistribution";
 import DailyStockReduce from "./pages/inventoryManagement/InventoryManagementassets/DailyStockReduce";

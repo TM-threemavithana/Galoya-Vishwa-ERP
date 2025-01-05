@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const InventorySidebar = () => {
   return (
-    <div className="w-64 h-screen bg-gray-800 text-white">
+    <div className="w-64  left-0 overflow-y-auto h-screen bg-gray-800 text-white">
       <div className="p-4 text-lg font-bold">Inventory Management</div>
       <nav className="mt-6">
         <Link to="/mainhomepage" className="flex items-center p-2 hover:bg-gray-700 mb-4">
