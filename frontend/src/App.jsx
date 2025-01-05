@@ -48,6 +48,11 @@ import CalcReports from "./pages/DailyBussinesCalc/CalcReports";
 import CreditSale from "./pages/DailyBussinesCalc/CreditSale";
 import BusinessRecords from "./pages/DailyBussinesCalc/BusinessRecords";
 import CalcSidebar from "./pages/DailyBussinesCalc/CalcSidebar";
+import MachineDashbord from "./pages/MachineMaintanance/MachineDashbord";
+import MachineSidebar from "./pages/MachineMaintanance/MachineSidebar";
+import MachineRepair from "./pages/MachineMaintanance/MachineRepair";
+import MachineDetails from "./pages/MachineMaintanance/MachineDetails";
+import MachineReports from "./pages/MachineMaintanance/MachineReports";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -106,6 +111,12 @@ const MainAppContent = () => {
     { path: "/calc-records", element: <BusinessRecords />, withCalcSidebar: true },
     { path: "/credit-sales", element: <CreditSale />, withCalcSidebar: true },
     { path: "/calc-reports", element: <CalcReports />, withCalcSidebar: true },
+
+    { path: "/machine-dashboard", element: <MachineDashbord />, withMachineSidebar: true },
+    { path: "/machine-repair", element: <MachineRepair />, withMachineSidebar: true },
+    { path: "/machine-details", element: <MachineDetails />, withMachineSidebar: true },
+    { path: "/machine-reports", element: <MachineReports />, withMachineSidebar: true },
+    
   ];
 
   // Pages where Footer should not appear
@@ -127,8 +138,7 @@ const MainAppContent = () => {
     "/inventories",
     "/daily-distribution",
     "/daily-reduce",
-    "/inventory-record",
-    "/inventory-dashboard" 
+    "/inventory-record" 
   ];
 
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);
@@ -138,7 +148,7 @@ const MainAppContent = () => {
       <Navbar />
       <main className="flex flex-col ">
         <Routes>
-          {routes.map(({ path, element, withSidebar, withInventorySidebar, withCalcSidebar }) => (
+          {routes.map(({ path, element, withSidebar, withInventorySidebar, withCalcSidebar,withMachineSidebar }) => (
             <Route
               key={path}
               path={path}
@@ -158,6 +168,11 @@ const MainAppContent = () => {
                       <CalcSidebar />
                       <div className="flex-grow">{element}</div>
                     </div>
+                    ) : withMachineSidebar ? (
+                      <div className="flex">
+                        <MachineSidebar />
+                        <div className="flex-grow">{element}</div>
+                      </div>
                 ) : (
                   element
                 )
