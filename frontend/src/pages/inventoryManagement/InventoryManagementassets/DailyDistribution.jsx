@@ -17,11 +17,19 @@ const DailyDistribution = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
 
-  const vehicleNumbers = ['Vehicle 1', 'Vehicle 2', 'Vehicle 3'];
-  const routes = ['Route A', 'Route B', 'Route C'];
-  const refNames = ['Ref 1', 'Ref 2', 'Ref 3'];
-  const driverNames = ['Driver 1', 'Driver 2', 'Driver 3'];
-  const inventoryNames = ['Inventory 1', 'Inventory 2', 'Inventory 3'];
+  const vehicleNumbers = ['DAH - 0876', 'PV - 0505', 'PR - 3632'];
+  const routes = ['Siyabalanduwa', 'Uhana', 'Iginiyagama' , 'Mahaoya' , 'Kethsirigama', 'Madoore','Akkarapaththu','Kalmunai','Neththa','Batticaloa'];
+  const refNames = ['P.B.', 'Theekshana', 'Anuradha'];
+  const driverNames = ['Wasantha', 'Nimal', 'Kamal'];
+  const inventoryNames = ['Jeli Yougurts',
+    'Pani Yougurts',
+    'Normal Yougurts',
+    'Ice Packets 50ml',
+    'Ice Packets 20ml',
+    'Curd',
+    'Gee Oil',
+    'Yougurt Drinking Bottles',
+    'Milk Toffees'];
 
   useEffect(() => {
     fetchRecords();
@@ -162,11 +170,11 @@ const DailyDistribution = () => {
             </select>
           </div>
           <div className="mb-4">
-            <h3 className="text-lg font-medium text-gray-700 mb-2">Inventories</h3>
+            <h3 className="text-lg font-medium text-gray-700 mb-2">Products</h3>
             {inventories.map((inventory, index) => (
               <div key={index} className="flex mb-2">
                 <select name="inventoryName" value={inventory.inventoryName} onChange={(e) => handleInventoryChange(index, e)} className="form-select mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2">
-                  <option value="">Select an inventory</option>
+                  <option value="">Select a Product</option>
                   {inventoryNames.map((name, i) => (
                     <option key={i} value={name}>{name}</option>
                   ))}
@@ -182,52 +190,54 @@ const DailyDistribution = () => {
         <ToastContainer />
       </div>
 
-      <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col w-full max-w-3xl border border-gray-300 mt-10 mb-10">
-        <h2 className="text-2xl font-bold mb-6 text-center">Distribution Records</h2>
-        <table className="min-w-full bg-white border border-gray-300">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border-b">Date</th>
-              <th className="py-2 px-4 border-b">Vehicle Number</th>
-              <th className="py-2 px-4 border-b">Route</th>
-              <th className="py-2 px-4 border-b">Reference Name</th>
-              <th className="py-2 px-4 border-b">Driver Name</th>
-              <th className="py-2 px-4 border-b">Inventory Name</th>
-              <th className="py-2 px-4 border-b">Quantity</th>
-              <th className="py-2 px-4 border-b">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {records.map((record) => (
-              <tr key={record._id} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">{record.date}</td>
-                <td className="py-2 px-4 border-b">{record.vehicleNumber}</td>
-                <td className="py-2 px-4 border-b">{record.route}</td>
-                <td className="py-2 px-4 border-b">{record.refName}</td>
-                <td className="py-2 px-4 border-b">{record.driverName}</td>
-                <td className="py-2 px-4 border-b">
-                  {record.inventories.map((inventory, index) => (
-                    <div key={index}>
-                      {inventory.inventoryName}
-                    </div>
-                  ))}
-                </td>
-                <td className="py-2 px-4 border-b">
-                  {record.inventories.map((inventory, index) => (
-                    <div key={index}>
-                      {inventory.quantity}
-                    </div>
-                  ))}
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <button onClick={() => handleEdit(record)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded-md mr-2">Edit</button>
-                  <button onClick={() => handleDelete(record._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-md">Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col w-full max-w-5xl border border-gray-300 mt-10 mb-10">
+  <h2 className="text-2xl font-bold mb-6 text-center">Distribution Records</h2>
+  <div className="overflow-x-auto">
+    <table className="min-w-full bg-white border border-gray-300">
+      <thead>
+        <tr className="bg-gray-100 text-gray-600 text-left text-sm font-semibold">
+          <th className="py-3 px-4 border-b">Date</th>
+          <th className="py-3 px-4 border-b">Vehicle Number</th>
+          <th className="py-3 px-4 border-b">Route</th>
+          <th className="py-3 px-4 border-b">Reference Name</th>
+          <th className="py-3 px-4 border-b">Driver Name</th>
+          <th className="py-3 px-4 border-b">Product Name</th>
+          <th className="py-3 px-4 border-b">Quantity</th>
+          <th className="py-3 px-4 border-b">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {records.map((record) => (
+          <tr key={record._id} className="hover:bg-gray-100">
+            <td className="py-3 px-4 border-b">{new Date(record.date).toLocaleDateString()}</td>
+            <td className="py-3 px-4 border-b">{record.vehicleNumber}</td>
+            <td className="py-3 px-4 border-b">{record.route}</td>
+            <td className="py-3 px-4 border-b">{record.refName}</td>
+            <td className="py-3 px-4 border-b">{record.driverName}</td>
+            <td className="py-3 px-4 border-b">
+              {record.inventories.map((inventory, index) => (
+                <div key={index} className="flex items-center">
+                  <span className="mr-2">{inventory.inventoryName}</span>
+                </div>
+              ))}
+            </td>
+            <td className="py-3 px-4 border-b">
+              {record.inventories.map((inventory, index) => (
+                <div key={index} className="flex items-center">
+                  <span className="mr-2">{inventory.quantity}</span>
+                </div>
+              ))}
+            </td>
+            <td className="py-3 px-4 border-b flex space-x-2">
+              <button onClick={() => handleEdit(record)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded-md">Edit</button>
+              <button onClick={() => handleDelete(record._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-md">Delete</button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
     </div>
   );
 };
