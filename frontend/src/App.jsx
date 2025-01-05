@@ -97,7 +97,7 @@ const MainAppContent = () => {
     { path: "/inventory-record" , element: < InventoryManagement/>, withInventorySidebar: true },
   
 
-    { path: "/product", element: <Products />, withInventorySidebar: true },
+    // { path: "/product", element: <Products />, withInventorySidebar: true },
     { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true },
     { path: "/products", element: <AddProduct />, withInventorySidebar: true },
 
