@@ -42,6 +42,13 @@ import DailyStockReduce from "./pages/inventoryManagement/InventoryManagementass
 import InventoryManagement from "./pages/inventoryManagement/InventoryManagement";
 
 
+import CalcDashbord from "./pages/DailyBussinesCalc/CalcDashbord";
+import Calculator from "./pages/DailyBussinesCalc/Calculator";
+import CalcReports from "./pages/DailyBussinesCalc/CalcReports";
+import CreditSale from "./pages/DailyBussinesCalc/CreditSale";
+import BusinessRecords from "./pages/DailyBussinesCalc/BusinessRecords";
+import CalcSidebar from "./pages/DailyBussinesCalc/CalcSidebar";
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -89,6 +96,16 @@ const MainAppContent = () => {
     { path: "/daily-reduce", element: <DailyStockReduce />, withInventorySidebar: true },
     { path: "/inventory-record" , element: < InventoryManagement/>, withInventorySidebar: true },
   
+
+    { path: "/product", element: <Products />, withInventorySidebar: true },
+    { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true },
+    { path: "/products", element: <AddProduct />, withInventorySidebar: true },
+
+    { path: "/calc-dashboard", element: <CalcDashbord />, withCalcSidebar: true },
+    { path: "/calculator", element: <Calculator />, withCalcSidebar: true },
+    { path: "/calc-records", element: <BusinessRecords />, withCalcSidebar: true },
+    { path: "/credit-sales", element: <CreditSale />, withCalcSidebar: true },
+    { path: "/calc-reports", element: <CalcReports />, withCalcSidebar: true },
   ];
 
   // Pages where Footer should not appear
@@ -120,7 +137,7 @@ const MainAppContent = () => {
       <Navbar />
       <main className="flex flex-col ">
         <Routes>
-          {routes.map(({ path, element, withSidebar, withInventorySidebar }) => (
+          {routes.map(({ path, element, withSidebar, withInventorySidebar, withCalcSidebar }) => (
             <Route
               key={path}
               path={path}
@@ -135,6 +152,11 @@ const MainAppContent = () => {
                     <InventorySidebar />
                     <div className="flex-grow">{element}</div>
                   </div>
+                  ) : withCalcSidebar ? (
+                    <div className="flex">
+                      <CalcSidebar />
+                      <div className="flex-grow">{element}</div>
+                    </div>
                 ) : (
                   element
                 )

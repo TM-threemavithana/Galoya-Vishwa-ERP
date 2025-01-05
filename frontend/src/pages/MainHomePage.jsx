@@ -11,7 +11,7 @@ const Home = () => {
   const cards = [
     { icon: stockIcon, title: "Raw Material Management", description: "Manage stock levels effectively.", link: "/dashboard" },
     { icon: inventoryIcon, title: "Stock Management", description: "Manage inventory efficiently.", link: "/inventory-dashboard" },
-    { icon: deliveryIcon, title: "Delivery Calculator", description: "Calculate optimal delivery routes.", link: "/delivery" },
+    { icon: deliveryIcon, title: "Delivery Calculator", description: "Calculate optimal delivery routes.", link: "/calc-dashboard" },
     { icon: vehicleIcon, title: "Vehicle Maintenance", description: "Maintain fleet operations.", link: "/vehicle" },
     { icon: machineIcon, title: "Machine Maintenance", description: "Keep machines in peak condition.", link: "/machine" },
     { icon: resourceIcon, title: "Resource Management", description: "Optimize resource usage.", link: "/resource" }

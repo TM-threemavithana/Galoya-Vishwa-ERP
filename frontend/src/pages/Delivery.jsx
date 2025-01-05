@@ -1,9 +1,12 @@
-import React from "react";
+import React from 'react'
+import CalcSidebar from './DailyBussinesCalc/CalcSidebar'
 
 const Delivery = () => {
-  return
-   <div>
-    </div>;
-};
+  return (
+    <div>
+      <CalcSidebar />
+    </div>
+  )
+}
 
-export default Delivery;
+export default Delivery
