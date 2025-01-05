@@ -14,26 +14,24 @@ const InventorySidebar = () => {
           <span className="mr-2">📊</span>
           Dashboard
         </Link>
-        <Link to="/products" className="flex items-center p-2 hover:bg-gray-700 mb-4">
+        <Link to="/inventories" className="flex items-center p-2 hover:bg-gray-700 mb-4">
           <span className="mr-2">📦</span>
-          Products
+          Daily Production
         </Link>
-        <Link to="/inventory-management" className="flex items-center p-2 hover:bg-gray-700 mb-4">
+        <Link to="/daily-distribution" className="flex items-center p-2 hover:bg-gray-700 mb-4">
           <span className="mr-2">📈</span>
-          Inventory Management
+          Daily Distribution
         </Link>
-        <Link to="/categories" className="flex items-center p-2 hover:bg-gray-700 mb-4">
-          <span className="mr-2">📂</span>
-          Categories
-        </Link>
-        <Link to="/adjustments" className="flex items-center p-2 hover:bg-gray-700 mb-4">
+        <Link to="/daily-reduce" className="flex items-center p-2 hover:bg-gray-700 mb-4">
           <span className="mr-2">⚙️</span>
-          Inventory Adjustments
+          Daily Stock Reduce
         </Link>
-        <Link to="/reports" className="flex items-center p-2 hover:bg-gray-700 mb-4">
-          <span className="mr-2">📊</span>
-          Reports
+        <Link to="/inventory-record" className="flex items-center p-2 hover:bg-gray-700 mb-4">
+          <span className="mr-2">📈</span>
+          Stock Record
         </Link>
+        
+        
         
       </nav>
     </div>
