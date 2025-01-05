@@ -36,7 +36,11 @@ import { ProductProvider } from "./context/ProductContext";
 import Productions from "./pages/Productions";
 import InventorySidebar from "./pages/inventoryManagement/InventorySidebar";
 import InventoryDashboard from "./pages/inventoryManagement/InventoryDashoboard";
-import Products from "./pages/inventoryManagement/InventoryManagementassets/Products";
+import AddInventories from "./pages/inventoryManagement/InventoryManagementassets/AddInventories";
+import DailyDistribution from "./pages/inventoryManagement/InventoryManagementassets/DailyDistribution";
+import DailyStockReduce from "./pages/inventoryManagement/InventoryManagementassets/DailyStockReduce";
+import InventoryManagement from "./pages/inventoryManagement/InventoryManagement";
+
 
 import CalcDashbord from "./pages/DailyBussinesCalc/CalcDashbord";
 import Calculator from "./pages/DailyBussinesCalc/Calculator";
@@ -86,8 +90,14 @@ const MainAppContent = () => {
     { path: "/manage-sales", element: <ManageSales />, withSidebar: true },
     { path: "/productions", element: <Productions />, withSidebar: true },
     { path: "/profile", element: <UserProfile />, withSidebar: true },
+    { path: "/inventories", element: <AddInventories />, withInventorySidebar: true },
+    { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true },
+    { path: "/daily-distribution", element: <DailyDistribution />, withInventorySidebar: true },
+    { path: "/daily-reduce", element: <DailyStockReduce />, withInventorySidebar: true },
+    { path: "/inventory-record" , element: < InventoryManagement/>, withInventorySidebar: true },
+  
 
-    { path: "/product", element: <Products />, withInventorySidebar: true },
+    // { path: "/product", element: <Products />, withInventorySidebar: true },
     { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true },
     { path: "/products", element: <AddProduct />, withInventorySidebar: true },
 
@@ -114,8 +124,10 @@ const MainAppContent = () => {
     "/manage-products",
     "/manage-sales",
     "/productions",
-    "/products",
-    "/inventory-dashboard",
+    "/inventories",
+    "/daily-distribution",
+    "/daily-reduce",
+    "/inventory-record" 
   ];
 
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);
