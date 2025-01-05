@@ -109,25 +109,32 @@ const InventoryDashboard = () => {
     ]
   };
 
+  const pieOptions = {
+    plugins: {
+      legend: {
+        position: 'right'
+      }
+    }
+  };
+
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <div className="max-w-5xl mx-auto bg-white shadow-md rounded-lg">
-        <div className="p-4 border-b border-gray-200">
-          <h1 className="text-2xl font-bold text-gray-700">Inventory Dashboard</h1>
-          <p className="text-sm text-gray-500 mt-1">A comprehensive overview of inventory data</p>
+    <div className="p-6 bg-white min-h-screen">
+      <div className="max-w-5xl mx-auto bg-white rounded-lg">
+        <div className="p-4 border-white text-center">
+          <h1 className="text-2xl font-bold text-gray-700">Stock Dashboard</h1>
         </div>
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg shadow-md p-4">
-              <h2 className="text-lg font-semibold text-gray-700">Inventory Distribution</h2>
-              <Pie data={pieData} />
+            <div className="bg-white rounded-lg text-center shadow-md p-4">
+              <h2 className="text-lg font-semibold text-gray-700">Stock Distribution</h2>
+              <Pie data={pieData} options={pieOptions} />
             </div>
-            <div className="bg-white rounded-lg shadow-md p-4">
-              <h2 className="text-lg font-semibold text-gray-700">Inventory Details</h2>
+            <div className="bg-white rounded-lg text-center shadow-md p-4">
+              <h2 className="text-lg font-semibold text-gray-700">Stock Details</h2>
               <table className="min-w-full bg-gray-50 border border-gray-300 rounded-lg">
                 <thead>
-                  <tr className="bg-gray-100 text-gray-600 text-left text-sm font-semibold">
-                    <th className="py-3 px-4 border-b">Inventory Name</th>
+                  <tr className="bg-gray-100 text-gray-600 text-center text-sm font-semibold">
+                    <th className="py-3 px-4 border-b">Product Name</th>
                     <th className="py-3 px-4 border-b">Quantity</th>
                   </tr>
                 </thead>
