@@ -5,7 +5,7 @@ import notification_icon from '../assets/notification.png'; // Importing notific
 
 const Navbar = () => {
   return (
-    <div className="flex items-center justify-between py-5 px-10 bg-[#4A628A] text-white">
+    <div className="flex items-center justify-between py-5 px-10 bg-[#4A628A] text-white ">
       {/* Logo and Link to Home */}
       <Link to="/">
         <img src={logo} className="h-20" alt="Company Logo" /> {/* Increased height to 20 */}
