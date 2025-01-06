@@ -13,13 +13,13 @@ const VehicleSidebar = () => {
           <span className="mr-2">🏠</span>
           Home
         </Link>
-        <Link
+        {/* <Link
           to="/vehicledashboard"
           className="flex items-center p-2 hover:bg-gray-700 mb-4"
         >
           <span className="mr-2">📊</span>
           Dashboard
-        </Link>
+        </Link> */}
         <Link
           to="/vehicle-details"
           className="flex items-center p-2 hover:bg-gray-700 mb-4"
@@ -33,6 +33,13 @@ const VehicleSidebar = () => {
         >
           <span className="mr-2">🔧</span>
           Vehicle Repair
+        </Link>
+        <Link
+          to="/vehicle-maintenance"
+          className="flex items-center p-2 hover:bg-gray-700 mb-4"
+        >
+          <span className="mr-2">📊</span>
+          Maintenance Log
         </Link>
         <Link
           to="/vehicle-reports"

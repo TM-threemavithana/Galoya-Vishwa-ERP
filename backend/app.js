@@ -11,6 +11,9 @@ import inventoryRoutes from './router/inventoryRoutes.js';// Import the new rout
 import distributionRoutes from './router/distributionRoutes.js';
 import stockReductionRoutes from './router/stockReductionRoutes.js';
 import totalsRoutes from './router/totalsRoutes.js';
+import vehicleMaintenanceRoutes from './router/vehicleMaintenanceRoutes.js';
+
+
 
 const app = express();
 config({
@@ -41,6 +44,9 @@ app.use('/api/inventories', inventoryRoutes);
 app.use('/api/distributions', distributionRoutes);
 app.use('/api/stock-reductions', stockReductionRoutes);// Register the distribution routes
 app.use('/api/totals', totalsRoutes);
+app.use('/api/vehicle-maintenance', vehicleMaintenanceRoutes);
+
+
 connection();
 app.use(errorMiddleware);
 

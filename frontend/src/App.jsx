@@ -35,8 +35,17 @@ import ManageSales from "./pages/ManageSales";
 import { ProductProvider } from "./context/ProductContext";
 import Productions from "./pages/Productions";
 import InventorySidebar from "./pages/inventoryManagement/InventorySidebar";
-import InventoryDashboard from "./pages/inventoryManagement/InventoryDashoboard";
-import Products from "./pages/inventoryManagement/InventoryManagementassets/Products";
+import InventoryDashboard from "./pages/inventoryManagement/InventoryDashboard";
+import AddInventories from "./pages/inventoryManagement/InventoryManagementassets/AddInventories";
+import DailyDistribution from "./pages/inventoryManagement/InventoryManagementassets/DailyDistribution";
+import DailyStockReduce from "./pages/inventoryManagement/InventoryManagementassets/DailyStockReduce";
+import InventoryManagement from "./pages/InventoryManagement";
+
+import VehicleSidebar from "./pages/VehicleManagement/VehicleSidebar";
+import VehicleDetails from "./pages/VehicleManagement/VehicleDetails";
+import VehicleRepair from "./pages/VehicleManagement/VehicleRepair";
+import VehicleReports from "./pages/VehicleManagement/VehicleReports";
+import VehicleMaintenance from "./pages/VehicleManagement/VehicleMaintenance";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -89,6 +98,12 @@ const MainAppContent = () => {
     // { path: "/product", element: <Products />, withInventorySidebar: true },
     { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true },
     { path: "/products", element: <AddProduct />, withInventorySidebar: true },
+    
+    { path: "/vehicle-details", element: <VehicleDetails/>, withVehicleSidebar: true },
+    { path: "/vehicle-repair", element: <VehicleRepair/>, withVehicleSidebar: true },
+    { path: "/vehicle-reports", element: <VehicleReports/>, withVehicleSidebar: true },
+    { path: "/vehicle-maintenance", element: <VehicleMaintenance/>, withVehicleSidebar: true },
+
   ];
 
   // Pages where Footer should not appear
@@ -109,6 +124,12 @@ const MainAppContent = () => {
     "/productions",
     "/products",
     "/inventory-dashboard",
+
+   "/vehicledashboard",
+    "/vehicle-details",
+    "/vehicle-repair",
+    "/vehicle-reports",
+    "/vehicle-maintenance",
   ];
 
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);
@@ -118,7 +139,7 @@ const MainAppContent = () => {
       <Navbar />
       <main className="flex flex-col ">
         <Routes>
-          {routes.map(({ path, element, withSidebar, withInventorySidebar }) => (
+          {routes.map(({ path, element, withSidebar, withInventorySidebar, withVehicleSidebar }) => (
             <Route
               key={path}
               path={path}
@@ -131,6 +152,11 @@ const MainAppContent = () => {
                 ) : withInventorySidebar ? (
                   <div className="flex">
                     <InventorySidebar />
+                    <div className="flex-grow">{element}</div>
+                  </div>
+                  ) : withVehicleSidebar ? (
+                  <div className="flex">
+                    <VehicleSidebar />
                     <div className="flex-grow">{element}</div>
                   </div>
                 ) : (

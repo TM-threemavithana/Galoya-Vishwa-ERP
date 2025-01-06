@@ -1,6 +1,9 @@
 import React from 'react';
 import { Truck, User, Calendar, Settings } from 'lucide-react';
 import vehicleImage1 from "../VehicleManagement/VehicleAssets/images.jpg"
+import vehicleImage2 from "../VehicleManagement/VehicleAssets/image2.jpeg"
+import vehicleImage3 from "../VehicleManagement/VehicleAssets/images3.jpg"
+import vehicleImage4 from "../VehicleManagement/VehicleAssets/image4.jpg"
 
 const VehicleDetails = () => {
   const vehicles = [
@@ -18,7 +21,7 @@ const VehicleDetails = () => {
     },
     {
       id: 'CBM-2149',
-      image: '/api/placeholder/400/400',
+      image: vehicleImage2,
       model: 'Volvo FH13(2023)',
       type: 'Refrigirated Truck',
       driver: 'Suresh',
@@ -30,7 +33,7 @@ const VehicleDetails = () => {
     },
     {
       id: 'CBM-2150',
-      image: '/api/placeholder/400/400',
+      image: vehicleImage3,
       model: 'Mercedes Actros(2022)',
       type: 'Refrigirated Truck',
       driver: 'Ramesh',
@@ -42,7 +45,7 @@ const VehicleDetails = () => {
     },
     {
       id: 'CBM-2151',
-      image: '/api/placeholder/400/400',
+      image: vehicleImage4,
       model: 'Scania R500(2023)',
       type: 'Refrigirated Truck',
       driver: 'Mahesh',
