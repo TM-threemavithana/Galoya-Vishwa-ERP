@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const InventorySidebar = () => {
   return (
-    <div className="w-64 h-screen bg-gray-800 text-white">
+    <div className="w-64 left-0 inset-y-0 overflow-y-auto bg-gray-800 text-white flex flex-col">
       <div className="p-4 text-lg font-bold">Inventory Management</div>
-      <nav className="mt-6">
+      <nav className="mt-6 flex-grow">
         <Link to="/mainhomepage" className="flex items-center p-2 hover:bg-gray-700 mb-4">
           <span className="mr-2">🏠</span>
           Home
@@ -14,30 +14,26 @@ const InventorySidebar = () => {
           <span className="mr-2">📊</span>
           Dashboard
         </Link>
-        <Link to="/products" className="flex items-center p-2 hover:bg-gray-700 mb-4">
-          <span className="mr-2">📦</span>
-          Products
+        <Link to="/inventories" className="flex items-center p-2 hover:bg-gray-700 mb-4">
+          <span className="mr-2">🛠️</span>
+          Daily Production
         </Link>
-        <Link to="/inventory-management" className="flex items-center p-2 hover:bg-gray-700 mb-4">
-          <span className="mr-2">📈</span>
-          Inventory Management
+        <Link to="/daily-distribution" className="flex items-center p-2 hover:bg-gray-700 mb-4">
+          <span className="mr-2">🚚</span>
+          Daily Distribution
         </Link>
-        <Link to="/categories" className="flex items-center p-2 hover:bg-gray-700 mb-4">
-          <span className="mr-2">📂</span>
-          Categories
+        <Link to="/daily-reduce" className="flex items-center p-2 hover:bg-gray-700 mb-4">
+          <span className="mr-2">➖</span>
+          Daily Stock Reduce
         </Link>
-        <Link to="/adjustments" className="flex items-center p-2 hover:bg-gray-700 mb-4">
-          <span className="mr-2">⚙️</span>
-          Inventory Adjustments
+        <Link to="/inventory-record" className="flex items-center p-2 hover:bg-gray-700 mb-4">
+          <span className="mr-2">📜</span>
+          Stock Record
         </Link>
-        <Link to="/reports" className="flex items-center p-2 hover:bg-gray-700 mb-4">
-          <span className="mr-2">📊</span>
-          Reports
-        </Link>
-        
       </nav>
     </div>
   );
 };
 
 export default InventorySidebar;
+
