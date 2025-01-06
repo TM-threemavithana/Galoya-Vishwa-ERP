@@ -17,7 +17,7 @@ const AddInventories = () => {
     'Jeli Yougurts',
     'Pani Yougurts',
     'Normal Yougurts',
-    'Ice Packets 10ml',
+    'Ice Packets 50ml',
     'Ice Packets 20ml',
     'Curd',
     'Gee Oil',
@@ -77,16 +77,16 @@ const AddInventories = () => {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col w-full max-w-3xl border border-gray-300 mt-10 mb-10">
-        <h2 className="text-2xl font-bold mb-6 text-center">ADD NEW INVENTORY</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">ADD PRODUCTS</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block font-medium text-gray-700 mb-1">Date</label>
             <input type="date" name="date" value={inventory.date} onChange={handleChange} className="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
           <div className="mb-4">
-            <label className="block font-medium text-gray-700 mb-1">Inventory Name</label>
+            <label className="block font-medium text-gray-700 mb-1">Product Name</label>
             <select name="inventoryName" value={inventory.inventoryName} onChange={handleChange} className="form-select mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="">Select an inventory</option>
+              <option value="">Select a Product</option>
               {inventoryNames.map((name, index) => (
                 <option key={index} value={name}>{name}</option>
               ))}
@@ -109,20 +109,20 @@ const AddInventories = () => {
             <input type="text" name="labourName" value={inventory.labourName} onChange={handleChange} placeholder="Labour Name" className="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
           <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-            ADD INVENTORY
+            ADD PRODUCT
           </button>
         </form>
         <ToastContainer />
       </div>
       <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col w-full max-w-3xl border border-gray-300 mt-10 mb-10">
-        <h2 className="text-2xl font-bold mb-6 text-center">ADD NEW INVENTORY NAME</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">ADD NEW PRODUCT NAME</h2>
         <form onSubmit={handleAddNewInventoryName}>
           <div className="mb-4">
-            <label className="block font-medium text-gray-700 mb-1">New Inventory Name</label>
+            <label className="block font-medium text-gray-700 mb-1">New Product Name</label>
             <input type="text" value={newInventoryName} onChange={handleNewInventoryNameChange} placeholder="New Inventory Name" className="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
           <button type="submit" className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
-            ADD INVENTORY NAME
+            ADD PRODUCT NAME
           </button>
         </form>
       </div>

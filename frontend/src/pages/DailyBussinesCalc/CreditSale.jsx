@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { XCircle, X } from 'lucide-react';
 
-const MoneyCategories = () => {
+const MoneyCategories = () => { //
   // Money categories state
   const [moneyCategories, setMoneyCategories] = useState([
     { category: '5000', quantity: '', value: '' },
@@ -13,7 +13,7 @@ const MoneyCategories = () => {
     { category: 'Coins', quantity: '', value: '' }
   ]);
 
-  // Credit transactions state
+  // Credit transactions state //
   const [showCreditSales, setShowCreditSales] = useState(false);
   const [showCreditReceives, setShowCreditReceives] = useState(false);
   const [creditSales, setCreditSales] = useState([
@@ -23,7 +23,7 @@ const MoneyCategories = () => {
     { shopName: '', value: '', invoiceNo: '' }
   ]);
 
-  // Summary totals state
+  // Summary totals state //
   const [totals, setTotals] = useState({
     totalMoneyValue: 0,
     totalCreditSales: 0,
@@ -35,12 +35,12 @@ const MoneyCategories = () => {
     leakage: 0
   });
 
-  // Handle money category changes
+  // Handle money category changes //
   const handleMoneyChange = (index, field, value) => {
     const updatedCategories = [...moneyCategories];
     updatedCategories[index][field] = value;
     
-    // Calculate value if quantity changes
+    // Calculate value if quantity changes 
     if (field === 'quantity') {
       const quantity = parseFloat(value) || 0;
       const category = parseFloat(updatedCategories[index].category) || 0;
@@ -100,47 +100,47 @@ const MoneyCategories = () => {
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
       {/* Money Categories Table */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-4">Money Categories</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse border">
-            <thead>
-              <tr className="bg-gray-50">
-                <th className="border p-2 text-left">Category</th>
-                <th className="border p-2 text-left">Quantity</th>
-                <th className="border p-2 text-left">Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {moneyCategories.map((item, index) => (
-                <tr key={index}>
-                  <td className="border p-2">{item.category}</td>
-                  <td className="border p-2">
-                    <input
-                      type="number"
-                      className="w-full p-1"
-                      value={item.quantity}
-                      onChange={(e) => handleMoneyChange(index, 'quantity', e.target.value)}
-                    />
-                  </td>
-                  <td className="border p-2">
-                    <input
-                      type="text"
-                      className="w-full p-1 bg-gray-50"
-                      value={item.value}
-                      readOnly
-                    />
-                  </td>
-                </tr>
-              ))}
-              <tr>
-                <td colSpan="2" className="border p-2 font-semibold">Total money value</td>
-                <td className="border p-2 font-semibold">{totals.totalMoneyValue}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+                <div className="mb-6">
+                    <h2 className="text-xl font-semibold mb-4">Money Categories</h2>
+                    <div className="overflow-x-auto">
+                    <table className="w-full border-collapse border">
+                        <thead>
+                        <tr className="bg-gray-50">
+                            <th className="border p-2 text-left">Category</th>
+                            <th className="border p-2 text-left">Quantity</th>
+                            <th className="border p-2 text-left">Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {moneyCategories.map((item, index) => (
+                            <tr key={index}>
+                            <td className="border p-2">{item.category}</td>
+                            <td className="border p-2">
+                                <input
+                                type="number"
+                                className="w-full p-1"
+                                value={item.quantity}
+                                onChange={(e) => handleMoneyChange(index, 'quantity', e.target.value)}
+                                />
+                            </td>
+                            <td className="border p-2">
+                                <input
+                                type="text"
+                                className="w-full p-1 bg-gray-50"
+                                value={item.value}
+                                readOnly
+                                />
+                            </td>
+                            </tr>
+                        ))}
+                        <tr>
+                            <td colSpan="2" className="border p-2 font-semibold">Total money value</td>
+                            <td className="border p-2 font-semibold">{totals.totalMoneyValue}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
 
       {/* Credit Sales and Receives Checkboxes */}
       <div className="flex gap-6 mb-6">

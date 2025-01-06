@@ -18,7 +18,7 @@ const DailyStockReduce = () => {
   const inventoryNames = ['Jeli Yougurts',
     'Pani Yougurts',
     'Normal Yougurts',
-    'Ice Packets 10ml',
+    'Ice Packets 50ml',
     'Ice Packets 20ml',
     'Curd',
     'Gee Oil',
@@ -101,9 +101,9 @@ const DailyStockReduce = () => {
             <input type="date" name="date" value={stockReduce.date} onChange={handleChange} className="form-input mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
           <div className="mb-4">
-            <label className="block font-medium text-gray-700 mb-1">Inventory Name</label>
+            <label className="block font-medium text-gray-700 mb-1">Product Name</label>
             <select name="inventoryName" value={stockReduce.inventoryName} onChange={handleChange} className="form-select mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="">Select an inventory</option>
+              <option value="">Select a Product</option>
               {inventoryNames.map((name, index) => (
                 <option key={index} value={name}>{name}</option>
               ))}
@@ -135,7 +135,7 @@ const DailyStockReduce = () => {
       <thead>
         <tr className="bg-gray-100 text-gray-600 text-left text-sm font-semibold">
           <th className="py-3 px-4 border-b">Date</th>
-          <th className="py-3 px-4 border-b">Inventory Name</th>
+          <th className="py-3 px-4 border-b">Product Name</th>
           <th className="py-3 px-4 border-b">Description</th>
           <th className="py-3 px-4 border-b">Quantity</th>
           <th className="py-3 px-4 border-b">Actions</th>
