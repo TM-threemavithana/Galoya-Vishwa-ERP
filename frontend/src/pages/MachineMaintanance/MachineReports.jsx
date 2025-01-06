@@ -1,9 +1,12 @@
 import React from 'react'
+import MachineRepairReport from '../../components/MachineRepair/MachineRepairReport';
 
 const MachineReports = () => {
   return (
     <div>
-      <h1>Machine Reports Page</h1>
+        <h1>what</h1>
+        
+        <MachineRepairReport/>
     </div>
   )
 }
