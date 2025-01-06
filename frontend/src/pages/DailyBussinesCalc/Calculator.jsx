@@ -13,7 +13,7 @@ const saveTotalsData = async (totals) => {
     }
   };
 
-  const DailyBusinessCalculator = ({ totals }) => {
+  
 const DailyBusinessCalculator = () => {
 
     const handleSubmit = () => {
