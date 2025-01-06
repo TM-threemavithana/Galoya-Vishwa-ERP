@@ -7,7 +7,7 @@ import { connection } from './database/connection.js';
 import { errorMiddleware } from './middlewares/error.js';
 import userRouter from './router/userRoutes.js';
 import productRoutes from './router/products.js';
-import inventoryRoutes from './router/inventoryRoutes.js';// Import the new routes
+import inventoryRoutes from './router/inventoryRoutes.js';
 import distributionRoutes from './router/distributionRoutes.js';
 import stockReductionRoutes from './router/stockReductionRoutes.js';
 import totalsRoutes from './router/totalsRoutes.js';
@@ -35,12 +35,14 @@ app.use(
   })
 );
 
+// Register routes
 app.use('/api/v1/user', userRouter);
 app.use('/api/products', productRoutes);
 app.use('/api/inventories', inventoryRoutes);
 app.use('/api/distributions', distributionRoutes);
-app.use('/api/stock-reductions', stockReductionRoutes);// Register the distribution routes
+app.use('/api/stock-reductions', stockReductionRoutes);
 app.use('/api/totals', totalsRoutes);
+
 connection();
 app.use(errorMiddleware);
 

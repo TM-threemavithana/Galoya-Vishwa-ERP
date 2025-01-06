@@ -138,7 +138,8 @@ const MainAppContent = () => {
     "/inventories",
     "/daily-distribution",
     "/daily-reduce",
-    "/inventory-record" 
+    "/inventory-record" ,
+    "/inventory-dashboard"
   ];
 
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);

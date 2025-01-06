@@ -13,7 +13,7 @@ const saveTotalsData = async (totals) => {
     }
   };
 
-const DailyBusinessCalculator = ({ totals }) => {
+const DailyBusinessCalculator = () => {
 
     const handleSubmit = () => {
         saveTotalsData(totals);
@@ -258,7 +258,7 @@ const DailyBusinessCalculator = ({ totals }) => {
     }, [moneyCategories, creditSales, creditReceives, soldItems, returnedItems, expiredItems, sampleItems]);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <div className="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">
         Daily Business Calculator
       </h1>
@@ -300,7 +300,7 @@ const DailyBusinessCalculator = ({ totals }) => {
       </div>
 
       {/* Issued Items Section */}
-      <div className="mb-6">
+      {/* <div className="mb-6">
         <h2 className="text-xl font-semibold mb-4">Issued Items</h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse border">
@@ -320,434 +320,502 @@ const DailyBusinessCalculator = ({ totals }) => {
             </tbody>
           </table>
         </div>
-      </div>
+       </div> */}
 
-      {/* Sold Items Section */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-4">Sold Items</h2>
-        {soldItems.map((item, index) => (
-          <div
-            key={index}
-            className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 items-end"
-          >
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Product Name:
-              </label>
-              <select
-                className="w-full border rounded-lg p-2"
-                value={item.productName}
-                onChange={(e) =>
-                  handleSoldItemChange(index, "productName", e.target.value)
-                }
-              >
-                <option value="">Select Product</option>
-                {issuedItems.map((product, i) => (
-                  <option key={i} value={product.productName}>
-                    {product.productName}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Quantity:
-              </label>
-              <input
-                type="number"
-                className="w-full border rounded-lg p-2"
-                value={item.quantity}
-                onChange={(e) =>
+     
+        <div className="mb-6" >
+                    <h2 className="text-xl font-semibold mb-4">Sold Items</h2>
+                    {soldItems.map((item, index) => (
+
+                                    <div key={index}className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 items-end">
+                                <div>
+                                  {index === 0 && (
+                                    <label className="block text-sm font-medium mb-1">
+                                  Product Name:
+                                    </label>
+                                  )}
+                                  <select
+                                    className="w-full border rounded-lg p-2"
+                                    value={item.productName}
+                                    onChange={(e) =>
+                                  handleSoldItemChange(index, "productName", e.target.value)
+                                    }
+                                  >
+                                    <option value="">Select Product</option>
+                                    {issuedItems.map((product, i) => (
+                                  <option key={i} value={product.productName}>
+                                    {product.productName}
+                                  </option>
+                                      ))}
+                </select>
+                </div>
+                <div>
+                  {index === 0 && (
+                  <label className="block text-sm font-medium mb-1">
+                  Quantity:
+                  </label>
+                )}
+                 <input
+                  type="number"
+                  className="w-full border rounded-lg p-2"
+                  value={item.quantity}
+                  onChange={(e) =>
                   handleSoldItemChange(index, "quantity", e.target.value)
                 }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Price:</label>
-              <select
-                className="w-full border rounded-lg p-2"
-                value={item.price}
-                onChange={(e) =>
-                  handleSoldItemChange(index, "price", e.target.value)
-                }
-              >
+                />
+                </div>
+                <div>
+                  {index === 0 && (
+                    <label className="block text-sm font-medium mb-1">Price:</label>
+                  )}
+                  <select
+                    className="w-full border rounded-lg p-2"
+                    value={item.price}
+                    onChange={(e) =>
+                handleSoldItemChange(index, "price", e.target.value)
+                  }
+                >
                 <option value="">Select Price</option>
                 <option value="10">10.00</option>
                 <option value="20">20.00</option>
                 <option value="30">30.00</option>
-              </select>
-            </div>
-            <div className="flex items-center gap-2">
-              <div>
-                <label className="block text-sm font-medium mb-1">Value:</label>
-                <input
-                  type="text"
-                  className="w-full border rounded-lg p-2 bg-gray-50"
-                  value={item.value}
-                  readOnly
-                />
+                </select>
+                </div>
+                <div className="flex items-center gap-2">
+                      <div>
+                        {index === 0 && (
+                        <label className="block text-sm font-medium mb-1">Value:</label>
+                        )}
+                        <input
+                        type="text"
+                        className="w-full border rounded-lg p-2 bg-gray-50"
+                        value={item.value}
+                      readOnly
+                        />
+                      </div>
+                      {index > 0 && (
+                        <button
+                      onClick={() => removeSoldItem(index)}
+                      className="p-2 text-red-500 hover:text-red-700"
+                        >
+                        <XCircle size={24} />
+                        </button>
+                        )}
+                    </div> 
               </div>
-              {index > 0 && (
-                <button
-                  onClick={() => removeSoldItem(index)}
-                  className="p-2 text-red-500 hover:text-red-700"
-                >
-                  <XCircle size={24} />
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
-        <button
-          onClick={addSoldItem}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-        >
-          Add Another Product
-        </button>
-      </div>
+           ))}
+           <button
+            onClick={addSoldItem}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+          >
+            Add Another Product
+          </button>
+         </div>
 
-      {/* Checkboxes Section */}
-      <div className="flex flex-wrap gap-6 mb-6">
-        <label className="flex items-center space-x-2">
-          <input
+        
+          <div className="flex flex-wrap gap-6 mb-6">
+            <label className="flex items-center space-x-2">
+              <input
             type="checkbox"
             checked={showReturned}
             onChange={(e) => setShowReturned(e.target.checked)}
             className="rounded border-gray-300"
-          />
-          <span>Returned Items</span>
-        </label>
-        <label className="flex items-center space-x-2">
-          <input
+              />
+              <span>Returned Items</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
             type="checkbox"
             checked={showExpired}
             onChange={(e) => setShowExpired(e.target.checked)}
             className="rounded border-gray-300"
-          />
-          <span>Expired Items</span>
-        </label>
-        <label className="flex items-center space-x-2">
-          <input
+              />
+              <span>Expired Items</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
             type="checkbox"
             checked={showSamples}
             onChange={(e) => setShowSamples(e.target.checked)}
             className="rounded border-gray-300"
+              />
+              <span>Sample given Items</span>
+            </label>
+          </div>
+
+          {/* awla thiyna thana */}
+          {showReturned && (
+  <div className="mb-6 gap-6">
+    <h2 className="text-xl font-semibold mb-4">Returned Items</h2>
+    {returnedItems.map((item, index) => (
+      <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 items-end">
+        {/* Product Name */}
+        <div>
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">
+              Product Name:
+            </label>
+          )}
+          <select
+            className="w-full border rounded-lg p-2"
+            value={item.productName}
+            onChange={(e) =>
+              handleReturnedItemChange(index, "productName", e.target.value)
+            }
+          >
+            <option value="">Select Product</option>
+            {issuedItems.map((product, i) => (
+              <option key={i} value={product.productName}>
+                {product.productName}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Quantity */}
+        <div>
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">Quantity:</label>
+          )}
+          <input
+            type="number"
+            className="w-full border rounded-lg p-2"
+            value={item.quantity}
+            onChange={(e) =>
+              handleReturnedItemChange(index, "quantity", e.target.value)
+            }
           />
-          <span>Sample given Items</span>
-        </label>
+        </div>
+
+        {/* Price */}
+        <div>
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">Price:</label>
+          )}
+          <select
+            className="w-full border rounded-lg p-2"
+            value={item.price}
+            onChange={(e) =>
+              handleReturnedItemChange(index, "price", e.target.value)
+            }
+          >
+            <option value="">Select Price</option>
+            <option value="10">10.00</option>
+            <option value="20">20.00</option>
+            <option value="30">30.00</option>
+          </select>
+        </div>
+
+        {/* Value */}
+        <div className="flex items-center gap-2">
+          <div>
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">Value:</label>
+          )}
+          <input
+            type="text"
+            className="w-full border rounded-lg p-2 bg-gray-50"
+            value={item.value}
+            readOnly
+          />
+        </div>
+
+        {/* Close Icon */}
+        {index > 0 && (
+          <button
+            onClick={() => removeReturnedItem(index)}
+            className="p-2 text-red-500 hover:text-red-700 w-6"
+          >
+            <XCircle size={20} />
+          </button>
+        )}
       </div>
+      </div>
+      
+    ))}
 
-      {/* Conditional Sections */}
-      {showReturned && (
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-4">Returned Items</h2>
-          {returnedItems.map((item, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 items-end"
-            >
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Product Name:
-                </label>
-                <select
-                  className="w-full border rounded-lg p-2"
-                  value={item.productName}
-                  onChange={(e) =>
-                    handleReturnedItemChange(
-                      index,
-                      "productName",
-                      e.target.value
-                    )
-                  }
-                >
-                  <option value="">Select Product</option>
-                  {issuedItems.map((product, i) => (
-                    <option key={i} value={product.productName}>
-                      {product.productName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium mb-1">
-                    Quantity:
-                  </label>
-                  <input
-                    type="number"
-                    className="w-full border rounded-lg p-2"
-                    value={item.quantity}
-                    onChange={(e) =>
-                      handleReturnedItemChange(
-                        index,
-                        "quantity",
-                        e.target.value
-                      )
-                    }
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Price:
-                  </label>
-                  <select
-                    className="w-full border rounded-lg p-2"
-                    value={item.price}
-                    onChange={(e) =>
-                      handleReturnedItemChange(index, "price", e.target.value)
-                    }
-                  >
-                    <option value="">Select Price</option>
-                    <option value="10">10.00</option>
-                    <option value="20">20.00</option>
-                    <option value="30">30.00</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Value:
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full border rounded-lg p-2 bg-gray-50"
-                    value={item.value}
-                    readOnly
-                  />
-                </div>
+    {/* Add Another Product Button */}
+    <button
+      onClick={addReturnedItem}
+      className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 min-w-36"
+    >
+      Add Another Product
+    </button>
+  </div>
+)}
 
-                {index > 0 && (
-                  <button
-                    onClick={() => removeReturnedItem(index)}
-                    className="p-2 text-red-500 hover:text-red-700"
-                  >
-                    <XCircle size={24} />
-                  </button>
-                )}
-              </div>
+
+
+          {showExpired && (
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold mb-4">Expired Items</h2>
+               {expiredItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4 items-end"
+                 >
+                  {/* product Name */}
+                            <div>
+                              {index === 0 && (
+                                <label className="block text-sm font-medium mb-1">
+                                  Product Name:
+                                </label>
+                              )}
+                              <select
+                                className="w-full border rounded-lg p-2"
+                                value={item.productName}
+                                onChange={(e) =>
+                                  handleExpiredItemChange(index, "productName", e.target.value)
+                                }
+                              >
+                                <option value="">Select Product</option>
+                                {issuedItems.map((product, i) => (
+                                  <option key={i} value={product.productName}>
+                                    {product.productName}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            {/* Quantity */}
+                            <div>
+                              {index === 0 && (
+                                <label className="block text-sm font-medium mb-1">Quantity:</label>
+                              )}
+                              <input
+                                type="number"
+                                className="w-full border rounded-lg p-2"
+                                value={item.quantity}
+                                onChange={(e) =>
+                                  handleExpiredItemChange(index, "quantity", e.target.value)
+                                }
+                              />
+                            </div>
+                            <div className="flex-1">
+                                  {index === 0 && (
+                                    <label className="block text-sm font-medium mb-1">
+                                      Store Name:
+                                    </label>
+                                  )}
+                                  <input
+                                    type="text"
+                                    className="w-full border rounded-lg p-2"
+                                    value={item.storeName}
+                                    onChange={(e) =>
+                                      handleExpiredItemChange(index, "storeName", e.target.value)
+                                    }
+                                  />
+                                </div>
+                                <div>
+                      {index === 0 && (
+                        <label className="block text-sm font-medium mb-1">Price:</label>
+                      )}
+                      <select
+                        className="w-full border rounded-lg p-2"
+                        value={item.price}
+                        onChange={(e) =>
+                          handleExpiredItemChange(index, "price", e.target.value)
+                        }
+                      >
+                        <option value="">Select Price</option>
+                        <option value="10">10.00</option>
+                        <option value="20">20.00</option>
+                        <option value="30">30.00</option>
+                      </select>
+                    </div>
+                    
+                  <div className="flex items-center gap-2">
+                                
+                   
+                    <div>
+                      {index === 0 && (
+                        <label className="block text-sm font-medium mb-1">Value:</label>
+                      )}
+                      <input
+                        type="text"
+                        className="w-full border rounded-lg p-2 bg-gray-50"
+                        value={item.value}
+                        readOnly
+                      />
+                    </div>
+                    {index > 0 && (
+                      <button
+                        onClick={() => removeExpiredItem(index)}
+                        className="p-2 text-red-500 hover:text-red-700"
+                      >
+                        <XCircle size={24} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+              <button
+                onClick={addExpiredItem}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+              >
+                Add Another Product
+              </button>
             </div>
-          ))}
-          <button
-            onClick={addReturnedItem}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-          >
-            Add Another Product
-          </button>
-        </div>
-      )}
+          )}
 
-      {showExpired && (
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-4">Expired Items</h2>
-          {expiredItems.map((item, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 items-end"
-            >
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Product Name:
-                </label>
-                <select
-                  className="w-full border rounded-lg p-2"
-                  value={item.productName}
-                  onChange={(e) =>
-                    handleExpiredItemChange(
-                      index,
-                      "productName",
-                      e.target.value
-                    )
-                  }
+          {showSamples && (
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold mb-4">Sample given Items</h2>
+              {sampleItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4 items-end"
                 >
-                  <option value="">Select Product</option>
-                  {issuedItems.map((product, i) => (
-                    <option key={i} value={product.productName}>
-                      {product.productName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Quantity:
-                </label>
-                <input
-                  type="number"
-                  className="w-full border rounded-lg p-2"
-                  value={item.quantity}
-                  onChange={(e) =>
-                    handleExpiredItemChange(index, "quantity", e.target.value)
-                  }
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium mb-1">
-                    Store Name:
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full border rounded-lg p-2"
-                    value={item.storeName}
-                    onChange={(e) =>
-                      handleExpiredItemChange(
-                        index,
-                        "storeName",
-                        e.target.value
-                      )
-                    }
-                  />
+                                <div>
+                                  {index === 0 && (
+                                    <label className="block text-sm font-medium mb-1">
+                                      Product Name:
+                                    </label>
+                                  )}
+                                  <select
+                                    className="w-full border rounded-lg p-2"
+                                    value={item.productName}
+                                    onChange={(e) =>
+                                      handleSampleItemChange(index, "productName", e.target.value)
+                                    }
+                                  >
+                                    <option value="">Select Product</option>
+                                    {issuedItems.map((product, i) => (
+                                      <option key={i} value={product.productName}>
+                                        {product.productName}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                  <div>
+                    {index === 0 && (
+                      <label className="block text-sm font-medium mb-1">Quantity:</label>
+                    )}
+                    <input
+                      type="number"
+                      className="w-full border rounded-lg p-2"
+                      value={item.quantity}
+                      onChange={(e) =>
+                        handleSampleItemChange(index, "quantity", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="flex-1">
+                      {index === 0 && (
+                        <label className="block text-sm font-medium mb-1">
+                          Store Name:
+                        </label>
+                      )}
+                      <input
+                        type="text"
+                        className="w-full border rounded-lg p-2"
+                        value={item.storeName}
+                        onChange={(e) =>
+                          handleSampleItemChange(index, "storeName", e.target.value)
+                        }
+                      />
+                    </div>
+                    <div>
+                      {index === 0 && (
+                        <label className="block text-sm font-medium mb-1">Price:</label>
+                      )}
+                      <select
+                        className="w-full border rounded-lg p-2"
+                        value={item.price}
+                        onChange={(e) =>
+                          handleSampleItemChange(index, "price", e.target.value)
+                        }
+                      >
+                        <option value="">Select Price</option>
+                        <option value="10">10.00</option>
+                        <option value="20">20.00</option>
+                        <option value="30">30.00</option>
+                      </select>
+                    </div>
+                  <div className="flex items-center gap-2">
+                    
+                    
+                    <div>
+                      {index === 0 && (
+                        <label className="block text-sm font-medium mb-1">Value:</label>
+                      )}
+                      <input
+                        type="text"
+                        className="w-full border rounded-lg p-2 bg-gray-50"
+                        value={item.value}
+                        readOnly
+                      />
+                    </div>
+                    {index > 0 && (
+                      <button
+                        onClick={() => removeSampleItem(index)}
+                        className="p-2 text-red-500 hover:text-red-700"
+                      >
+                        <XCircle size={24} />
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Price:
-                  </label>
-                  <select
-                    className="w-full border rounded-lg p-2"
-                    value={item.price}
-                    onChange={(e) =>
-                      handleExpiredItemChange(index, "price", e.target.value)
-                    }
-                  >
-                    <option value="">Select Price</option>
-                    <option value="10">10.00</option>
-                    <option value="20">20.00</option>
-                    <option value="30">30.00</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Value:
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full border rounded-lg p-2 bg-gray-50"
-                    value={item.value}
-                    readOnly
-                  />
-                </div>
-                {index > 0 && (
-                  <button
-                    onClick={() => removeExpiredItem(index)}
-                    className="p-2 text-red-500 hover:text-red-700"
-                  >
-                    <XCircle size={24} />
-                  </button>
-                )}
-              </div>
+              ))}
+              <button
+                onClick={addSampleItem}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+              >
+                Add Another Product
+              </button>
             </div>
-          ))}
-          <button
-            onClick={addExpiredItem}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-          >
-            Add Another Product
-          </button>
-        </div>
-      )}
+          )}
+     
+         <div className="mb-6">
+         <h2 className="text-xl font-semibold mb-4">Summary of Items with Totals</h2>
+          <div className="overflow-x-auto">
+          <table className="w-full border-collapse border">
+            <thead>
+              <tr className="bg-gray-50">
+                <th className="border p-2 text-left">Issued Products</th>
+                <th className="border p-2 text-left">Issued Quantity</th>
+                <th className="border p-2 text-left">Sold Items Quantity</th>
+                <th className="border p-2 text-left">Returned Items</th>
+                <th className="border p-2 text-left">Expired Items</th>
+                <th className="border p-2 text-left">Sample Given Items</th>
+                <th className="border p-2 text-left">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {issuedItems.map((issuedItem, index) => {
+                const soldQuantity = soldItems
+                  .filter((soldItem) => soldItem.productName === issuedItem.productName)
+                  .reduce((sum, soldItem) => sum + (parseFloat(soldItem.quantity) || 0), 0);
+                const returnedQuantity = returnedItems
+                  .filter((returnedItem) => returnedItem.productName === issuedItem.productName)
+                  .reduce((sum, returnedItem) => sum + (parseFloat(returnedItem.quantity) || 0), 0);
+                const expiredQuantity = expiredItems
+                  .filter((expiredItem) => expiredItem.productName === issuedItem.productName)
+                  .reduce((sum, expiredItem) => sum + (parseFloat(expiredItem.quantity) || 0), 0);
+                const sampleQuantity = sampleItems
+                  .filter((sampleItem) => sampleItem.productName === issuedItem.productName)
+                  .reduce((sum, sampleItem) => sum + (parseFloat(sampleItem.quantity) || 0), 0);
+                const totalQuantity = soldQuantity + returnedQuantity + expiredQuantity + sampleQuantity;
+                const isBalanced = issuedItem.quantity === totalQuantity;
+                const status = isBalanced ? "OK" : `${issuedItem.quantity - totalQuantity}`;
 
-      {showSamples && (
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-4">Sample given Items</h2>
-          {sampleItems.map((item, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 items-end"
-            >
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Product Name:
-                </label>
-                <select
-                  className="w-full border rounded-lg p-2"
-                  value={item.productName}
-                  onChange={(e) =>
-                    handleSampleItemChange(index, "productName", e.target.value)
-                  }
-                >
-                  <option value="">Select Product</option>
-                  {issuedItems.map((product, i) => (
-                    <option key={i} value={product.productName}>
-                      {product.productName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Quantity:
-                </label>
-                <input
-                  type="number"
-                  className="w-full border rounded-lg p-2"
-                  value={item.quantity}
-                  onChange={(e) =>
-                    handleSampleItemChange(index, "quantity", e.target.value)
-                  }
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium mb-1">
-                    Store Name:
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full border rounded-lg p-2"
-                    value={item.storeName}
-                    onChange={(e) =>
-                      handleSampleItemChange(index, "storeName", e.target.value)
-                    }
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Price:
-                  </label>
-                  <select
-                    className="w-full border rounded-lg p-2"
-                    value={item.price}
-                    onChange={(e) =>
-                      handleSampleItemChange(index, "price", e.target.value)
-                    }
-                  >
-                    <option value="">Select Price</option>
-                    <option value="10">10.00</option>
-                    <option value="20">20.00</option>
-                    <option value="30">30.00</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Value:
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full border rounded-lg p-2 bg-gray-50"
-                    value={item.value}
-                    readOnly
-                  />
-                </div>
-                {index > 0 && (
-                  <button
-                    onClick={() => removeSampleItem(index)}
-                    className="p-2 text-red-500 hover:text-red-700"
-                  >
-                    <XCircle size={24} />
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
-          <button
-            onClick={addSampleItem}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-          >
-            Add Another Product
-          </button>
+                return (
+                  <tr key={index} className={isBalanced ? "bg-green-100" : ""}>
+                    <td className="border p-2">{issuedItem.productName}</td>
+                    <td className="border p-2">{issuedItem.quantity}</td>
+                    <td className="border p-2">{soldQuantity}</td>
+                    <td className="border p-2">{returnedQuantity}</td>
+                    <td className="border p-2">{expiredQuantity}</td>
+                    <td className="border p-2">{sampleQuantity}</td>
+                    <td className={`border p-2 ${isBalanced ? "text-green-500" : "text-red-500"}`}>{status}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
-      )}
-
+      </div>
+      
+      
       
       {/* Money Categories Table */}
                       <div className="mb-6">
@@ -816,111 +884,206 @@ const DailyBusinessCalculator = ({ totals }) => {
       
             {/* Credit Sales Section */}
             {showCreditSales && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-4">Credit Sales</h3>
-                {creditSales.map((item, index) => (
-                  <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 items-end">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Shop Name:</label>
-                      <select
-                        className="w-full border rounded-lg p-2"
-                        value={item.shopName}
-                        onChange={(e) => handleCreditChange(index, 'shopName', e.target.value, creditSales, setCreditSales)}
-                      >
-                        <option value="">Select Shop</option>
-                        {/* Add your shop options here */}
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Value:</label>
-                      <input
-                        type="number"
-                        className="w-full border rounded-lg p-2"
-                        value={item.value}
-                        onChange={(e) => handleCreditChange(index, 'value', e.target.value, creditSales, setCreditSales)}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Invoice No:</label>
-                      <input
-                        type="text"
-                        className="w-full border rounded-lg p-2"
-                        value={item.invoiceNo}
-                        onChange={(e) => handleCreditChange(index, 'invoiceNo', e.target.value, creditSales, setCreditSales)}
-                      />
-                    </div>
-                    {index > 0 && (
-                      <button
-                        onClick={() => removeCreditTransaction(index, creditSales, setCreditSales)}
-                        className="p-2 text-red-500 hover:text-red-700"
-                      >
-                        <XCircle size={24} />
-                      </button>
-                    )}
-                  </div>
-                ))}
-                <button
-                  onClick={() => addCreditTransaction(creditSales, setCreditSales)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-                >
-                  Add Another Deal
-                </button>
-              </div>
+  <div className="mb-6">
+    <h3 className="text-lg font-semibold mb-4">Credit Sales</h3>
+    {creditSales.map((item, index) => (
+      <div
+        key={index}
+        className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 items-end"
+      >
+        <div>
+          {/* Render the label only for the first field */}
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">Shop Name:</label>
+          )}
+          <select
+            className="w-full border rounded-lg p-2"
+            value={item.shopName}
+            onChange={(e) =>
+              handleCreditChange(
+                index,
+                "shopName",
+                e.target.value,
+                creditSales,
+                setCreditSales
+              )
+            }
+          >
+            <option value="">Select Shop</option>
+            {/* Add your shop options here */}
+          </select>
+        </div>
+
+        <div>
+          {/* Render the label only for the first field */}
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">Value:</label>
+          )}
+          <input
+            type="number"
+            className="w-full border rounded-lg p-2"
+            value={item.value}
+            onChange={(e) =>
+              handleCreditChange(
+                index,
+                "value",
+                e.target.value,
+                creditSales,
+                setCreditSales
+              )
+            }
+          />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <div>
+            {/* Render the label only for the first field */}
+            {index === 0 && (
+              <label className="block text-sm font-medium mb-1">
+                Invoice No:
+              </label>
             )}
+            <input
+              type="text"
+              className="w-full border rounded-lg p-2"
+              value={item.invoiceNo}
+              onChange={(e) =>
+                handleCreditChange(
+                  index,
+                  "invoiceNo",
+                  e.target.value,
+                  creditSales,
+                  setCreditSales
+                )
+              }
+            />
+          </div>
+
+          {/* Remove button */}
+          {index > 0 && (
+            <button
+              onClick={() =>
+                removeCreditTransaction(index, creditSales, setCreditSales)
+              }
+              className="p-2 text-red-500 hover:text-red-700"
+            >
+              <XCircle size={24} />
+            </button>
+          )}
+        </div>
+      </div>
+    ))}
+
+    {/* Add Another Deal Button */}
+    <button
+      onClick={() => addCreditTransaction(creditSales, setCreditSales)}
+      className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+    >
+      Add Another Deal
+    </button>
+  </div>
+)}
+
       
             {/* Credit Receives Section */}
             {showCreditReceives && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-4">Credit Receives</h3>
-                {creditReceives.map((item, index) => (
-                  <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 items-end">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Shop Name:</label>
-                      <select
-                        className="w-full border rounded-lg p-2"
-                        value={item.shopName}
-                        onChange={(e) => handleCreditChange(index, 'shopName', e.target.value, creditReceives, setCreditReceives)}
-                      >
-                        <option value="">Select Shop</option>
-                        {/* Add your shop options here */}
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Value:</label>
-                      <input
-                        type="number"
-                        className="w-full border rounded-lg p-2"
-                        value={item.value}
-                        onChange={(e) => handleCreditChange(index, 'value', e.target.value, creditReceives, setCreditReceives)}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Invoice No:</label>
-                      <input
-                        type="text"
-                        className="w-full border rounded-lg p-2"
-                        value={item.invoiceNo}
-                        onChange={(e) => handleCreditChange(index, 'invoiceNo', e.target.value, creditReceives, setCreditReceives)}
-                      />
-                    </div>
-                    {index > 0 && (
-                      <button
-                        onClick={() => removeCreditTransaction(index, creditReceives, setCreditReceives)}
-                        className="p-2 text-red-500 hover:text-red-700"
-                      >
-                        <XCircle size={24} />
-                      </button>
-                    )}
-                  </div>
-                ))}
-                <button
-                  onClick={() => addCreditTransaction(creditReceives, setCreditReceives)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-                >
-                  Add Another Deal
-                </button>
-              </div>
-            )}
+  <div className="mb-6">
+    <h3 className="text-lg font-semibold mb-4">Credit Receives</h3>
+    {creditReceives.map((item, index) => (
+      <div
+        key={index}
+        className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 items-end"
+      >
+        <div>
+          {/* Render the label only for the first field */}
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">Shop Name:</label>
+          )}
+          <select
+            className="w-full border rounded-lg p-2"
+            value={item.shopName}
+            onChange={(e) =>
+              handleCreditChange(
+                index,
+                "shopName",
+                e.target.value,
+                creditReceives,
+                setCreditReceives
+              )
+            }
+          >
+            <option value="">Select Shop</option>
+            {/* Add your shop options here */}
+          </select>
+        </div>
+
+        <div>
+          {/* Render the label only for the first field */}
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">Value:</label>
+          )}
+          <input
+            type="number"
+            className="w-full border rounded-lg p-2"
+            value={item.value}
+            onChange={(e) =>
+              handleCreditChange(
+                index,
+                "value",
+                e.target.value,
+                creditReceives,
+                setCreditReceives
+              )
+            }
+          />
+        </div>
+            <div className="flex items-center gap-2">
+        <div>
+          {/* Render the label only for the first field */}
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">Invoice No:</label>
+          )}
+          <input
+            type="text"
+            className="w-full border rounded-lg p-2"
+            value={item.invoiceNo}
+            onChange={(e) =>
+              handleCreditChange(
+                index,
+                "invoiceNo",
+                e.target.value,
+                creditReceives,
+                setCreditReceives
+              )
+            }
+          />
+        </div>
+
+        {/* Remove button */}
+        {index > 0 && (
+          <button
+            onClick={() =>
+              removeCreditTransaction(index, creditReceives, setCreditReceives)
+            }
+            className="p-2 text-red-500 hover:text-red-700"
+          >
+            <XCircle size={24} />
+          </button>
+        )}
+        </div>
+      </div>
+    ))}
+
+    {/* Add Another Deal Button */}
+    <button
+      onClick={() => addCreditTransaction(creditReceives, setCreditReceives)}
+      className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+    >
+      Add Another Deal
+    </button>
+  </div>
+)}
+
       
             {/* Final Summary Table */}
             <div className="mb-6">
