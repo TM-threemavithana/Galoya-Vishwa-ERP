@@ -143,6 +143,7 @@ const MainAppContent = () => {
     "/machine-repair",
     "/machine-details",
     "/machine-reports",
+    "/inventory-dashboard"
   ];
 
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);
