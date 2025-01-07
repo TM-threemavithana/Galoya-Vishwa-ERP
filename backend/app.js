@@ -7,11 +7,16 @@ import { connection } from './database/connection.js';
 import { errorMiddleware } from './middlewares/error.js';
 import userRouter from './router/userRoutes.js';
 import productRoutes from './router/products.js';
-import inventoryRoutes from './router/inventoryRoutes.js';// Import the new routes
+import inventoryRoutes from './router/inventoryRoutes.js';
 import distributionRoutes from './router/distributionRoutes.js';
 import stockReductionRoutes from './router/stockReductionRoutes.js';
 import totalsRoutes from './router/totalsRoutes.js';
+<<<<<<< HEAD
 import vehicleMaintenanceRoutes from './router/vehicleMaintenanceRoutes.js';
+=======
+import machineRepairRoutes from './router/machineRepairRoutes.js'; 
+import machineRoutes from './router/machineRoutes.js'; 
+>>>>>>> 9ab9d6ab7ae8d520186b1a3cc845b15ee02317de
 
 
 
@@ -38,14 +43,16 @@ app.use(
   })
 );
 
+// Register routes
 app.use('/api/v1/user', userRouter);
 app.use('/api/products', productRoutes);
 app.use('/api/inventories', inventoryRoutes);
 app.use('/api/distributions', distributionRoutes);
-app.use('/api/stock-reductions', stockReductionRoutes);// Register the distribution routes
+app.use('/api/stock-reductions', stockReductionRoutes);
 app.use('/api/totals', totalsRoutes);
 app.use('/api/vehicle-maintenance', vehicleMaintenanceRoutes);
-
+app.use('/api/machinerepairs', machineRepairRoutes); 
+app.use('/api/machines', machineRoutes);
 
 connection();
 app.use(errorMiddleware);

@@ -88,22 +88,60 @@ const MainAppContent = () => {
     { path: "/manage-sales", element: <ManageSales />, withSidebar: true },
     { path: "/productions", element: <Productions />, withSidebar: true },
     { path: "/profile", element: <UserProfile />, withSidebar: true },
-    { path: "/inventories", element: <AddInventories />, withInventorySidebar: true },
-    { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true },
-    { path: "/daily-distribution", element: <DailyDistribution />, withInventorySidebar: true },
-    { path: "/daily-reduce", element: <DailyStockReduce />, withInventorySidebar: true },
-    { path: "/inventory-record" , element: < InventoryManagement/>, withInventorySidebar: true },
-  
+    {
+      path: "/inventories",
+      element: <AddInventories />,
+      withInventorySidebar: true,
+    },
+    {
+      path: "/inventory-dashboard",
+      element: <InventoryDashboard />,
+      withInventorySidebar: true,
+    },
+    {
+      path: "/daily-distribution",
+      element: <DailyDistribution />,
+      withInventorySidebar: true,
+    },
+    {
+      path: "/daily-reduce",
+      element: <DailyStockReduce />,
+      withInventorySidebar: true,
+    },
+    {
+      path: "/inventory-record",
+      element: <InventoryManagement />,
+      withInventorySidebar: true,
+    },
 
     // { path: "/product", element: <Products />, withInventorySidebar: true },
-    { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true },
+    {
+      path: "/inventory-dashboard",
+      element: <InventoryDashboard />,
+      withInventorySidebar: true,
+    },
     { path: "/products", element: <AddProduct />, withInventorySidebar: true },
-    
-    { path: "/vehicle-details", element: <VehicleDetails/>, withVehicleSidebar: true },
-    { path: "/vehicle-repair", element: <VehicleRepair/>, withVehicleSidebar: true },
-    { path: "/vehicle-reports", element: <VehicleReports/>, withVehicleSidebar: true },
-    { path: "/vehicle-maintenance", element: <VehicleMaintenance/>, withVehicleSidebar: true },
 
+    {
+      path: "/vehicle-details",
+      element: <VehicleDetails />,
+      withVehicleSidebar: true,
+    },
+    {
+      path: "/vehicle-repair",
+      element: <VehicleRepair />,
+      withVehicleSidebar: true,
+    },
+    {
+      path: "/vehicle-reports",
+      element: <VehicleReports />,
+      withVehicleSidebar: true,
+    },
+    {
+      path: "/vehicle-maintenance",
+      element: <VehicleMaintenance />,
+      withVehicleSidebar: true,
+    },
   ];
 
   // Pages where Footer should not appear
@@ -122,14 +160,21 @@ const MainAppContent = () => {
     "/manage-products",
     "/manage-sales",
     "/productions",
-    "/products",
+
     "/inventory-dashboard",
 
-   "/vehicledashboard",
     "/vehicle-details",
     "/vehicle-repair",
     "/vehicle-reports",
     "/vehicle-maintenance",
+    "/inventories",
+    "/daily-distribution",
+    "/daily-reduce",
+    "/inventory-record",
+    "/machine-repair",
+    "/machine-dashboard",
+    "/machine-details",
+    "/machine-reports",
   ];
 
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);
@@ -139,36 +184,48 @@ const MainAppContent = () => {
       <Navbar />
       <main className="flex flex-col ">
         <Routes>
-          {routes.map(({ path, element, withSidebar, withInventorySidebar, withVehicleSidebar }) => (
-            <Route
-              key={path}
-              path={path}
-              element={
-                withSidebar ? (
-                  <div className="flex-center">
-                    <Sidebar />
-                    <div className="flex-center">{element}</div>
-                  </div>
-                ) : withInventorySidebar ? (
-                  <div className="flex">
-                    <InventorySidebar />
-                    <div className="flex-grow">{element}</div>
-                  </div>
+          {routes.map(
+            ({
+              path,
+              element,
+              withSidebar,
+              withInventorySidebar,
+              withVehicleSidebar,
+            }) => (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  withSidebar ? (
+                    <div className="flex-center">
+                      <Sidebar />
+                      <div className="flex-center">{element}</div>
+                    </div>
+                  ) : withInventorySidebar ? (
+                    <div className="flex">
+                      <InventorySidebar />
+                      <div className="flex-grow">{element}</div>
+                    </div>
                   ) : withVehicleSidebar ? (
-                  <div className="flex">
-                    <VehicleSidebar />
-                    <div className="flex-grow">{element}</div>
-                  </div>
-                ) : (
-                  element
-                )
-              }
-            />
-          ))}
+                    <div className="flex">
+                      <VehicleSidebar />
+                      <div className="flex-grow">{element}</div>
+                    </div>
+                  ) : (
+                    element
+                  )
+                }
+              />
+            )
+          )}
         </Routes>
       </main>
       {shouldShowFooter && <Footer1 />}
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+      />
     </>
   );
 };
