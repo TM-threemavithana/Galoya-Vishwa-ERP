@@ -39,7 +39,7 @@ import InventoryDashboard from "./pages/inventoryManagement/InventoryDashboard";
 import AddInventories from "./pages/inventoryManagement/InventoryManagementassets/AddInventories";
 import DailyDistribution from "./pages/inventoryManagement/InventoryManagementassets/DailyDistribution";
 import DailyStockReduce from "./pages/inventoryManagement/InventoryManagementassets/DailyStockReduce";
-import InventoryManagement from "./pages/inventoryManagement/InventoryManagement";
+import InventoryManagement from "./pages/InventoryManagement";
 
 import CalcDashbord from "./pages/DailyBussinesCalc/CalcDashbord";
 import Calculator from "./pages/DailyBussinesCalc/Calculator";
@@ -206,12 +206,20 @@ const MainAppContent = () => {
     "/manage-products",
     "/manage-sales",
     "/productions",
+
+    "/inventory-dashboard",
+
+    "/vehicle-details",
+    "/vehicle-repair",
+    "/vehicle-reports",
+    "/vehicle-maintenance",
     "/inventories",
     "/daily-distribution",
     "/daily-reduce",
     "/inventory-record",
     "/machine-dashboard",
     "/machine-repair",
+    "/machine-dashboard",
     "/machine-details",
     "/machine-reports",
     "/inventory-dashboard",
@@ -254,7 +262,7 @@ const MainAppContent = () => {
                     </div>
                   ) : withCalcSidebar ? (
                     <div className="flex">
-                      <CalcSidebar />
+                      <InventorySidebar />
                       <div className="flex-grow">{element}</div>
                     </div>
                   ) : withMachineSidebar ? (
