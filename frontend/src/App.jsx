@@ -262,7 +262,7 @@ const MainAppContent = () => {
                     </div>
                   ) : withCalcSidebar ? (
                     <div className="flex">
-                      <InventorySidebar />
+                      <CalcSidebar />
                       <div className="flex-grow">{element}</div>
                     </div>
                   ) : withMachineSidebar ? (
