@@ -11,8 +11,12 @@ import inventoryRoutes from './router/inventoryRoutes.js';
 import distributionRoutes from './router/distributionRoutes.js';
 import stockReductionRoutes from './router/stockReductionRoutes.js';
 import totalsRoutes from './router/totalsRoutes.js';
+<<<<<<< HEAD
+import vehicleMaintenanceRoutes from './router/vehicleMaintenanceRoutes.js';
+=======
 import machineRepairRoutes from './router/machineRepairRoutes.js'; 
 import machineRoutes from './router/machineRoutes.js'; 
+>>>>>>> 9ab9d6ab7ae8d520186b1a3cc845b15ee02317de
 
 
 
@@ -46,6 +50,7 @@ app.use('/api/inventories', inventoryRoutes);
 app.use('/api/distributions', distributionRoutes);
 app.use('/api/stock-reductions', stockReductionRoutes);
 app.use('/api/totals', totalsRoutes);
+app.use('/api/vehicle-maintenance', vehicleMaintenanceRoutes);
 app.use('/api/machinerepairs', machineRepairRoutes); 
 app.use('/api/machines', machineRoutes);
 

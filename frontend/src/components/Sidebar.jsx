@@ -10,7 +10,7 @@ import productionIcon from "../assets/production.png"; // Added production icon
 
 const Sidebar = () => {
   return (
-    <div className="min-h-screen w-64 bg-[#001F3F] text-white flex flex-col justify-between fixed"> {/* Fixed position */}
+    <div className="fixed top-0 left-0 bottom-0 w-64 bg-[#001F3F] text-white flex flex-col justify-between overflow-y-auto"> {/* Fixed position with overflow */}
       <div>
         <div className="px-5 py-4 text-xl font-semibold text-center">
           WELCOME
@@ -82,7 +82,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link
+            {/* <Link
               to="/manage-sales"
               className="flex items-center p-3 hover:bg-[#3A6D8C] rounded transition-colors duration-150"
             >
@@ -92,7 +92,7 @@ const Sidebar = () => {
                 className="h-6 w-6 mr-3"
               />
               <span>Manage Sales</span>
-            </Link>
+            </Link> */}
           </li>
           <li>
             <Link
