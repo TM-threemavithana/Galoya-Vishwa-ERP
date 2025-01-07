@@ -14,6 +14,7 @@ const saveTotalsData = async (totals) => {
   }
 };
 
+  
 const DailyBusinessCalculator = () => {
   const { state } = useLocation();
   const handleSubmit = () => {
