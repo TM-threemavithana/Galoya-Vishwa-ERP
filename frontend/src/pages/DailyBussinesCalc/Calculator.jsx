@@ -13,12 +13,65 @@ const saveTotalsData = async (totals) => {
     }
   };
 
-  
+
+
 const DailyBusinessCalculator = () => {
 
     const handleSubmit = () => {
         saveTotalsData(totals);
       };
+    /////////////////////////////////////////////////////////
+    const [distributionData, setDistributionData] = useState({
+      date: '',
+      vehicleNumber: '',
+      route: '',
+      refName: '',
+      driverName: '',
+      products: [],
+    });
+  
+    useEffect(() => {
+      const fetchDistributionData = async () => {
+        try {
+          const response = await fetch('http://localhost:5000/api/distributions');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const result = await response.json(); // Parse the JSON response
+          console.log('API Response:', result); // Log the full API response
+    
+          // Access the distributions array from the result
+          const data = result.distributions;
+    
+          if (data && data.length > 0) {
+            const latestDistribution = data[3]; // Get the first distribution
+            console.log('Processed Data:', latestDistribution); // Log processed data
+            setDistributionData({
+              date: latestDistribution.date || '',
+              vehicleNumber: latestDistribution.vehicleNumber || '',
+              route: latestDistribution.route || '',
+              refName: latestDistribution.refName || '',
+              driverName: latestDistribution.driverName || '',
+              products: latestDistribution.inventories?.map((inventory) => ({
+                productName: inventory.inventoryName || 'Unknown Product',
+                issuedQuantity: inventory.quantity || 0,
+              })) || [],
+            });
+          } else {
+            console.warn('No distribution data found'); // Log a warning if no data
+          }
+        } catch (error) {
+          console.error('Error fetching distribution data:', error); // Log errors
+        }
+      };
+    
+      fetchDistributionData();
+    }, []);
+    
+    
+    
+  
+      ///////////////////////////////////////////////////////////////////
 
     // Function to save totals data
 
@@ -259,48 +312,66 @@ const DailyBusinessCalculator = () => {
     }, [moneyCategories, creditSales, creditReceives, soldItems, returnedItems, expiredItems, sampleItems]);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold mb-6 text-center">
-        Daily Business Calculator
-      </h1>
-
-      {/* Header Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">Date:</label>
-          <input type="date" className="w-full border rounded-lg p-2" />
-        </div>
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">Vehicle No:</label>
-          <select className="w-full border rounded-lg p-2">
-            <option value="">Select Vehicle</option>
-          </select>
-        </div>
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">Route:</label>
-          <select className="w-full border rounded-lg p-2">
-            <option value="">Select Route</option>
-          </select>
-        </div>
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">Ref Name:</label>
-          <select className="w-full border rounded-lg p-2">
-            <option value="">Select Reference</option>
-          </select>
-        </div>
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">Driver Name:</label>
-          <select className="w-full border rounded-lg p-2">
-            <option value="">Select Driver</option>
-          </select>
-        </div>
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">Diesel:</label>
-          <input type="number" className="w-full border rounded-lg p-2" />
+    
+    <div className="max-w-6xl mt-6 mt-6 mx-auto p-6 bg-white shadow-lg rounded-lg">
+       <h1 className="text-2xl font-bold mb-6 text-center">Daily Business Calculator</h1>
+      <div className="overflow-x-auto mb-6">
+        <table className="w-full border-collapse border">
+          <thead>
+            <tr className="bg-gray-50">
+              <th className="border p-2 text-left">Date</th>
+              <th className="border p-2 text-left">Vehicle Number</th>
+              <th className="border p-2 text-left">Route</th>
+              <th className="border p-2 text-left">Ref Name</th>
+              <th className="border p-2 text-left">Driver Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="border p-2">
+                {distributionData.date
+                  ? new Date(distributionData.date).toLocaleDateString()
+                  : 'N/A'}
+              </td>
+              <td className="border p-2">{distributionData.vehicleNumber || 'N/A'}</td>
+              <td className="border p-2">{distributionData.route || 'N/A'}</td>
+              <td className="border p-2">{distributionData.refName || 'N/A'}</td>
+              <td className="border p-2">{distributionData.driverName || 'N/A'}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-4">Products</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse border">
+            <thead>
+              <tr className="bg-gray-50">
+                <th className="border p-2 text-left">Product Name</th>
+                <th className="border p-2 text-left">Issued Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {distributionData.products.length > 0 ? (
+                distributionData.products.map((product, index) => (
+                  <tr key={index}>
+                    <td className="border p-2">{product.productName}</td>
+                    <td className="border p-2">{product.issuedQuantity}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td className="border p-2" colSpan="2">
+                    No products available
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
 
-      {/* Issued Items Section */}
+     
       {/* <div className="mb-6">
         <h2 className="text-xl font-semibold mb-4">Issued Items</h2>
         <div className="overflow-x-auto">

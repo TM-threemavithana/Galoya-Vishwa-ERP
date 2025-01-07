@@ -1,5 +1,13 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import {
+  FaChartBar,
+  FaCalculator,
+  FaFileAlt,
+  FaMoneyBillWave,
+  FaHome,
+  FaRegFileAlt,
+} from "react-icons/fa";
 
 const CalcSidebar = () => {
   const location = useLocation();
@@ -10,56 +18,82 @@ const CalcSidebar = () => {
   };
 
   return (
-    <div className="w-64 h-screen bg-gray-800 text-white fixed top-0 left-0 overflow-y-auto">
-      <div className="p-4 text-lg font-bold">Daily Business Calculator</div>
-      <nav className="mt-6">
+    <div className="w-64 bg-gradient-to-b from-green-900 to-green-700 text-white min-h-screen shadow-lg">
+      <div className="p-6 text-2xl font-bold text-center border-b border-green-800">
+        Business Cal
+      </div>
+      <nav classNme="mt-6">
         <Link
           to="/calc-dashboard"
-          className={`flex items-center p-2 mb-4 ${activeLink === "/calc-dashboard" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
+            activeLink === "/calc-dashboard"
+              ? "bg-green-800 scale-105 shadow-lg"
+              : "hover:bg-green-800 hover:scale-105"
+          }`}
           onClick={() => handleLinkClick("/calc-dashboard")}
         >
-          <span className="mr-2">📊</span>
-          Dashboard
+          <FaChartBar className="text-yellow-400 text-lg mr-3" />
+          <span className="text-base">Dashboard</span>
         </Link>
         <Link
-          to="/calculator"
-          className={`flex items-center p-2 mb-4 ${activeLink === "/calculator" ? "bg-gray-700" : "hover:bg-gray-700"}`}
-          onClick={() => handleLinkClick("/calculator")}
+          to="/pending-cal"
+          className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
+            activeLink === "/pending-cal"
+              ? "bg-green-800 scale-105 shadow-lg"
+              : "hover:bg-green-800 hover:scale-105"
+          }`}
+          onClick={() => handleLinkClick("/pending-cal")}
         >
-          <span className="mr-2">🧮</span>
-          Calculator
+          <FaCalculator className="text-green-400 text-lg mr-3" />
+          <span className="text-base">Calculator</span>
         </Link>
         <Link
           to="/calc-records"
-          className={`flex items-center p-2 mb-4 ${activeLink === "/calc-records" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
+            activeLink === "/calc-records"
+              ? "bg-green-800 scale-105 shadow-lg"
+              : "hover:bg-green-800 hover:scale-105"
+          }`}
           onClick={() => handleLinkClick("/calc-records")}
         >
-          <span className="mr-2">📈</span>
-          Business Records
+          <FaFileAlt className="text-blue-400 text-lg mr-3" />
+          <span className="text-base">Business Records</span>
         </Link>
         <Link
           to="/credit-sales"
-          className={`flex items-center p-2 mb-4 ${activeLink === "/credit-sales" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
+            activeLink === "/credit-sales"
+              ? "bg-green-800 scale-105 shadow-lg"
+              : "hover:bg-green-800 hover:scale-105"
+          }`}
           onClick={() => handleLinkClick("/credit-sales")}
         >
-          <span className="mr-2">💰</span>
-          Sale of goods on credit
+          <FaMoneyBillWave className="text-red-400 text-lg mr-3" />
+          <span className="text-base">Sale of Goods on Credit</span>
         </Link>
         <Link
           to="/calc-reports"
-          className={`flex items-center p-2 mb-4 ${activeLink === "/calc-reports" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
+            activeLink === "/calc-reports"
+              ? "bg-green-800 scale-105 shadow-lg"
+              : "hover:bg-green-800 hover:scale-105"
+          }`}
           onClick={() => handleLinkClick("/calc-reports")}
         >
-          <span className="mr-2">📊</span>
-          Reports
+          <FaRegFileAlt className="text-orange-400 text-lg mr-3" />
+          <span className="text-base">Reports</span>
         </Link>
         <Link
           to="/mainhomepage"
-          className={`flex items-center p-2 mb-4 ${activeLink === "/mainhomepage" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
+            activeLink === "/mainhomepage"
+              ? "bg-green-800 scale-105 shadow-lg"
+              : "hover:bg-green-800 hover:scale-105"
+          }`}
           onClick={() => handleLinkClick("/mainhomepage")}
         >
-          <span className="mr-2">🏠</span>
-          Home
+          <FaHome className="text-pink-400 text-lg mr-3" />
+          <span className="text-base">Home</span>
         </Link>
       </nav>
     </div>
