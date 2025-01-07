@@ -6,4 +6,17 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+    min-height: 100vh;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  /* Ensure the root element takes up the full height */
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 

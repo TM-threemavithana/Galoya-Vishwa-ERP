@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/slices/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { FiLogOut, FiBell, FiUserPlus, FiLogIn } from "react-icons/fi"; // Modern icons from react-icons
 import logo from "@/assets/logo.png";
-import notification_icon from "../assets/notification.jpg"
 import { toast } from "react-toastify";
 
 const Navbar = () => {
@@ -14,50 +14,81 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    toast.success("Logout Successfully");
+    toast.success("Logged out successfully");
     navigate("/");
   };
 
   return (
-    <div className="flex items-center justify-between py-5 px-10 bg-[#4A628A] text-white">
+    <div
+      className="flex items-center justify-between py-4 px-8 bg-gradient-to-r from-green-800 via-green-600 to-green-800 text-white shadow-md relative"
+      style={{
+        boxShadow: "0 0 15px rgba(34, 139, 34, 0.7)", // Glowing green shadow effect
+      }}
+    >
+      {/* Glowing effect around the navbar */}
+      <div className="absolute inset-0 bg-gradient-to-r from-green-800 via-green-600 to-green-800 blur-md opacity-20 pointer-events-none"></div>
+
       {/* Logo and Link to Home */}
-      <Link to="/">
-        <img src={logo} className="h-20" alt="Company Logo" /> {/* Increased height to 20 */}
+      <Link to="/mainhomepage">
+        <img
+          src={logo}
+          className="h-20 ml-8 hover:scale-105 transition-transform duration-300"
+          alt="Company Logo"
+        />
       </Link>
 
       {/* Company Title */}
-      <h1 className="text-3xl font-bold">Galoya Wishwa Dairy Products</h1> {/* Increased font size to 3xl */}
+      <h1 className="text-2xl font-semibold tracking-wide hover:text-gray-200 transition-colors duration-300">
+        Galoya Wishwa Dairy Products
+      </h1>
 
       {/* Auth Section */}
       <div
         className={`${
           menuOpen ? "flex" : "hidden"
-        } md:flex items-center gap-4 mt-4 md:mt-0`}
+        } md:flex items-center gap-6`}
       >
         {!isAuthenticated ? (
           <>
+            {/* Sign Up Button */}
             <Link
               to={"/sign-up"}
-              className="bg-[#D6482B] text-white font-semibold hover:bg-[#b8381e] text-lg md:text-xl py-1 px-4 rounded-md transition duration-200"
+              className="flex items-center gap-2 bg-yellow-500 text-black font-semibold hover:bg-yellow-400 hover:text-gray-900 text-lg py-2 px-4 rounded-lg transition-all duration-300 shadow-lg"
             >
+              <FiUserPlus size={18} />
               Sign Up
             </Link>
+
+            {/* Login Button */}
             <Link
               to={"/login"}
-              className="text-[#DECCBE] border-2 border-[#DECCBE] hover:bg-[#fffefd] hover:text-[#fdba88] font-bold text-lg md:text-xl py-1 px-4 rounded-md transition duration-200"
+              className="flex items-center gap-2 text-yellow-400 border-2 border-yellow-400 hover:bg-yellow-400 hover:text-black font-semibold text-lg py-2 px-4 rounded-lg transition-all duration-300 shadow-lg"
             >
+              <FiLogIn size={18} />
               Login
             </Link>
           </>
         ) : (
           <>
+            {/* Logout Button */}
             <button
               onClick={handleLogout}
-              className="bg-[#D6482B] text-white font-semibold hover:bg-[#b8381e] text-lg md:text-xl py-1 px-4 rounded-md transition duration-200"
+              className="flex items-center gap-2 bg-red-500 text-white font-semibold hover:bg-red-600 text-lg py-2 px-4 rounded-lg transition-all duration-300 shadow-lg"
             >
+              <FiLogOut size={18} />
               Logout
             </button>
-            <img src={notification_icon} className="h-6 cursor-pointer" alt="Notification Icon" />
+
+            {/* Notification Icon */}
+            <div className="relative group">
+              <FiBell
+                size={24}
+                className="cursor-pointer hover:text-yellow-300 transition-colors duration-300"
+              />
+              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">
+                3
+              </span>
+            </div>
           </>
         )}
       </div>
