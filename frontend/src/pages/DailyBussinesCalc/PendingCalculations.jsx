@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const DistributedList = () => {
+const PendingCalculations = () => {
   const [distributions, setDistributions] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDistributions = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/distributions");
+        const response = await fetch('http://localhost:5000/api/distributions');
         const data = await response.json();
         if (data.success && Array.isArray(data.distributions)) {
           setDistributions(data.distributions);
         } else {
-          console.error("Fetched data is not an array:", data);
+          console.error('Fetched data is not an array:', data);
         }
       } catch (error) {
-        console.error("Error fetching distributions:", error);
+        console.error('Error fetching distributions:', error);
       }
     };
 
@@ -24,15 +24,13 @@ const DistributedList = () => {
   }, []);
 
   const handleNavigate = (distribution) => {
-    navigate("/calculator", { state: { distribution } });
+    navigate('/calculator', { state: { distribution } });
   };
 
-  return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+return (
+    <div className="flex justify-center items-center mt-8 bg-gray-100">
       <div className="w-3/4 p-6 bg-white shadow-lg rounded-lg">
-        <h1 className="text-2xl font-bold mb-6 text-center">
-          Daily Distributions
-        </h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">Pending Calculations</h1>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse border">
             <thead>
@@ -48,9 +46,7 @@ const DistributedList = () => {
             <tbody>
               {distributions.map((distribution, index) => (
                 <tr key={index}>
-                  <td className="border p-2">
-                    {new Date(distribution.date).toLocaleDateString()}
-                  </td>
+                  <td className="border p-2">{new Date(distribution.date).toLocaleDateString()}</td>
                   <td className="border p-2">{distribution.vehicleNumber}</td>
                   <td className="border p-2">{distribution.route}</td>
                   <td className="border p-2">{distribution.refName}</td>
@@ -73,4 +69,4 @@ const DistributedList = () => {
   );
 };
 
-export default DistributedList;
+export default PendingCalculations;
