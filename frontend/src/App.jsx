@@ -41,6 +41,18 @@ import DailyDistribution from "./pages/inventoryManagement/InventoryManagementas
 import DailyStockReduce from "./pages/inventoryManagement/InventoryManagementassets/DailyStockReduce";
 import InventoryManagement from "./pages/InventoryManagement";
 
+import CalcDashbord from "./pages/DailyBussinesCalc/CalcDashbord";
+import Calculator from "./pages/DailyBussinesCalc/Calculator";
+import CalcReports from "./pages/DailyBussinesCalc/CalcReports";
+import CreditSale from "./pages/DailyBussinesCalc/CreditSale";
+import BusinessRecords from "./pages/DailyBussinesCalc/BusinessRecords";
+import CalcSidebar from "./pages/DailyBussinesCalc/CalcSidebar";
+import MachineDashbord from "./pages/MachineMaintanance/MachineDashbord";
+import MachineSidebar from "./pages/MachineMaintanance/MachineSidebar";
+import MachineRepair from "./pages/MachineMaintanance/MachineRepair";
+import MachineDetails from "./pages/MachineMaintanance/MachineDetails";
+import MachineReports from "./pages/MachineMaintanance/MachineReports";
+
 import VehicleSidebar from "./pages/VehicleManagement/VehicleSidebar";
 import VehicleDetails from "./pages/VehicleManagement/VehicleDetails";
 import VehicleRepair from "./pages/VehicleManagement/VehicleRepair";
@@ -123,6 +135,40 @@ const MainAppContent = () => {
     { path: "/products", element: <AddProduct />, withInventorySidebar: true },
 
     {
+      path: "/calc-dashboard",
+      element: <CalcDashbord />,
+      withCalcSidebar: true,
+    },
+    { path: "/calculator", element: <Calculator />, withCalcSidebar: true },
+    {
+      path: "/calc-records",
+      element: <BusinessRecords />,
+      withCalcSidebar: true,
+    },
+    { path: "/credit-sales", element: <CreditSale />, withCalcSidebar: true },
+    { path: "/calc-reports", element: <CalcReports />, withCalcSidebar: true },
+
+    {
+      path: "/machine-dashboard",
+      element: <MachineDashbord />,
+      withMachineSidebar: true,
+    },
+    {
+      path: "/machine-repair",
+      element: <MachineRepair />,
+      withMachineSidebar: true,
+    },
+    {
+      path: "/machine-details",
+      element: <MachineDetails />,
+      withMachineSidebar: true,
+    },
+    {
+      path: "/machine-reports",
+      element: <MachineReports />,
+      withMachineSidebar: true,
+    },
+    {
       path: "/vehicle-details",
       element: <VehicleDetails />,
       withVehicleSidebar: true,
@@ -171,10 +217,16 @@ const MainAppContent = () => {
     "/daily-distribution",
     "/daily-reduce",
     "/inventory-record",
+    "/machine-dashboard",
     "/machine-repair",
     "/machine-dashboard",
     "/machine-details",
     "/machine-reports",
+    "/inventory-dashboard",
+    "/vehicle-details",
+    "/vehicle-repair",
+    "/vehicle-reports",
+    "/vehicle-maintenance",
   ];
 
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);
@@ -191,6 +243,8 @@ const MainAppContent = () => {
               withSidebar,
               withInventorySidebar,
               withVehicleSidebar,
+              withCalcSidebar,
+              withMachineSidebar,
             }) => (
               <Route
                 key={path}
@@ -204,6 +258,16 @@ const MainAppContent = () => {
                   ) : withInventorySidebar ? (
                     <div className="flex">
                       <InventorySidebar />
+                      <div className="flex-grow">{element}</div>
+                    </div>
+                  ) : withCalcSidebar ? (
+                    <div className="flex">
+                      <InventorySidebar />
+                      <div className="flex-grow">{element}</div>
+                    </div>
+                  ) : withMachineSidebar ? (
+                    <div className="flex">
+                      <MachineSidebar />
                       <div className="flex-grow">{element}</div>
                     </div>
                   ) : withVehicleSidebar ? (
