@@ -56,6 +56,13 @@ import VehicleRepair from "./pages/VehicleManagement/VehicleRepair";
 import VehicleReports from "./pages/VehicleManagement/VehicleReports";
 import VehicleMaintenance from "./pages/VehicleManagement/VehicleMaintenance";
 
+import RawSidebar from "./pages/RawMaterialsManagement/RawSidebar";
+import RawDashboard from "./pages/RawMaterialsManagement/RawDashboard";
+import RawAddMaterials from "./pages/RawMaterialsManagement/RawAddMaterials";
+import RawMaterialsLog from "./pages/RawMaterialsManagement/RawMaterialsLog";
+import RawMaterialsProductions from "./pages/RawMaterialsManagement/RawMaterialsProductions";
+import RawProductionLog from "./pages/RawMaterialsManagement/RawProductionLog";
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -121,6 +128,14 @@ const MainAppContent = () => {
     { path: "/vehicle-repair", element: <VehicleRepair />, withVehicleSidebar: true },
     { path: "/vehicle-reports", element: <VehicleReports />, withVehicleSidebar: true },
     { path: "/vehicle-maintenance", element: <VehicleMaintenance />, withVehicleSidebar: true },
+
+    { path: "/raw-dashboard", element: <RawDashboard />, withRawSidebar: true },
+    { path: "/raw-add-materials", element: <RawAddMaterials />, withRawSidebar: true },
+    { path: "/raw-materials-log", element: <RawMaterialsLog />, withRawSidebar: true },
+    { path: "/raw-materials-productions", element: <RawMaterialsProductions />, withRawSidebar: true },
+    { path: "/raw-production-log", element: <RawProductionLog />, withRawSidebar: true },
+    
+
   ];
 
   // Pages where Footer should not appear
@@ -168,6 +183,13 @@ const MainAppContent = () => {
     "/vehicle-repair",
     "/vehicle-reports",
     "/vehicle-maintenance",
+
+    "/raw-dashboard",
+    "/raw-add-materials",
+    "/raw-materials-log",
+    "/raw-materials-productions",
+    "/raw-production-log",
+
   ];
 
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);
@@ -186,6 +208,7 @@ const MainAppContent = () => {
               withVehicleSidebar,
               withCalcSidebar,
               withMachineSidebar,
+              withRawSidebar,
             }) => (
               <Route
                 key={path}
@@ -216,6 +239,11 @@ const MainAppContent = () => {
                       <VehicleSidebar />
                       <div className="flex-grow">{element}</div>
                     </div>
+                  ) : withRawSidebar ? ( 
+                    <div className="flex">
+                      <RawSidebar />
+                      <div className="flex-grow">{element}</div>
+                    </div> 
                   ) : (
                     element
                   )
