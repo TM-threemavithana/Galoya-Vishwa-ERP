@@ -8,7 +8,7 @@ import p6_img from "./p6.jpg";
 const machineData = [
     {
       id: 1,
-      name: "Ice packet making maching",
+      name: "Machine 1",
       description: "Used for make ice packets.buy from 2002",
       nextRepairDate: "2027-02-15",
       image: p1_img,
