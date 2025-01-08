@@ -38,7 +38,7 @@ import InventoryManagement from "./pages/InventoryManagement";
 
 import CalcDashbord from "./pages/DailyBussinesCalc/CalcDashbord";
 import Calculator from "./pages/DailyBussinesCalc/Calculator";
-import CalcReports from "./pages/DailyBussinesCalc/CalcReports";
+import CalcReports from "./pages/DailyBussinesCalc/ShopDetails";
 import CreditSale from "./pages/DailyBussinesCalc/CreditSale";
 import BusinessRecords from "./pages/DailyBussinesCalc/BusinessRecords";
 import CalcSidebar from "./pages/DailyBussinesCalc/CalcSidebar";

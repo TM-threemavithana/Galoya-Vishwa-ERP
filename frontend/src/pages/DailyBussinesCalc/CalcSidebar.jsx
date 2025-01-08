@@ -22,7 +22,7 @@ const CalcSidebar = () => {
       <div className="p-6 text-2xl font-bold text-center border-b border-green-800">
         Business Cal
       </div>
-      <nav classNme="mt-6">
+      <nav className="mt-6">
         <Link
           to="/calc-dashboard"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
@@ -69,7 +69,7 @@ const CalcSidebar = () => {
           onClick={() => handleLinkClick("/credit-sales")}
         >
           <FaMoneyBillWave className="text-red-400 text-lg mr-3" />
-          <span className="text-base">Sale of Goods on Credit</span>
+          <span className="text-base">Credit Sales</span>
         </Link>
         <Link
           to="/calc-reports"
