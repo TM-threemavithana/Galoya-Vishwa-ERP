@@ -16,6 +16,8 @@ const DailyDistribution = () => {
   const [records, setRecords] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 5;
 
   const vehicleNumbers = ['DAH - 0876', 'PV - 0505', 'PR - 3632'];
   const routes = ['Siyabalanduwa', 'Uhana', 'Iginiyagama' , 'Mahaoya' , 'Kethsirigama', 'Madoore','Akkarapaththu','Kalmunai','Neththa','Batticaloa'];
@@ -124,6 +126,12 @@ const DailyDistribution = () => {
     }
   };
 
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = records.slice(indexOfFirstRecord, indexOfLastRecord);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col w-full max-w-3xl border border-gray-300 mt-10 mb-10">
@@ -191,53 +199,64 @@ const DailyDistribution = () => {
       </div>
 
       <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col w-full max-w-5xl border border-gray-300 mt-10 mb-10">
-  <h2 className="text-2xl font-bold mb-6 text-center">Distribution Records</h2>
-  <div className="overflow-x-auto">
-    <table className="min-w-full bg-white border border-gray-300">
-      <thead>
-        <tr className="bg-gray-100 text-gray-600 text-left text-sm font-semibold">
-          <th className="py-3 px-4 border-b">Date</th>
-          <th className="py-3 px-4 border-b">Vehicle Number</th>
-          <th className="py-3 px-4 border-b">Route</th>
-          <th className="py-3 px-4 border-b">Reference Name</th>
-          <th className="py-3 px-4 border-b">Driver Name</th>
-          <th className="py-3 px-4 border-b">Product Name</th>
-          <th className="py-3 px-4 border-b">Quantity</th>
-          <th className="py-3 px-4 border-b">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {records.map((record) => (
-          <tr key={record._id} className="hover:bg-gray-100">
-            <td className="py-3 px-4 border-b">{new Date(record.date).toLocaleDateString()}</td>
-            <td className="py-3 px-4 border-b">{record.vehicleNumber}</td>
-            <td className="py-3 px-4 border-b">{record.route}</td>
-            <td className="py-3 px-4 border-b">{record.refName}</td>
-            <td className="py-3 px-4 border-b">{record.driverName}</td>
-            <td className="py-3 px-4 border-b">
-              {record.inventories.map((inventory, index) => (
-                <div key={index} className="flex items-center">
-                  <span className="mr-2">{inventory.inventoryName}</span>
-                </div>
+        <h2 className="text-2xl font-bold mb-6 text-center">Distribution Records</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-300">
+            <thead>
+              <tr className="bg-gray-100 text-gray-600 text-left text-sm font-semibold">
+                <th className="py-3 px-4 border-b">Date</th>
+                <th className="py-3 px-4 border-b">Vehicle Number</th>
+                <th className="py-3 px-4 border-b">Route</th>
+                <th className="py-3 px-4 border-b">Reference Name</th>
+                <th className="py-3 px-4 border-b">Driver Name</th>
+                <th className="py-3 px-4 border-b">Product Name</th>
+                <th className="py-3 px-4 border-b">Quantity</th>
+                <th className="py-3 px-4 border-b">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentRecords.map((record) => (
+                <tr key={record._id} className="hover:bg-gray-100">
+                  <td className="py-3 px-4 border-b">{new Date(record.date).toLocaleDateString()}</td>
+                  <td className="py-3 px-4 border-b">{record.vehicleNumber}</td>
+                  <td className="py-3 px-4 border-b">{record.route}</td>
+                  <td className="py-3 px-4 border-b">{record.refName}</td>
+                  <td className="py-3 px-4 border-b">{record.driverName}</td>
+                  <td className="py-3 px-4 border-b">
+                    {record.inventories.map((inventory, index) => (
+                      <div key={index} className="flex items-center">
+                        <span className="mr-2">{inventory.inventoryName}</span>
+                      </div>
+                    ))}
+                  </td>
+                  <td className="py-3 px-4 border-b">
+                    {record.inventories.map((inventory, index) => (
+                      <div key={index} className="flex items-center">
+                        <span className="mr-2">{inventory.quantity}</span>
+                      </div>
+                    ))}
+                  </td>
+                  <td className="py-3 px-4 border-b flex space-x-2">
+                    <button onClick={() => handleEdit(record)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded-md">Edit</button>
+                    <button onClick={() => handleDelete(record._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-md">Delete</button>
+                  </td>
+                </tr>
               ))}
-            </td>
-            <td className="py-3 px-4 border-b">
-              {record.inventories.map((inventory, index) => (
-                <div key={index} className="flex items-center">
-                  <span className="mr-2">{inventory.quantity}</span>
-                </div>
-              ))}
-            </td>
-            <td className="py-3 px-4 border-b flex space-x-2">
-              <button onClick={() => handleEdit(record)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded-md">Edit</button>
-              <button onClick={() => handleDelete(record._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-md">Delete</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</div>
+            </tbody>
+          </table>
+          <div className="flex justify-center mt-4">
+            {Array.from({ length: Math.ceil(records.length / recordsPerPage) }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`mx-1 px-3 py-1 rounded-md ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
