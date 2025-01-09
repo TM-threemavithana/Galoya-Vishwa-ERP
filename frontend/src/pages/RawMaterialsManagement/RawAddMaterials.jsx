@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Wrench, Plus, Trash2, Edit2, Save } from 'lucide-react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const RawAddMaterials = () => {
   const [date, setDate] = useState('');
@@ -71,9 +73,16 @@ const RawAddMaterials = () => {
     setItems(prevItems => prevItems.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/raw-materials-log', { state: { date, items } });
+    try {
+      const response = await axios.post('http://localhost:5000/api/raw-materials-log', { date, items });
+      toast.success('Data saved successfully!');
+      navigate('/raw-materials-log', { state: response.data.rawMaterialsLog });
+    } catch (error) {
+      toast.error('Error saving data');
+      console.error('Error saving data:', error);
+    }
   };
 
   const calculateTotal = () => {
