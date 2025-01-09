@@ -360,6 +360,20 @@ const DailyBusinessCalculator = () => {
       console.error("Error adding new shop:", error);
     }
   };
+  const [shops, setShops] = useState([]);
+
+  useEffect(() => {
+    const fetchShops = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/shop-details');
+        setShops(response.data);
+      } catch (error) {
+        console.error('Error fetching shop details:', error);
+      }
+    };
+
+    fetchShops();
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg">
@@ -1120,8 +1134,12 @@ const DailyBusinessCalculator = () => {
                   }
                 >
                   <option value="">Select Shop</option>
-                  {/* Add your shop options here */}
-                </select>
+        {shops.map((shop) => (
+          <option key={shop._id} value={shop._id}>
+            {shop.shopName}
+          </option>
+        ))}
+      </select>
               </div>
 
               <div>
@@ -1230,8 +1248,12 @@ const DailyBusinessCalculator = () => {
                   }
                 >
                   <option value="">Select Shop</option>
-                  {/* Add your shop options here */}
-                </select>
+        {shops.map((shop) => (
+          <option key={shop._id} value={shop._id}>
+            {shop.shopName}
+          </option>
+        ))}
+      </select>
               </div>
 
               <div>
