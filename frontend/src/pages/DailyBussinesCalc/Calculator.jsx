@@ -1351,67 +1351,7 @@ const DailyBusinessCalculator = () => {
         </table>
       </div>
 
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-4">Add New Shop</h2>
-        <form onSubmit={handleNewShopSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Shop Name:</label>
-            <input
-              type="text"
-              className="w-full border rounded-lg p-2"
-              value={newShop.shopName}
-              onChange={(e) => handleNewShopChange("shopName", e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Route:</label>
-            <input
-              type="text"
-              className="w-full border rounded-lg p-2"
-              value={newShop.route}
-              onChange={(e) => handleNewShopChange("route", e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Phone Number:</label>
-            <input
-              type="text"
-              className="w-full border rounded-lg p-2"
-              value={newShop.phoneNumber}
-              onChange={(e) => handleNewShopChange("phoneNumber", e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Owner's Name:</label>
-            <input
-              type="text"
-              className="w-full border rounded-lg p-2"
-              value={newShop.ownerName}
-              onChange={(e) => handleNewShopChange("ownerName", e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Address:</label>
-            <input
-              type="text"
-              className="w-full border rounded-lg p-2"
-              value={newShop.address}
-              onChange={(e) => handleNewShopChange("address", e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 font-semibold"
-          >
-            Add Shop
-          </button>
-        </form>
-      </div>
+   
 
       <button
         className="w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 font-semibold"

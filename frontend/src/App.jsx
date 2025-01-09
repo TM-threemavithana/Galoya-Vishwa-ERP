@@ -148,6 +148,12 @@ const MainAppContent = () => {
 
     "/calculator",
     "/CalcSidebar",
+    "/distributed-list",
+    "/calc-reports",
+    "/credit-sales",
+    "/calc-records",
+    
+
     "/BusinessRecords",
     "/CreditSale",
     "/CalcReports",

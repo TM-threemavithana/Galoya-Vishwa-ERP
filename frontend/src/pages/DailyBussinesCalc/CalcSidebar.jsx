@@ -35,8 +35,10 @@ const CalcSidebar = () => {
         </Link>
         <Link
           to="/distributed-list"
-          className={`flex items-center p-2 mb-4 ${
-            activeLink === "/distributed-list" ? "bg-gray-700" : "hover:bg-gray-700"
+          className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
+            activeLink === "/distributed-list"
+              ? "bg-green-800 scale-105 shadow-lg"
+              : "hover:bg-green-800 hover:scale-105"
           }`}
           onClick={() => handleLinkClick("/distributed-list")}
         >
