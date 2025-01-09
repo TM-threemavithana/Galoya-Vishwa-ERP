@@ -313,7 +313,11 @@ const DailyBusinessCalculator = () => {
 
   return (
     
+<<<<<<< HEAD
     <div className="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+=======
+    <div className="max-w-6xl mt-6 mx-auto p-6 bg-white shadow-lg rounded-lg">
+>>>>>>> 8f02f00defaa86f43fb3e51f48873ba3580325e0
        <h1 className="text-2xl font-bold mb-6 text-center">Daily Business Calculator</h1>
       <div className="overflow-x-auto mb-6">
         <table className="w-full border-collapse border">

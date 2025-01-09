@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -43,11 +38,19 @@ import InventoryManagement from "./pages/InventoryManagement";
 
 import CalcDashbord from "./pages/DailyBussinesCalc/CalcDashbord";
 import Calculator from "./pages/DailyBussinesCalc/Calculator";
+<<<<<<< HEAD
 import ShopDetails from './pages/DailyBussinesCalc/ShopDetails';
 import CreditSale from "./pages/DailyBussinesCalc/CreditSale";
 import BusinessRecords from "./pages/DailyBussinesCalc/BusinessRecords";
 import CalcSidebar from "./pages/DailyBussinesCalc/CalcSidebar";
 import DistributedList from "./pages/DailyBussinesCalc/DistributedList";
+=======
+import CalcReports from "./pages/DailyBussinesCalc/ShopDetails";
+import CreditSale from "./pages/DailyBussinesCalc/CreditSale";
+import BusinessRecords from "./pages/DailyBussinesCalc/BusinessRecords";
+import CalcSidebar from "./pages/DailyBussinesCalc/CalcSidebar";
+import PendingCalculations from "./pages/DailyBussinesCalc/PendingCalculations";
+>>>>>>> 8f02f00defaa86f43fb3e51f48873ba3580325e0
 
 import MachineDashbord from "./pages/MachineMaintanance/MachineDashbord";
 import MachineSidebar from "./pages/MachineMaintanance/MachineSidebar";
@@ -102,6 +105,7 @@ const MainAppContent = () => {
     { path: "/manage-sales", element: <ManageSales />, withSidebar: true },
     { path: "/productions", element: <Productions />, withSidebar: true },
     { path: "/profile", element: <UserProfile />, withSidebar: true },
+<<<<<<< HEAD
     { path: "/inventories",element: <AddInventories />,withInventorySidebar: true,},
     { path: "/inventory-dashboard", element: <InventoryDashboard />,withInventorySidebar: true,},
     { path: "/daily-distribution", element: <DailyDistribution />, withInventorySidebar: true,},
@@ -115,47 +119,32 @@ const MainAppContent = () => {
     { path: "/credit-sales", element: <CreditSale />, withCalcSidebar: true },
     { path: "/shop-details", element: <ShopDetails />, withCalcSidebar: true },
     { path: "/distributed-list", element: <DistributedList />, withCalcSidebar: true },
+=======
 
-    {
-      path: "/machine-dashboard",
-      element: <MachineDashbord />,
-      withMachineSidebar: true,
-    },
-    {
-      path: "/machine-repair",
-      element: <MachineRepair />,
-      withMachineSidebar: true,
-    },
-    {
-      path: "/machine-details",
-      element: <MachineDetails />,
-      withMachineSidebar: true,
-    },
-    {
-      path: "/machine-reports",
-      element: <MachineReports />,
-      withMachineSidebar: true,
-    },
-    {
-      path: "/vehicle-details",
-      element: <VehicleDetails />,
-      withVehicleSidebar: true,
-    },
-    {
-      path: "/vehicle-repair",
-      element: <VehicleRepair />,
-      withVehicleSidebar: true,
-    },
-    {
-      path: "/vehicle-reports",
-      element: <VehicleReports />,
-      withVehicleSidebar: true,
-    },
-    {
-      path: "/vehicle-maintenance",
-      element: <VehicleMaintenance />,
-      withVehicleSidebar: true,
-    },
+    { path: "/inventories", element: <AddInventories />, withInventorySidebar: true },
+    { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true },
+    { path: "/daily-distribution", element: <DailyDistribution />, withInventorySidebar: true },
+    { path: "/daily-reduce", element: <DailyStockReduce />, withInventorySidebar: true },
+    { path: "/inventory-record", element: <InventoryManagement />, withInventorySidebar: true },
+    { path: "/products", element: <AddProduct />, withInventorySidebar: true },
+
+    { path: "/calc-dashboard", element: <CalcDashbord />, withCalcSidebar: true },
+    { path: "/pending-cal", element: <PendingCalculations />, withCalcSidebar: true },
+    { path: "/calc-records", element: <BusinessRecords />, withCalcSidebar: true },
+    { path: "/credit-sales", element: <CreditSale />, withCalcSidebar: true },
+    { path: "/calc-reports", element: <CalcReports />, withCalcSidebar: true },
+    { path: "/calculator", element: <Calculator />, withCalcSidebar: true },
+>>>>>>> 8f02f00defaa86f43fb3e51f48873ba3580325e0
+
+    { path: "/machine-dashboard", element: <MachineDashbord />, withMachineSidebar: true },
+    { path: "/machine-repair", element: <MachineRepair />, withMachineSidebar: true },
+    { path: "/machine-details", element: <MachineDetails />, withMachineSidebar: true },
+    { path: "/machine-reports", element: <MachineReports />, withMachineSidebar: true },
+
+    { path: "/vehicle-details", element: <VehicleDetails />, withVehicleSidebar: true },
+    { path: "/vehicle-repair", element: <VehicleRepair />, withVehicleSidebar: true },
+    { path: "/vehicle-reports", element: <VehicleReports />, withVehicleSidebar: true },
+    { path: "/vehicle-maintenance", element: <VehicleMaintenance />, withVehicleSidebar: true },
   ];
 
   // Pages where Footer should not appear
@@ -175,6 +164,14 @@ const MainAppContent = () => {
     "/manage-sales",
     "/productions",
     "/shop-details",
+
+    "/calculator",
+    "/CalcSidebar",
+    "/BusinessRecords",
+    "/CreditSale",
+    "/CalcReports",
+    "/calc-dashboard",
+    "/pending-cal",
 
     "/inventory-dashboard",
 
@@ -203,7 +200,7 @@ const MainAppContent = () => {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col ">
+      <main className="flex flex-col flex-grow">
         <Routes>
           {routes.map(
             ({
