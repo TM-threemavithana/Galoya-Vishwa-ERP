@@ -18,7 +18,7 @@ const CalcSidebar = () => {
   };
 
   return (
-    <div className="w-64 h-screen bg-gray-800 text-white fixed top-0 left-0 overflow-y-auto">
+    <div className="w-64 bg-gradient-to-b from-green-900 to-green-700 text-white min-h-screen shadow-lg">
       <div className="p-4 text-lg font-bold">Daily Business Calculator</div>
       <nav className="mt-6">
         <Link
@@ -34,12 +34,14 @@ const CalcSidebar = () => {
           <span className="text-base">Dashboard</span>
         </Link>
         <Link
-          to="/calculator"
-          className={`flex items-center p-2 mb-4 ${activeLink === "/calculator" ? "bg-gray-700" : "hover:bg-gray-700"}`}
-          onClick={() => handleLinkClick("/calculator")}
+          to="/distributed-list"
+          className={`flex items-center p-2 mb-4 ${
+            activeLink === "/distributed-list" ? "bg-gray-700" : "hover:bg-gray-700"
+          }`}
+          onClick={() => handleLinkClick("/distributed-list")}
         >
-          <span className="mr-2">🧮</span>
-          Calculator
+          <FaCalculator className="text-blue-400 text-lg mr-3" />
+          <span className="text-base">Daily Calculator</span>
         </Link>
         <Link
           to="/calc-records"
@@ -67,11 +69,15 @@ const CalcSidebar = () => {
         </Link>
         <Link
           to="/calc-reports"
-          className={`flex items-center p-2 mb-4 ${activeLink === "/calc-reports" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
+            activeLink === "/calc-report"
+              ? "bg-green-800 scale-105 shadow-lg"
+              : "hover:bg-green-800 hover:scale-105"
+          }`}
           onClick={() => handleLinkClick("/calc-reports")}
         >
-          <span className="mr-2">📊</span>
-          Reports
+          <span className="mr-2">🛒</span>
+          Shop Details
         </Link>
         <Link
           to="/mainhomepage"

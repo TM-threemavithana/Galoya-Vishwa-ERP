@@ -28,9 +28,9 @@ const DistributedList = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="max-w-6xl mt-6 mx-auto p-6 bg-white shadow-lg rounded-lg">
       <div className="w-64">{/* Sidebar component can be placed here */}</div>
-      <div className="flex-grow p-6 bg-white shadow-lg rounded-lg">
+      <div className="max-w-6xl mt-6 mx-auto p-6 bg-white shadow-lg rounded-lg">
         <h1 className="text-2xl font-bold mb-6 text-center">
           Daily Distributions
         </h1>
