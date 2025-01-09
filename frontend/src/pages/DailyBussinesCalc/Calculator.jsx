@@ -14,11 +14,23 @@ const saveTotalsData = async (totals) => {
   }
 };
 
-  
+const saveReturnedItems = async (returnedItems) => {
+  try {
+    await axios.post("http://localhost:5000/api/returned-items", { returnedItems });
+    toast.success("Returned items saved successfully!");
+  } catch (error) {
+    toast.error("Error saving returned items");
+    console.error("Error saving returned items:", error);
+  }
+};
+
+
 const DailyBusinessCalculator = () => {
   const { state } = useLocation();
+
   const handleSubmit = () => {
     saveTotalsData(totals);
+    saveReturnedItems(returnedItems);
   };
   /////////////////////////////////////////////////////////
   const [distributionData, setDistributionData] = useState({
@@ -365,10 +377,12 @@ const DailyBusinessCalculator = () => {
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/shop-details');
+        const response = await axios.get(
+          "http://localhost:5000/api/shop-details"
+        );
         setShops(response.data);
       } catch (error) {
-        console.error('Error fetching shop details:', error);
+        console.error("Error fetching shop details:", error);
       }
     };
 
@@ -1134,12 +1148,12 @@ const DailyBusinessCalculator = () => {
                   }
                 >
                   <option value="">Select Shop</option>
-        {shops.map((shop) => (
-          <option key={shop._id} value={shop._id}>
-            {shop.shopName}
-          </option>
-        ))}
-      </select>
+                  {shops.map((shop) => (
+                    <option key={shop._id} value={shop._id}>
+                      {shop.shopName}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
@@ -1248,12 +1262,12 @@ const DailyBusinessCalculator = () => {
                   }
                 >
                   <option value="">Select Shop</option>
-        {shops.map((shop) => (
-          <option key={shop._id} value={shop._id}>
-            {shop.shopName}
-          </option>
-        ))}
-      </select>
+                  {shops.map((shop) => (
+                    <option key={shop._id} value={shop._id}>
+                      {shop.shopName}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
@@ -1372,8 +1386,6 @@ const DailyBusinessCalculator = () => {
           </tbody>
         </table>
       </div>
-
-   
 
       <button
         className="w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 font-semibold"
