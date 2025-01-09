@@ -14,6 +14,7 @@ import totalsRoutes from "./router/totalsRoutes.js";
 import machineRepairRoutes from "./router/machineRepairRoutes.js";
 import machineRoutes from "./router/machineRoutes.js";
 import vehicleMaintenanceRoutes from "./router/vehicleMaintenanceRoutes.js";
+import shopDetailsRoutes from './router/shopDetailsRoutes.js';
 
 const app = express();
 config({
@@ -48,6 +49,7 @@ app.use("/api/totals", totalsRoutes);
 app.use("/api/machinerepairs", machineRepairRoutes);
 app.use("/api/machines", machineRoutes);
 app.use("/api/vehicle-maintenance", vehicleMaintenanceRoutes);
+app.use('/api/shop-details', shopDetailsRoutes);
 
 connection();
 app.use(errorMiddleware);

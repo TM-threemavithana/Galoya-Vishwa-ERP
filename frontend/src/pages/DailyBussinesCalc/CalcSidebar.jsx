@@ -19,10 +19,8 @@ const CalcSidebar = () => {
 
   return (
     <div className="w-64 bg-gradient-to-b from-green-900 to-green-700 text-white min-h-screen shadow-lg">
-      <div className="p-6 text-2xl font-bold text-center border-b border-green-800">
-        Business Cal
-      </div>
-      <nav classNme="mt-6">
+      <div className="p-4 text-lg font-bold">Daily Business Calculator</div>
+      <nav className="mt-6">
         <Link
           to="/calc-dashboard"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
@@ -36,16 +34,16 @@ const CalcSidebar = () => {
           <span className="text-base">Dashboard</span>
         </Link>
         <Link
-          to="/pending-cal"
+          to="/distributed-list"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
-            activeLink === "/pending-cal"
+            activeLink === "/distributed-list"
               ? "bg-green-800 scale-105 shadow-lg"
               : "hover:bg-green-800 hover:scale-105"
           }`}
-          onClick={() => handleLinkClick("/pending-cal")}
+          onClick={() => handleLinkClick("/distributed-list")}
         >
-          <FaCalculator className="text-green-400 text-lg mr-3" />
-          <span className="text-base">Calculator</span>
+          <FaCalculator className="text-blue-400 text-lg mr-3" />
+          <span className="text-base">Daily Calculator</span>
         </Link>
         <Link
           to="/calc-records"
@@ -69,19 +67,19 @@ const CalcSidebar = () => {
           onClick={() => handleLinkClick("/credit-sales")}
         >
           <FaMoneyBillWave className="text-red-400 text-lg mr-3" />
-          <span className="text-base">Sale of Goods on Credit</span>
+          <span className="text-base">Credit Sales</span>
         </Link>
         <Link
           to="/calc-reports"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
-            activeLink === "/calc-reports"
+            activeLink === "/calc-report"
               ? "bg-green-800 scale-105 shadow-lg"
               : "hover:bg-green-800 hover:scale-105"
           }`}
           onClick={() => handleLinkClick("/calc-reports")}
         >
-          <FaRegFileAlt className="text-orange-400 text-lg mr-3" />
-          <span className="text-base">Reports</span>
+          <span className="mr-2">🛒</span>
+          Shop Details
         </Link>
         <Link
           to="/mainhomepage"
