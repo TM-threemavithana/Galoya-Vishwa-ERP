@@ -43,10 +43,12 @@ import InventoryManagement from "./pages/InventoryManagement";
 
 import CalcDashbord from "./pages/DailyBussinesCalc/CalcDashbord";
 import Calculator from "./pages/DailyBussinesCalc/Calculator";
-import CalcReports from "./pages/DailyBussinesCalc/CalcReports";
+import ShopDetails from './pages/DailyBussinesCalc/ShopDetails';
 import CreditSale from "./pages/DailyBussinesCalc/CreditSale";
 import BusinessRecords from "./pages/DailyBussinesCalc/BusinessRecords";
 import CalcSidebar from "./pages/DailyBussinesCalc/CalcSidebar";
+import DistributedList from "./pages/DailyBussinesCalc/DistributedList";
+
 import MachineDashbord from "./pages/MachineMaintanance/MachineDashbord";
 import MachineSidebar from "./pages/MachineMaintanance/MachineSidebar";
 import MachineRepair from "./pages/MachineMaintanance/MachineRepair";
@@ -100,53 +102,19 @@ const MainAppContent = () => {
     { path: "/manage-sales", element: <ManageSales />, withSidebar: true },
     { path: "/productions", element: <Productions />, withSidebar: true },
     { path: "/profile", element: <UserProfile />, withSidebar: true },
-    {
-      path: "/inventories",
-      element: <AddInventories />,
-      withInventorySidebar: true,
-    },
-    {
-      path: "/inventory-dashboard",
-      element: <InventoryDashboard />,
-      withInventorySidebar: true,
-    },
-    {
-      path: "/daily-distribution",
-      element: <DailyDistribution />,
-      withInventorySidebar: true,
-    },
-    {
-      path: "/daily-reduce",
-      element: <DailyStockReduce />,
-      withInventorySidebar: true,
-    },
-    {
-      path: "/inventory-record",
-      element: <InventoryManagement />,
-      withInventorySidebar: true,
-    },
-
-    // { path: "/product", element: <Products />, withInventorySidebar: true },
-    {
-      path: "/inventory-dashboard",
-      element: <InventoryDashboard />,
-      withInventorySidebar: true,
-    },
+    { path: "/inventories",element: <AddInventories />,withInventorySidebar: true,},
+    { path: "/inventory-dashboard", element: <InventoryDashboard />,withInventorySidebar: true,},
+    { path: "/daily-distribution", element: <DailyDistribution />, withInventorySidebar: true,},
+    { path: "/daily-reduce", element: <DailyStockReduce />,withInventorySidebar: true,},
+    { path: "/inventory-record", element: <InventoryManagement />, wihInventorySidebar: true,},
+    { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true,},
     { path: "/products", element: <AddProduct />, withInventorySidebar: true },
-
-    {
-      path: "/calc-dashboard",
-      element: <CalcDashbord />,
-      withCalcSidebar: true,
-    },
+    { path: "/calc-dashboard", element: <CalcDashbord />, withCalcSidebar: true,},
     { path: "/calculator", element: <Calculator />, withCalcSidebar: true },
-    {
-      path: "/calc-records",
-      element: <BusinessRecords />,
-      withCalcSidebar: true,
-    },
+    { path: "/calc-records", element: <BusinessRecords />, withCalcSidebar: true,},
     { path: "/credit-sales", element: <CreditSale />, withCalcSidebar: true },
-    { path: "/calc-reports", element: <CalcReports />, withCalcSidebar: true },
+    { path: "/shop-details", element: <ShopDetails />, withCalcSidebar: true },
+    { path: "/distributed-list", element: <DistributedList />, withCalcSidebar: true },
 
     {
       path: "/machine-dashboard",
@@ -206,6 +174,7 @@ const MainAppContent = () => {
     "/manage-products",
     "/manage-sales",
     "/productions",
+    "/shop-details",
 
     "/inventory-dashboard",
 
