@@ -34,14 +34,18 @@ import InventoryDashboard from "./pages/inventoryManagement/InventoryDashboard";
 import AddInventories from "./pages/inventoryManagement/InventoryManagementassets/AddInventories";
 import DailyDistribution from "./pages/inventoryManagement/InventoryManagementassets/DailyDistribution";
 import DailyStockReduce from "./pages/inventoryManagement/InventoryManagementassets/DailyStockReduce";
-import InventoryManagement from "./pages/InventoryManagement";
+import InventoryManagement from "./pages/InventoryManagement/InventoryManagement";
 
 import CalcDashbord from "./pages/DailyBussinesCalc/CalcDashbord";
 import Calculator from "./pages/DailyBussinesCalc/Calculator";
-import CalcReports from "./pages/DailyBussinesCalc/CalcReports";
+import DistributedList from "./pages/DailyBussinesCalc/DistributedList";
 import CreditSale from "./pages/DailyBussinesCalc/CreditSale";
 import BusinessRecords from "./pages/DailyBussinesCalc/BusinessRecords";
 import CalcSidebar from "./pages/DailyBussinesCalc/CalcSidebar";
+import CalcReports from "./pages/DailyBussinesCalc/ShopDetails";
+
+
+
 import PendingCalculations from "./pages/DailyBussinesCalc/PendingCalculations";
 
 import MachineDashbord from "./pages/MachineMaintanance/MachineDashbord";
@@ -118,6 +122,7 @@ const MainAppContent = () => {
     { path: "/credit-sales", element: <CreditSale />, withCalcSidebar: true },
     { path: "/calc-reports", element: <CalcReports />, withCalcSidebar: true },
     { path: "/calculator", element: <Calculator />, withCalcSidebar: true },
+    { path: "/distributed-list", element: <DistributedList />, withCalcSidebar: true },
 
     { path: "/machine-dashboard", element: <MachineDashbord />, withMachineSidebar: true },
     { path: "/machine-repair", element: <MachineRepair />, withMachineSidebar: true },
@@ -154,9 +159,16 @@ const MainAppContent = () => {
     "/manage-products",
     "/manage-sales",
     "/productions",
+    "/shop-details",
 
     "/calculator",
     "/CalcSidebar",
+    "/distributed-list",
+    "/calc-reports",
+    "/credit-sales",
+    "/calc-records",
+    
+
     "/BusinessRecords",
     "/CreditSale",
     "/CalcReports",

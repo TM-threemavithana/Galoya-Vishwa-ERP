@@ -10,7 +10,7 @@ import productionIcon from "../assets/production.png"; // Added production icon
 
 const Sidebar = () => {
   return (
-    <div className="fixed top-0 left-0 bottom-0 w-64 bg-[#001F3F] text-white flex flex-col justify-between overflow-y-auto"> {/* Fixed position with overflow */}
+    <div className="w-64 bg-gradient-to-b from-green-900 to-green-700 text-white min-h-screen shadow-lg"> {/* Fixed position with overflow */}
       <div>
         <div className="px-5 py-4 text-xl font-semibold text-center">
           WELCOME
