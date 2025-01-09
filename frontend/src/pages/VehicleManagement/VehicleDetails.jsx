@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Truck, User, Calendar, Settings } from 'lucide-react';
-import vehicleImage1 from "../VehicleManagement/VehicleAssets/images.jpg"
-import vehicleImage2 from "../VehicleManagement/VehicleAssets/image2.jpeg"
-import vehicleImage3 from "../VehicleManagement/VehicleAssets/images3.jpg"
-import vehicleImage4 from "../VehicleManagement/VehicleAssets/image4.jpg"
+import vehicleImage1 from "../VehicleManagement/VehicleAssets/images.jpg";
+import vehicleImage2 from "../VehicleManagement/VehicleAssets/image2.jpeg";
+import vehicleImage3 from "../VehicleManagement/VehicleAssets/images3.jpg";
+import vehicleImage4 from "../VehicleManagement/VehicleAssets/image4.jpg";
 
 const VehicleDetails = () => {
-  const vehicles = [
+  const initialVehicles = [
     {
       id: 'CBM-2148',
       image: vehicleImage1,
       model: 'Volvo FH16(2022)',
-      type: 'Refrigirated Truck',
+      type: 'Refrigerated Truck',
       driver: 'Kamesh',
       lastMaintenance: '2025-06-10',
-      nextMaintenance: '2027-12-45',
+      nextMaintenance: '2027-12-15',
       mileage: '48,000km',
       capacity: '26000kg',
       status: 'Active'
@@ -23,7 +23,7 @@ const VehicleDetails = () => {
       id: 'CBM-2149',
       image: vehicleImage2,
       model: 'Volvo FH13(2023)',
-      type: 'Refrigirated Truck',
+      type: 'Refrigerated Truck',
       driver: 'Suresh',
       lastMaintenance: '2025-07-15',
       nextMaintenance: '2027-11-30',
@@ -35,7 +35,7 @@ const VehicleDetails = () => {
       id: 'CBM-2150',
       image: vehicleImage3,
       model: 'Mercedes Actros(2022)',
-      type: 'Refrigirated Truck',
+      type: 'Refrigerated Truck',
       driver: 'Ramesh',
       lastMaintenance: '2025-05-20',
       nextMaintenance: '2027-10-15',
@@ -47,7 +47,7 @@ const VehicleDetails = () => {
       id: 'CBM-2151',
       image: vehicleImage4,
       model: 'Scania R500(2023)',
-      type: 'Refrigirated Truck',
+      type: 'Refrigerated Truck',
       driver: 'Mahesh',
       lastMaintenance: '2025-08-01',
       nextMaintenance: '2027-09-25',
@@ -56,6 +56,23 @@ const VehicleDetails = () => {
       status: 'Active'
     }
   ];
+
+  const [vehicles, setVehicles] = useState(() => {
+    const savedVehicles = localStorage.getItem('vehicles');
+    return savedVehicles ? JSON.parse(savedVehicles) : initialVehicles;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('vehicles', JSON.stringify(vehicles));
+  }, [vehicles]);
+
+  const handleChange = (id, field, value) => {
+    setVehicles(prevVehicles =>
+      prevVehicles.map(vehicle =>
+        vehicle.id === id ? { ...vehicle, [field]: value } : vehicle
+      )
+    );
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -109,11 +126,21 @@ const VehicleDetails = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-xs text-blue-600 mb-1">Last Maintenance</p>
-                    <p className="text-sm font-medium text-blue-900">{vehicle.lastMaintenance}</p>
+                    <input
+                      type="date"
+                      value={vehicle.lastMaintenance}
+                      onChange={(e) => handleChange(vehicle.id, 'lastMaintenance', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
                   </div>
                   <div>
                     <p className="text-xs text-blue-600 mb-1">Next Maintenance</p>
-                    <p className="text-sm font-medium text-blue-900">{vehicle.nextMaintenance}</p>
+                    <input
+                      type="date"
+                      value={vehicle.nextMaintenance}
+                      onChange={(e) => handleChange(vehicle.id, 'nextMaintenance', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
                   </div>
                 </div>
               </div>
@@ -124,7 +151,12 @@ const VehicleDetails = () => {
                   <Settings className="w-5 h-5 text-blue-600" />
                   <span className="text-sm font-medium text-blue-700">Mileage</span>
                 </div>
-                <p className="text-sm font-medium text-blue-900">{vehicle.mileage}</p>
+                <input
+                  type="text"
+                  value={vehicle.mileage}
+                  onChange={(e) => handleChange(vehicle.id, 'mileage', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
 
               {/* Capacity */}
