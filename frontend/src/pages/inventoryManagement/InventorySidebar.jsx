@@ -20,7 +20,7 @@ const InventorySidebar = () => {
   return (
     <div className="w-64 bg-gradient-to-b from-green-900 to-green-700 text-white min-h-screen shadow-lg">
       <div className="p-6 text-2xl font-bold text-center border-b border-green-800">
-        Inventory Management
+        Stock Management
       </div>
       <nav className="mt-6">
         <Link
