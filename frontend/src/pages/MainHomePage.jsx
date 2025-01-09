@@ -13,7 +13,7 @@ const Home = () => {
       icon: stockIcon,
       title: "Raw Material Management",
       description: "Manage stock levels effectively.",
-      link: "/raw-dashboard",
+      link: "/raw-add-materials",
     },
     {
       icon: inventoryIcon,
