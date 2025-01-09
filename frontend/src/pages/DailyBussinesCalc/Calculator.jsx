@@ -765,19 +765,29 @@ const DailyBusinessCalculator = () => {
                 />
               </div>
               <div className="flex-1">
-                {index === 0 && (
-                  <label className="block text-sm font-medium mb-1">
-                    Store Name:
-                  </label>
-                )}
-                <input
-                  type="text"
-                  className="w-full border rounded-lg p-2"
-                  value={item.storeName}
-                  onChange={(e) =>
-                    handleExpiredItemChange(index, "storeName", e.target.value)
-                  }
-                />
+              {expiredItems.map((item, index) => (
+        <div className="flex-1" key={index}>
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">
+              Store Name:
+            </label>
+          )}
+          <select
+            className="w-full border rounded-lg p-2"
+            value={item.storeName}
+            onChange={(e) =>
+              handleExpiredItemChange(index, "storeName", e.target.value)
+            }
+          >
+            <option value="">Select Shop</option>
+            {shops.map((shop) => (
+              <option key={shop._id} value={shop.shopName}>
+                {shop.shopName}
+              </option>
+            ))}
+          </select>
+        </div>
+      ))}
               </div>
               <div>
                 {index === 0 && (
@@ -877,21 +887,29 @@ const DailyBusinessCalculator = () => {
                   }
                 />
               </div>
-              <div className="flex-1">
-                {index === 0 && (
-                  <label className="block text-sm font-medium mb-1">
-                    Store Name:
-                  </label>
-                )}
-                <input
-                  type="text"
-                  className="w-full border rounded-lg p-2"
-                  value={item.storeName}
-                  onChange={(e) =>
-                    handleSampleItemChange(index, "storeName", e.target.value)
-                  }
-                />
-              </div>
+              {sampleItems.map((item, index) => (
+        <div className="flex-1" key={index}>
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">
+              Store Name:
+            </label>
+          )}
+          <select
+            className="w-full  border rounded-lg p-2"
+            value={item.storeName}
+            onChange={(e) =>
+              handleSampleItemChange(index, "storeName", e.target.value)
+            }
+          >
+            <option value="">Select Shop</option>
+            {shops.map((shop) => (
+              <option key={shop._id} value={shop.shopName}>
+                {shop.shopName}
+              </option>
+            ))}
+          </select>
+        </div>
+      ))}
               <div>
                 {index === 0 && (
                   <label className="block text-sm font-medium mb-1">
