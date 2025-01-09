@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-// import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-// import { Wrench } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Wrench, Plus, Trash2, Edit2, Save } from 'lucide-react';
 
 const RawAddMaterials = () => {
@@ -16,6 +15,7 @@ const RawAddMaterials = () => {
     description: ''
   });
   const [editingIndex, setEditingIndex] = useState(null);
+  const navigate = useNavigate();
 
   const unitOptions = ['kg', 'L', 'unit', 'g', 'ml'];
 
@@ -26,14 +26,12 @@ const RawAddMaterials = () => {
         ...prevState,
         [name]: value
       };
-      
       // Auto-calculate total cost
       if (name === 'quantity' || name === 'unitPrice') {
         const quantity = name === 'quantity' ? value : prevState.quantity;
         const price = name === 'unitPrice' ? value : prevState.unitPrice;
         newState.totalCost = (parseFloat(quantity) * parseFloat(price) || '').toString();
       }
-      
       return newState;
     });
   };
@@ -52,7 +50,6 @@ const RawAddMaterials = () => {
       // Add new item
       setItems(prevItems => [...prevItems, { ...currentItem }]);
     }
-    
     // Reset form
     setCurrentItem({
       item: '',
@@ -76,15 +73,7 @@ const RawAddMaterials = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!date) {
-      alert('Please select a date');
-      return;
-    }
-    if (items.length === 0) {
-      alert('Please add at least one item');
-      return;
-    }
-    console.log('Submitted data:', { date, items });
+    navigate('/raw-materials-log', { state: { date, items } });
   };
 
   const calculateTotal = () => {
@@ -110,7 +99,6 @@ const RawAddMaterials = () => {
               value={date}
               onChange={(e) => setDate(e.target.value)}
               className="w-full md:w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
             />
           </div>
 
@@ -132,7 +120,6 @@ const RawAddMaterials = () => {
                   onChange={handleItemChange}
                   placeholder="Enter item name"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
                 />
               </div>
 
@@ -146,7 +133,6 @@ const RawAddMaterials = () => {
                     onChange={handleItemChange}
                     placeholder="Enter quantity"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
                   />
                   <select
                     name="unit"
@@ -170,7 +156,6 @@ const RawAddMaterials = () => {
                   onChange={handleItemChange}
                   placeholder="Enter unit price"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
                 />
               </div>
 
@@ -194,7 +179,6 @@ const RawAddMaterials = () => {
                   onChange={handleItemChange}
                   placeholder="Enter seller's name"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
                 />
               </div>
 
