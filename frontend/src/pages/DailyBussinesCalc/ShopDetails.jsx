@@ -62,7 +62,7 @@ const ShopDetails = () => {
   return (
     <div className="max-w-6xl mt-6 mx-auto p-6 bg-white shadow-lg rounded-lg">
       <Toaster />
-      <h1 className="text-2xl font-bold mb-6 text-center">Add New Shop</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Add New Shop</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium mb-1">Shop Name:</label>
@@ -123,7 +123,7 @@ const ShopDetails = () => {
       </form>
 
       <div className="mt-10">
-        <h2 className="text-xl font-bold mb-4">Shop Details</h2>
+        <h2 className="text-2xl font-bold mb-4">Shop Details</h2>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Filter by Route:</label>
           <select
@@ -139,28 +139,30 @@ const ShopDetails = () => {
             ))}
           </select>
         </div>
-        <table className="min-w-full bg-white border border-gray-300">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border-b text-center">Shop Name</th>
-              <th className="py-2 px-4 border-b text-center">Route</th>
-              <th className="py-2 px-4 border-b text-center">Owner's Phone Number</th>
-              <th className="py-2 px-4 border-b text-center">Owner's Name</th>
-              <th className="py-2 px-4 border-b text-center">Address</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredShops.map((shop) => (
-              <tr key={shop._id} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b text-center">{shop.shopName}</td>
-                <td className="py-2 px-4 border-b text-center">{shop.route}</td>
-                <td className="py-2 px-4 border-b text-center">{shop.ownerPhoneNumber}</td>
-                <td className="py-2 px-4 border-b text-center">{shop.ownerName}</td>
-                <td className="py-2 px-4 border-b text-center">{shop.address}</td>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-300">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 border-b text-center">Shop Name</th>
+                <th className="py-2 px-4 border-b text-center">Route</th>
+                <th className="py-2 px-4 border-b text-center">Owner's Phone Number</th>
+                <th className="py-2 px-4 border-b text-center">Owner's Name</th>
+                <th className="py-2 px-4 border-b text-center">Address</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredShops.map((shop) => (
+                <tr key={shop._id} className="hover:bg-gray-100">
+                  <td className="py-2 px-4 border-b text-center">{shop.shopName}</td>
+                  <td className="py-2 px-4 border-b text-center">{shop.route}</td>
+                  <td className="py-2 px-4 border-b text-center">{shop.ownerPhoneNumber}</td>
+                  <td className="py-2 px-4 border-b text-center">{shop.ownerName}</td>
+                  <td className="py-2 px-4 border-b text-center">{shop.address}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

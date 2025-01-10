@@ -14,11 +14,23 @@ const saveTotalsData = async (totals) => {
   }
 };
 
-  
+const saveReturnedItems = async (returnedItems) => {
+  try {
+    await axios.post("http://localhost:5000/api/returned-items", { returnedItems });
+    toast.success("Returned items saved successfully!");
+  } catch (error) {
+    toast.error("Error saving returned items");
+    console.error("Error saving returned items:", error);
+  }
+};
+
+
 const DailyBusinessCalculator = () => {
   const { state } = useLocation();
+
   const handleSubmit = () => {
     saveTotalsData(totals);
+    saveReturnedItems(returnedItems);
   };
   /////////////////////////////////////////////////////////
   const [distributionData, setDistributionData] = useState({
@@ -360,6 +372,22 @@ const DailyBusinessCalculator = () => {
       console.error("Error adding new shop:", error);
     }
   };
+  const [shops, setShops] = useState([]);
+
+  useEffect(() => {
+    const fetchShops = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/shop-details"
+        );
+        setShops(response.data);
+      } catch (error) {
+        console.error("Error fetching shop details:", error);
+      }
+    };
+
+    fetchShops();
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg">
@@ -737,19 +765,29 @@ const DailyBusinessCalculator = () => {
                 />
               </div>
               <div className="flex-1">
-                {index === 0 && (
-                  <label className="block text-sm font-medium mb-1">
-                    Store Name:
-                  </label>
-                )}
-                <input
-                  type="text"
-                  className="w-full border rounded-lg p-2"
-                  value={item.storeName}
-                  onChange={(e) =>
-                    handleExpiredItemChange(index, "storeName", e.target.value)
-                  }
-                />
+              {expiredItems.map((item, index) => (
+        <div className="flex-1" key={index}>
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">
+              Store Name:
+            </label>
+          )}
+          <select
+            className="w-full border rounded-lg p-2"
+            value={item.storeName}
+            onChange={(e) =>
+              handleExpiredItemChange(index, "storeName", e.target.value)
+            }
+          >
+            <option value="">Select Shop</option>
+            {shops.map((shop) => (
+              <option key={shop._id} value={shop.shopName}>
+                {shop.shopName}
+              </option>
+            ))}
+          </select>
+        </div>
+      ))}
               </div>
               <div>
                 {index === 0 && (
@@ -849,21 +887,29 @@ const DailyBusinessCalculator = () => {
                   }
                 />
               </div>
-              <div className="flex-1">
-                {index === 0 && (
-                  <label className="block text-sm font-medium mb-1">
-                    Store Name:
-                  </label>
-                )}
-                <input
-                  type="text"
-                  className="w-full border rounded-lg p-2"
-                  value={item.storeName}
-                  onChange={(e) =>
-                    handleSampleItemChange(index, "storeName", e.target.value)
-                  }
-                />
-              </div>
+              {sampleItems.map((item, index) => (
+        <div className="flex-1" key={index}>
+          {index === 0 && (
+            <label className="block text-sm font-medium mb-1">
+              Store Name:
+            </label>
+          )}
+          <select
+            className="w-full  border rounded-lg p-2"
+            value={item.storeName}
+            onChange={(e) =>
+              handleSampleItemChange(index, "storeName", e.target.value)
+            }
+          >
+            <option value="">Select Shop</option>
+            {shops.map((shop) => (
+              <option key={shop._id} value={shop.shopName}>
+                {shop.shopName}
+              </option>
+            ))}
+          </select>
+        </div>
+      ))}
               <div>
                 {index === 0 && (
                   <label className="block text-sm font-medium mb-1">
@@ -1120,7 +1166,11 @@ const DailyBusinessCalculator = () => {
                   }
                 >
                   <option value="">Select Shop</option>
-                  {/* Add your shop options here */}
+                  {shops.map((shop) => (
+                    <option key={shop._id} value={shop._id}>
+                      {shop.shopName}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -1230,7 +1280,11 @@ const DailyBusinessCalculator = () => {
                   }
                 >
                   <option value="">Select Shop</option>
-                  {/* Add your shop options here */}
+                  {shops.map((shop) => (
+                    <option key={shop._id} value={shop._id}>
+                      {shop.shopName}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -1350,8 +1404,6 @@ const DailyBusinessCalculator = () => {
           </tbody>
         </table>
       </div>
-
-   
 
       <button
         className="w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 font-semibold"

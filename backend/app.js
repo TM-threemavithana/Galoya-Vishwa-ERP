@@ -14,11 +14,9 @@ import totalsRoutes from "./router/totalsRoutes.js";
 import machineRepairRoutes from "./router/machineRepairRoutes.js";
 import machineRoutes from "./router/machineRoutes.js";
 import vehicleMaintenanceRoutes from "./router/vehicleMaintenanceRoutes.js";
-
 import rawMaterialsLogRoutes from './router/rawMaterialsLogRoutes.js';
-
-
 import shopDetailsRoutes from './router/shopDetailsRoutes.js';
+import returnedItemsRoutes from './router/returnedItemsRoutes.js';
 
 
 const app = express();
@@ -54,11 +52,9 @@ app.use("/api/totals", totalsRoutes);
 app.use("/api/machinerepairs", machineRepairRoutes);
 app.use("/api/machines", machineRoutes);
 app.use("/api/vehicle-maintenance", vehicleMaintenanceRoutes);
-
 app.use('/api/raw-materials-log', rawMaterialsLogRoutes);
-
-
 app.use('/api/shop-details', shopDetailsRoutes);
+app.use('/api/returned-items', returnedItemsRoutes);
 
 
 connection();
