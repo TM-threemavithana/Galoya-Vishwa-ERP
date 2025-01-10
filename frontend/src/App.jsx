@@ -107,7 +107,7 @@ const MainAppContent = () => {
     { path: "/dashboard", element: <Dashboard />, withSidebar: true },
     { path: "/manage-sales", element: <ManageSales />, withSidebar: true },
     { path: "/productions", element: <Productions />, withSidebar: true },
-    { path: "/profile", element: <UserProfile />, withSidebar: true },
+    { path: "/profile", element: <UserProfile />},
 
     { path: "/inventories", element: <AddInventories />, withInventorySidebar: true },
     { path: "/inventory-dashboard", element: <InventoryDashboard />, withInventorySidebar: true },

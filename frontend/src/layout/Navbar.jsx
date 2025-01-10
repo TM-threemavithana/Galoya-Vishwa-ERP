@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/slices/userSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { FiLogOut, FiBell, FiUserPlus, FiLogIn } from "react-icons/fi"; // Modern icons from react-icons
+import { FiLogOut, FiBell, FiUserPlus, FiLogIn, FiUser } from "react-icons/fi"; // Modern icons from react-icons
 import logo from "@/assets/logo.png";
 import { toast } from "react-toastify";
 
@@ -70,6 +70,15 @@ const Navbar = () => {
           </>
         ) : (
           <>
+            {/* Profile Link */}
+            <Link
+              to="/profile"
+              className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors duration-300"
+            >
+              <FiUser size={24} />
+              <span>Profile</span>
+            </Link>
+
             {/* Logout Button */}
             <button
               onClick={handleLogout}
