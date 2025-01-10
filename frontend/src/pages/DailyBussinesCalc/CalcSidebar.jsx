@@ -21,7 +21,7 @@ const CalcSidebar = () => {
     <div className="w-64 bg-gradient-to-b from-green-900 to-green-700 text-white min-h-screen shadow-lg">
       <div className="p-4 text-lg font-bold">Daily Business Calculator</div>
       <nav className="mt-6">
-        <Link
+        {/* <Link
           to="/calc-dashboard"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
             activeLink === "/calc-dashboard"
@@ -32,7 +32,7 @@ const CalcSidebar = () => {
         >
           <FaChartBar className="text-yellow-400 text-lg mr-3" />
           <span className="text-base">Dashboard</span>
-        </Link>
+        </Link> */}
         <Link
           to="/distributed-list"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
@@ -57,7 +57,7 @@ const CalcSidebar = () => {
           <FaFileAlt className="text-blue-400 text-lg mr-3" />
           <span className="text-base">Business Records</span>
         </Link>
-        <Link
+        {/* <Link
           to="/credit-sales"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
             activeLink === "/credit-sales"
@@ -68,7 +68,7 @@ const CalcSidebar = () => {
         >
           <FaMoneyBillWave className="text-red-400 text-lg mr-3" />
           <span className="text-base">Credit Sales</span>
-        </Link>
+        </Link> */}
         <Link
           to="/calc-reports"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
