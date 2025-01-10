@@ -81,7 +81,15 @@ const VehicleDetails = () => {
           <div key={vehicle.id} className="bg-white border rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 p-8 relative">
             {/* Status Badge */}
             <div className="absolute top-6 right-6 bg-blue-100 text-blue-800 text-sm font-medium px-4 py-1.5 rounded-full">
-              {vehicle.status}
+              <select
+                value={vehicle.status}
+                onChange={(e) => handleChange(vehicle.id, 'status', e.target.value)}
+                className="bg-blue-100 text-blue-800 text-sm font-medium px-4 py-1.5 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="Active">Active</option>
+                
+                <option value="Maintenance">Maintenance</option>
+              </select>
             </div>
 
             {/* Vehicle Image and ID */}
@@ -114,7 +122,12 @@ const VehicleDetails = () => {
                   <User className="w-5 h-5 text-blue-600" />
                   <span className="text-sm font-medium text-blue-700">Driver</span>
                 </div>
-                <p className="text-sm font-medium text-blue-900">{vehicle.driver}</p>
+                <input
+                  type="text"
+                  value={vehicle.driver}
+                  onChange={(e) => handleChange(vehicle.id, 'driver', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
 
               {/* Maintenance */}
