@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -13,14 +13,32 @@ const MachineRepair = () => {
     nextRepairDate: "",
   });
 
-  const machineNames = [
-    "Machine 1",
-    "Machine 2",
-    "Machine 3",
-    "Machine 4",
-    "Machine 5",
-    "Machine 6",
+  // Static machine names (the first 6 machines will always be available)
+  const staticMachineNames = [
+   
   ];
+
+  const [machineNames, setMachineNames] = useState([...staticMachineNames]);
+
+  // Fetch new machine names (including the 7th machine and beyond) from the backend
+  useEffect(() => {
+    const fetchMachineNames = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/machines");
+        // Add new machine names (not already in staticMachineNames)
+        const latestMachines = response.data.machines
+          .filter((machine) => !staticMachineNames.includes(machine.name))
+          .map((machine) => machine.name);
+
+        setMachineNames([...staticMachineNames, ...latestMachines]);
+      } catch (error) {
+        console.error("Error fetching machine names:", error);
+        toast.error("Failed to fetch machine names");
+      }
+    };
+
+    fetchMachineNames();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

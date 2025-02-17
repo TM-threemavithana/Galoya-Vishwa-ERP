@@ -1,96 +1,75 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import machineData from "../../assets/machineDetails"; // Static machine details
 
 const MachineDashboard = () => {
-  const [nextRepairDates, setNextRepairDates] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [machines, setMachines] = useState([]);
 
-  // Fetch only nextRepairDate from backend
   useEffect(() => {
-    const fetchNextRepairDates = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/machinerepairs");
-        const repairDates = response.data.machineRepairs.reduce((acc, repair) => {
-          acc[repair.machineName] = repair.nextRepairDate;
-          return acc;
-        }, {});
-        setNextRepairDates(repairDates);
-      } catch (error) {
-        console.error("Error fetching next repair dates:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchNextRepairDates();
+    fetchMachines();
   }, []);
 
-  // Format date
-  const formatDate = (date) =>
-    date
-      ? new Date(date).toLocaleDateString("en-GB", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
-      : "N/A";
-
-  // Combine machine data with next repair dates and sort by next repair date
-  const sortedMachines = machineData
-    .map((machine) => ({
-      ...machine,
-      nextRepairDate: nextRepairDates[machine.name] || null,
-    }))
-    .sort((a, b) => {
-      const dateA = new Date(a.nextRepairDate || 0);
-      const dateB = new Date(b.nextRepairDate || 0);
-      return dateA - dateB;
-    });
-
-  // Loading state
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
-      </div>
-    );
-  }
+  const fetchMachines = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/machines");
+      const data = await response.json();
+      if (data.success && data.machines) {
+        const sortedMachines = data.machines.sort((a, b) => {
+          const dateA = new Date(a.nextRepairDate);
+          const dateB = new Date(b.nextRepairDate);
+          return dateA - dateB; // Sort in ascending order of dates
+        });
+        setMachines(sortedMachines);
+      } else {
+        console.error("Failed to fetch machine data.");
+        setMachines([]); // Set empty array to avoid rendering errors.
+      }
+    } catch (error) {
+      console.error("Error fetching machines:", error);
+      setMachines([]); // Handle fetch errors gracefully.
+    }
+  };
 
   return (
-    <div className="container mx-auto mt-8 px-4">
-      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-        Machine Details
-      </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {sortedMachines.map((machine) => (
-          <div
-            key={machine.id} // Use `id` from static data as the unique key
-            className="bg-white shadow-md rounded-lg p-4 border border-gray-200 hover:shadow-lg transition-shadow duration-300"
-          >
-            <div className="flex justify-center mb-3">
-              <img
-                src={machine.image || "/placeholder-image.png"} // Use placeholder if no image is available
-                alt={machine.name}
-                className="w-2/3 h-40 object-cover rounded-md"
-              />
+    <div className="p-6 max-w-6xl mx-auto bg-white shadow-md rounded-md">
+      <h1 className="text-2xl font-bold mb-6 text-gray-700">Machine Dashboard</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {machines.length > 0 ? (
+          machines.map((machine, index) => (
+            <div
+              key={index}
+              className="bg-white shadow-md rounded-lg p-4 border border-gray-200"
+            >
+              {machine.image ? (
+                <div className="flex justify-center mb-3">
+                  <img
+                    src={machine.image}
+                    alt={machine.name}
+                    className="w-full h-48 object-cover rounded-md"
+                  />
+                </div>
+              ) : (
+                <div className="text-center text-gray-500">No Image Available</div>
+              )}
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">{machine.name}</h2>
+              <p className="text-gray-600 mb-3">{machine.description}</p>
+              <p className="text-gray-800 font-medium text-sm mb-2">
+                Next Repair Date:{" "}
+                <span className="text-blue-600">
+                  {machine.nextRepairDate
+                    ? new Date(machine.nextRepairDate).toLocaleDateString()
+                    : "N/A"}
+                </span>
+              </p>
+              <p className="text-gray-800 font-medium text-sm mb-3">
+                Cost: <span className="text-green-600">RS.{machine.price}.00</span>
+              </p>
             </div>
-            <h2 className="text-lg font-semibold text-gray-800 mb-1">
-              {machine.name}
-            </h2>
-            <p className="text-gray-600 mb-2 text-sm">{machine.description}</p>
-            <p className="text-gray-800 font-medium text-sm">
-              Next Repair Date:{" "}
-              <span className="text-blue-600">
-                {formatDate(machine.nextRepairDate)}
-              </span>
-            </p>
-          </div>
-        ))}
+          ))
+        ) : (
+          <div className="col-span-3 text-center text-gray-500">No machines available.</div>
+        )}
       </div>
     </div>
   );
 };
 
 export default MachineDashboard;
-
