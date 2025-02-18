@@ -6,6 +6,8 @@ const machineSchema = new mongoose.Schema({
   broughtDate: { type: Date, required: true },
   price: { type: Number, required: true },
   description: { type: String, required: true },
+  image: {type:String, required: true},
+  nextRepairDate:{type:Date , required:true},
 });
 
 const Machine = mongoose.model('Machine', machineSchema);

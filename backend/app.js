@@ -16,7 +16,12 @@ import machineRoutes from "./router/machineRoutes.js";
 import vehicleMaintenanceRoutes from "./router/vehicleMaintenanceRoutes.js";
 import rawMaterialsLogRoutes from './router/rawMaterialsLogRoutes.js';
 import shopDetailsRoutes from './router/shopDetailsRoutes.js';
+
+import multer from "multer";  
+import path from "path";
+
 import returnedItemsRoutes from './router/returnedItemsRoutes.js';
+
 
 
 const app = express();
@@ -31,6 +36,39 @@ app.use(
     credentials: true,
   })
 );
+
+//codes for uploading image
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "upload/images/"); 
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+    cb(null, `${file.fieldname}_${uniqueSuffix}${path.extname(file.originalname)}`);
+  },
+});
+
+const upload = multer({ storage });
+
+
+//Creating upload endpoint for images
+app.use("/images", express.static("upload/images"));
+app.post("/upload", upload.single("product"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ success: 0, message: "No file uploaded" });
+  }
+  try {
+    res.json({
+      success: 1,
+      image_url: `http://localhost:5000/images/${req.file.filename}`,
+    });
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    res.status(500).json({ success: 0, message: "Internal Server Error" });
+  }
+});
+// code of end of uploding image
 
 app.use(cookieParser());
 app.use(express.json());
