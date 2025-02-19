@@ -13,7 +13,7 @@ const Home = () => {
       icon: stockIcon,
       title: "Raw Material Management",
       description: "Manage stock levels effectively.",
-      link: "/dashboard",
+      link: "/raw-add-materials",
     },
     {
       icon: inventoryIcon,
@@ -25,7 +25,7 @@ const Home = () => {
       icon: deliveryIcon,
       title: "Delivery Calculator",
       description: "Calculate optimal delivery routes.",
-      link: "/calc-dashboard",
+      link: "/distributed-list",
     },
     {
       icon: vehicleIcon,
@@ -61,17 +61,16 @@ const Home = () => {
         {cards.map((card, index) => (
           <div
             key={index}
-            className="bg-[#7AB2D3] border-4 shadow-md rounded-lg p-4 hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer h-64 flex items-center justify-center"
+            className="bg-gradient-to-r from-blue-200 to-blue-300 border-4 shadow-md rounded-lg p-4 hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer h-64 flex items-center justify-center"
           >
-            {" "}
-            {/* Added motion effect */}
+            {/* Updated gradient background */}
             <Link
               to={card.link}
               className="w-full h-full flex flex-col items-center justify-center text-center"
             >
               <img src={card.icon} alt={card.title} className="h-16 w-16" />
-              <h2 className="text-xl font-semibold text-white">{card.title}</h2>
-              <p className="text-gray-200">{card.description}</p>
+              <h2 className="text-xl font-semibold text-blue-800">{card.title}</h2>
+              <p className="text-blue-600">{card.description}</p>
             </Link>
           </div>
         ))}

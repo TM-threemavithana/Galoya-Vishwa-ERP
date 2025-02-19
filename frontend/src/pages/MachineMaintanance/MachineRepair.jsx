@@ -15,7 +15,14 @@ const MachineRepair = () => {
 
   // Static machine names (the first 6 machines will always be available)
   const staticMachineNames = [
-   
+
+    "Machine 1",
+    "Machine 2",
+    "Machine 3",
+    "Machine 4",
+    "Machine 5",
+    "Machine 6",
+
   ];
 
   const [machineNames, setMachineNames] = useState([...staticMachineNames]);

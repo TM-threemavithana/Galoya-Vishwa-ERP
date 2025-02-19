@@ -45,23 +45,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="mt-12 text-center">
-          <h3 className="text-[#111] text-xl font-semibold mb-6 min-[480px]:text-xl md:text-2xl lg:text-3xl">
-            Why Choose Us?
-          </h3>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center"
-              >
-                <div className="mb-4">{feature.icon}</div>
-                <h5 className="font-bold text-lg text-gray-800">{feature.title}</h5>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        
       </section>
     </>
   );

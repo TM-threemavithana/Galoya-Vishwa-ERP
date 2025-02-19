@@ -18,9 +18,19 @@ export const createShopDetails = async (req, res) => {
     await newShopDetails.save();
 
     // Send a success response
-    res.status(201).json({ message: 'Shop details saved successfully!' });
+    res.status(201).json({ message: 'Shop details saved successfully!', data: newShopDetails });
   } catch (error) {
     // Handle any errors that occur
     res.status(500).json({ message: 'Error saving shop details', error });
+  }
+};
+
+// Controller to handle fetching all shop details
+export const getShopDetails = async (req, res) => {
+  try {
+    const shopDetails = await ShopDetails.find();
+    res.status(200).json(shopDetails);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching shop details', error });
   }
 };
