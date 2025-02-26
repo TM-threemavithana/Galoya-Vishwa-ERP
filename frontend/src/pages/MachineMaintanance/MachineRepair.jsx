@@ -6,6 +6,7 @@ import axios from "axios";
 const MachineRepair = () => {
   const [repair, setRepair] = useState({
     machineName: "",
+    machineId: "",
     description: "",
     cost: "",
     billNo: "",
@@ -13,63 +14,53 @@ const MachineRepair = () => {
     nextRepairDate: "",
   });
 
-  // Static machine names (the first 6 machines will always be available)
-  const staticMachineNames = [
+  const [machineNames, setMachineNames] = useState([]);
 
-    "Machine 1",
-    "Machine 2",
-    "Machine 3",
-    "Machine 4",
-    "Machine 5",
-    "Machine 6",
-
-  ];
-
-  const [machineNames, setMachineNames] = useState([...staticMachineNames]);
-
-  // Fetch new machine names (including the 7th machine and beyond) from the backend
   useEffect(() => {
     const fetchMachineNames = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/machines");
-        // Add new machine names (not already in staticMachineNames)
-        const latestMachines = response.data.machines
-          .filter((machine) => !staticMachineNames.includes(machine.name))
-          .map((machine) => machine.name);
-
-        setMachineNames([...staticMachineNames, ...latestMachines]);
+        const latestMachines = response.data.machines.map((machine) => ({
+          name: machine.name,
+          id: machine._id,
+        }));
+        setMachineNames(latestMachines);
       } catch (error) {
         console.error("Error fetching machine names:", error);
         toast.error("Failed to fetch machine names");
       }
     };
-
     fetchMachineNames();
   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setRepair({ ...repair, [name]: value });
+    if (name === "machineName") {
+      const selectedMachine = machineNames.find((machine) => machine.name === value);
+      setRepair({
+        ...repair,
+        machineName: value,
+        machineId: selectedMachine ? selectedMachine.id : "",
+      });
+    } else {
+      setRepair({ ...repair, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      !repair.machineName ||
-      !repair.description ||
-      !repair.cost ||
-      !repair.billNo ||
-      !repair.repairDate ||
-      !repair.nextRepairDate
-    ) {
-      toast.error("Please fill in all fields.");
+
+    if (!repair.machineId) {
+      toast.error("Please select a valid machine.");
       return;
     }
+
     try {
-      await axios.post("http://localhost:5000/api/machinerepairs", repair);
+      await axios.put(`http://localhost:5000/api/machinerepairs/${repair.machineId}`, repair);
       toast.success("Machine repair added successfully!");
       setRepair({
         machineName: "",
+        machineId: "",
         description: "",
         cost: "",
         billNo: "",
@@ -91,30 +82,24 @@ const MachineRepair = () => {
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block font-medium text-gray-700 mb-1">
-                Machine Name
-              </label>
+              <label className="block font-medium text-gray-700 mb-1">Machine Name</label>
               <select
                 name="machineName"
                 value={repair.machineName}
                 onChange={handleChange}
                 className="form-select w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
-                <option value="" disabled>
-                  Select a Machine
-                </option>
-                {machineNames.map((machine, index) => (
-                  <option key={index} value={machine}>
-                    {machine}
+                <option value="" disabled>Select a Machine</option>
+                {machineNames.map((machine) => (
+                  <option key={machine.id} value={machine.name}>
+                    {machine.name}
                   </option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block font-medium text-gray-700 mb-1">
-                Cost
-              </label>
+              <label className="block font-medium text-gray-700 mb-1">Cost</label>
               <input
                 type="number"
                 name="cost"
@@ -126,9 +111,7 @@ const MachineRepair = () => {
             </div>
 
             <div>
-              <label className="block font-medium text-gray-700 mb-1">
-                Bill No
-              </label>
+              <label className="block font-medium text-gray-700 mb-1">Bill No</label>
               <input
                 type="text"
                 name="billNo"
@@ -139,39 +122,33 @@ const MachineRepair = () => {
               />
             </div>
 
-            <div className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block font-medium text-gray-700 mb-1">
-                  Repair Date
-                </label>
-                <input
-                  type="date"
-                  name="repairDate"
-                  value={repair.repairDate}
-                  onChange={handleChange}
-                  className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                />
-              </div>
+            {/* ✅ Added Repair Date */}
+            <div>
+              <label className="block font-medium text-gray-700 mb-1">Repair Date</label>
+              <input
+                type="date"
+                name="repairDate"
+                value={repair.repairDate}
+                onChange={handleChange}
+                className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+            </div>
 
-              <div>
-                <label className="block font-medium text-gray-700 mb-1">
-                  Next Repair Date
-                </label>
-                <input
-                  type="date"
-                  name="nextRepairDate"
-                  value={repair.nextRepairDate}
-                  onChange={handleChange}
-                  className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                />
-              </div>
+            {/* ✅ Added Next Repair Date */}
+            <div>
+              <label className="block font-medium text-gray-700 mb-1">Next Repair Date</label>
+              <input
+                type="date"
+                name="nextRepairDate"
+                value={repair.nextRepairDate}
+                onChange={handleChange}
+                className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
             </div>
           </div>
 
           <div className="mt-6">
-            <label className="block font-medium text-gray-700 mb-1">
-              Description
-            </label>
+            <label className="block font-medium text-gray-700 mb-1">Description</label>
             <textarea
               name="description"
               value={repair.description}
@@ -186,7 +163,7 @@ const MachineRepair = () => {
             type="submit"
             className="w-full mt-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-md shadow-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-300"
           >
-            Add Repair report
+            Add Repair Report
           </button>
         </form>
         <ToastContainer position="top-right" />

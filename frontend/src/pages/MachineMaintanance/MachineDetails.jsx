@@ -10,6 +10,9 @@ const AddMachines = () => {
     description: "",
     nextRepairDate: "",
     image: "",
+    cost: "",
+    billNo: "",
+    repairDate: "",
   });
 
   const imageHandler = (e) => {

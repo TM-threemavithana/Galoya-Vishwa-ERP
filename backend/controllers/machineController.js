@@ -4,7 +4,7 @@ import { catchAsyncErrors } from '../middlewares/catchAsyncErrors.js';
 import ErrorHandler from '../middlewares/error.js';
 
 export const addMachine = catchAsyncErrors(async (req, res, next) => {
-  const { name, broughtDate, price, description,image,nextRepairDate } = req.body;
+  const { name, broughtDate, price, description,image,nextRepairDate,cost,billNo,repairDate } = req.body;
 
   if (!name || !broughtDate || !price || !description|| !image || !nextRepairDate) {
     return next(new ErrorHandler('Please fill in all fields.', 400));
@@ -17,6 +17,9 @@ export const addMachine = catchAsyncErrors(async (req, res, next) => {
     description,
     image,
     nextRepairDate,
+    cost,
+    billNo,
+    repairDate,
   });
 
   res.status(201).json({

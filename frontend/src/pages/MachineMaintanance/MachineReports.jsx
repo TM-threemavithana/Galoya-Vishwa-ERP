@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const MachineReports = () => {
   const [machineRepairs, setMachineRepairs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editData, setEditData] = useState(null); // Holds the data of the item being edited
+  const [editData, setEditData] = useState(null);
 
   // Fetch machine repair data
   useEffect(() => {
     const fetchMachineRepairs = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/machinerepairs');
+        const response = await axios.get(
+          "http://localhost:5000/api/machinerepairs"
+        );
         setMachineRepairs(response.data.machineRepairs);
       } catch (error) {
-        console.error('Error fetching machine repairs:', error);
+        console.error("Error fetching machine repairs:", error);
       } finally {
         setLoading(false);
       }
@@ -23,15 +25,24 @@ const MachineReports = () => {
   }, []);
 
   // Format currency in Sri Lankan Rupees
-  const formatCurrency = (amount) => `Rs. ${amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+  const formatCurrency = (amount) => {
+    if (!amount || isNaN(amount)) {
+      return "Rs. 0.00"; // Default value if amount is missing or invalid
+    }
+    return `Rs. ${parseFloat(amount)
+      .toFixed(2)
+      .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`;
+  };
 
-  // Format date
+  // Format date properly
   const formatDate = (date) =>
-    new Date(date).toLocaleDateString('en-GB', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
+    date
+      ? new Date(date).toLocaleDateString("en-GB", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : "N/A"; // Handle empty or invalid dates
 
   // Handle edit button click
   const handleEdit = (repair) => {
@@ -42,7 +53,10 @@ const MachineReports = () => {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:5000/api/machinerepairs/${editData._id}`, editData);
+      const response = await axios.put(
+        `http://localhost:5000/api/machinerepairs/${editData._id}`,
+        editData
+      );
       if (response.status === 200) {
         // Update the record in state
         setMachineRepairs((prevRepairs) =>
@@ -53,7 +67,7 @@ const MachineReports = () => {
         setEditData(null); // Close the edit form
       }
     } catch (error) {
-      console.error('Error updating machine repair:', error);
+      console.error("Error updating machine repair:", error);
     }
   };
 
@@ -88,40 +102,50 @@ const MachineReports = () => {
             <table className="min-w-full bg-white">
               <thead>
                 <tr className="bg-gray-50">
-                  <th className="py-3 px-6 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="py-3 px-6 border-b-2 text-left text-xs font-semibold text-gray-600 uppercase">
                     Machine Name
                   </th>
-                  <th className="py-3 px-6 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="py-3 px-6 border-b-2 text-left text-xs font-semibold text-gray-600 uppercase">
                     Description
                   </th>
-                  <th className="py-3 px-6 border-b-2 border-gray-200 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="py-3 px-6 border-b-2 text-right text-xs font-semibold text-gray-600 uppercase">
                     Cost (Rs.)
                   </th>
-                  <th className="py-3 px-6 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="py-3 px-6 border-b-2 text-left text-xs font-semibold text-gray-600 uppercase">
                     Bill Number
                   </th>
-                  <th className="py-3 px-6 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="py-3 px-6 border-b-2 text-left text-xs font-semibold text-gray-600 uppercase">
                     Repair Date
                   </th>
-                  <th className="py-3 px-6 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="py-3 px-6 border-b-2 text-left text-xs font-semibold text-gray-600 uppercase">
                     Next Repair Date
                   </th>
-                  <th className="py-3 px-6 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="py-3 px-6 border-b-2 text-left text-xs font-semibold text-gray-600 uppercase">
                     Actions
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {machineRepairs.map((repair) => (
-                  <tr key={repair._id} className="hover:bg-gray-50 transition-colors duration-200">
-                    <td className="py-4 px-6 text-sm font-medium text-gray-800">{repair.machineName}</td>
-                    <td className="py-4 px-6 text-sm text-gray-700">{repair.description}</td>
+                  <tr key={repair._id} className="hover:bg-gray-50 transition-colors">
+                    <td className="py-4 px-6 text-sm font-medium text-gray-800">
+                      {repair.machineName || "N/A"}
+                    </td>
+                    <td className="py-4 px-6 text-sm text-gray-700">
+                      {repair.description || "N/A"}
+                    </td>
                     <td className="py-4 px-6 text-sm text-right font-semibold text-gray-800">
                       {formatCurrency(repair.cost)}
                     </td>
-                    <td className="py-4 px-6 text-sm text-gray-700">{repair.billNo}</td>
-                    <td className="py-4 px-6 text-sm text-gray-700">{formatDate(repair.repairDate)}</td>
-                    <td className="py-4 px-6 text-sm text-gray-700">{formatDate(repair.nextRepairDate)}</td>
+                    <td className="py-4 px-6 text-sm text-gray-700">
+                      {repair.billNo || "N/A"}
+                    </td>
+                    <td className="py-4 px-6 text-sm text-gray-700">
+                      {formatDate(repair.repairDate)}
+                    </td>
+                    <td className="py-4 px-6 text-sm text-gray-700">
+                      {formatDate(repair.nextRepairDate)}
+                    </td>
                     <td className="py-4 px-6 text-sm text-gray-700">
                       <button
                         onClick={() => handleEdit(repair)}
@@ -145,28 +169,6 @@ const MachineReports = () => {
             <h3 className="text-2xl font-bold mb-4">Edit Machine Repair</h3>
             <form onSubmit={handleEditSubmit}>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Machine Name</label>
-                <input
-                  type="text"
-                  name="machineName"
-                  value={editData.machineName}
-                  onChange={handleInputChange}
-                  className="w-full border rounded-lg px-3 py-2 mt-1"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Description</label>
-                <input
-                  type="text"
-                  name="description"
-                  value={editData.description}
-                  onChange={handleInputChange}
-                  className="w-full border rounded-lg px-3 py-2 mt-1"
-                  required
-                />
-              </div>
-              <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">Cost</label>
                 <input
                   type="number"
@@ -189,17 +191,10 @@ const MachineReports = () => {
                 />
               </div>
               <div className="flex justify-end space-x-4">
-                <button
-                  type="button"
-                  onClick={() => setEditData(null)}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg"
-                >
+                <button type="button" onClick={() => setEditData(null)} className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg">
                   Cancel
                 </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-                >
+                <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-lg">
                   Save Changes
                 </button>
               </div>

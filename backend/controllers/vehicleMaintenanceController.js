@@ -1,29 +1,96 @@
-import VehicleMaintenanceEntry from '../models/VehicleMaintenanceEntry.js';
+// filepath: /c:/academic/Software Project/backend/controllers/vehicleRepairController.js
+import VehicleRepair from '../models/VehicleMaintenanceEntry.js'; // Assuming you have a Vehicle model
 import { catchAsyncErrors } from '../middlewares/catchAsyncErrors.js';
 import ErrorHandler from '../middlewares/error.js';
 
-export const addVehicleMaintenanceEntry = catchAsyncErrors(async (req, res, next) => {
-  try {
-    const entry = await VehicleMaintenanceEntry.create(req.body);
-    res.status(201).json({
-      success: true,
-      entry
-    });
-  } catch (error) {
-    console.error('Error adding vehicle maintenance entry:', error);
-    next(new ErrorHandler('Failed to add vehicle maintenance entry', 500));
+// Add a new vehicle repair
+export const addVehicleRepair = catchAsyncErrors(async (req, res, next) => {
+  const {
+    vehicleV,
+    repairType,
+    mileage,
+    partReplace,
+    serviseDoneBy,
+    totalCost,
+    lastMaintenance,
+    nextMaintenance,
+  } = req.body;
+
+  // Check if all required fields are provided
+  if (!vehicleV || !repairType || !mileage || !partReplace || !serviseDoneBy || !totalCost || !lastMaintenance || !nextMaintenance) {
+    return next(new ErrorHandler('Please fill in all fields.', 400));
   }
+
+  // Create a new vehicle repair entry
+  const vehicleRepair = await VehicleRepair.create({
+    vehicleV,
+    repairType,
+    mileage,
+    partReplace,
+    serviseDoneBy,
+    totalCost,
+    lastMaintenance,
+    nextMaintenance,
+  });
+
+  res.status(201).json({
+    success: true,
+    vehicleRepair,
+  });
 });
 
-export const getVehicleMaintenanceEntries = catchAsyncErrors(async (req, res, next) => {
-  try {
-    const entries = await VehicleMaintenanceEntry.find();
-    res.status(200).json({
-      success: true,
-      entries
-    });
-  } catch (error) {
-    console.error('Error fetching vehicle maintenance entries:', error);
-    next(new ErrorHandler('Failed to fetch vehicle maintenance entries', 500));
+// Get all vehicle repairs
+export const getVehicleRepairs = catchAsyncErrors(async (req, res, next) => {
+  const vehicleRepairs = await VehicleRepair.find();
+  res.status(200).json({
+    success: true,
+    vehicleRepairs,
+  });
+});
+
+// Update vehicle repair by vehicle ID
+export const updateVehicleRepair = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.params;
+  const {
+    vehicleV,
+    repairType,
+    mileage,
+    partReplace,
+    serviseDoneBy,
+    totalCost,
+    lastMaintenance,
+    nextMaintenance,
+    notes,
+  } = req.body;
+
+  const vehicleRepair = await VehicleRepair.findByIdAndUpdate(
+    id,
+    { vehicleV, repairType, mileage, partReplace, serviseDoneBy, totalCost, lastMaintenance, nextMaintenance,notes },
+    { new: true, runValidators: true }
+  );
+
+  if (!vehicleRepair) {
+    return next(new ErrorHandler('Vehicle repair not found', 404));
   }
+
+  res.status(200).json({
+    success: true,
+    vehicleRepair,
+  });
+});
+
+// Delete vehicle repair by ID
+export const deleteVehicleRepair = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.params;
+
+  const vehicleRepair = await VehicleRepair.findByIdAndDelete(id);
+
+  if (!vehicleRepair) {
+    return next(new ErrorHandler('Vehicle repair not found', 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    message: 'Vehicle repair deleted successfully',
+  });
 });
