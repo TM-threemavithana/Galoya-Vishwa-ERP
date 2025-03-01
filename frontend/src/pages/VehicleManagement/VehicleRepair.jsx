@@ -1,243 +1,258 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { Calendar, Truck, Settings, FileText, Wrench } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+
+const repairTypes = [
+  "Engine Repair",
+  "Body and Paint Repair",
+  "Tire Repair",
+  "Brake Repair",
+  "Electric Repair",
+  "Lights Repair",
+  "Others",
+];
 
 const VehicleRepair = () => {
-  const [formData, setFormData] = useState({
-    vehicleId: '',
-    serviceDate: '',
-    serviceDoneBy: '',
-    serviceType: '',
-    mileage: '',
-    partsReplaced: '',
-    laborCost: '',
-    partsCost: '',
-    totalCost: '',
-    nextServiceDue: '',
-    notes: ''
+  const [repair, setRepair] = useState({
+    vehicleV: "",
+    vehicleId: "",
+    lastMaintenance: "",
+    nextMaintenance: "",
+    repairType: "",
+    mileage: "",
+    partReplace: "",
+    serviseDoneBy: "",
+    totalCost: "",
+    status: "Active", // Added status field with default value
+    notes: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+  const [vehicleNames, setVehicleNames] = useState([]);
 
+  // Fetch vehicle names from the API
+  useEffect(() => {
+    const fetchVehicleNames = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/vehicles");
+        const latestVehicles = response.data.vehicles.map((vehicle) => ({
+          name: vehicle.vehicleV || "",
+          id: vehicle._id || "",
+        }));
+        setVehicleNames(latestVehicles);
+      } catch (error) {
+        console.error("Error fetching vehicle names:", error);
+        toast.error("Failed to fetch vehicle names");
+      }
+    };
+    fetchVehicleNames();
+  }, []);
+
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+    if (name === "vehicleV") {
+      const selectedVehicle = vehicleNames.find((vehicle) => vehicle.name === value);
+      setRepair({
+        ...repair,
+        vehicleV: value,
+        vehicleId: selectedVehicle ? selectedVehicle.id : "",
+      });
+    } else {
+      setRepair({ ...repair, [name]: value });
+    }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.vehicleId) newErrors.vehicleId = 'Vehicle ID is required';
-    if (!formData.serviceDate) newErrors.serviceDate = 'Service Date is required';
-    if (!formData.serviceDoneBy) newErrors.serviceDoneBy = 'Service Done By is required';
-    if (!formData.serviceType) newErrors.serviceType = 'Service Type is required';
-    if (!formData.mileage) newErrors.mileage = 'Mileage is required';
-    if (!formData.totalCost) newErrors.totalCost = 'Total Cost is required';
-    if (!formData.notes) newErrors.notes = 'Notes are required';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+
+    if (!repair.vehicleId) {
+      toast.error("Please select a valid vehicle.");
+      return;
+    }
 
     try {
-      await axios.post('http://localhost:5000/api/vehicle-maintenance', formData);
-      navigate('/vehicle-maintenance');
+      const url = `http://localhost:5000/api/vehicle-maintenance/${repair.vehicleId}`;
+      console.log("API URL:", url);
+      await axios.put(url, repair);
+      toast.success("Vehicle repair added successfully!");
+      setRepair({
+        vehicleV: "",
+        vehicleId: "",
+        lastMaintenance: "",
+        nextMaintenance: "",
+        repairType: "",
+        mileage: "",
+        partReplace: "",
+        serviseDoneBy: "",
+        totalCost: "",
+        status: "Active", // Reset to default status
+        notes: "",
+      });
     } catch (error) {
-      console.error('Error submitting form:', error);
+      toast.error("Error adding vehicle repair");
+      console.error("Error adding vehicle repair:", error);
     }
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-sm p-8">
-        <div className="flex items-center gap-3 mb-6">
-          <Wrench className="w-6 h-6 text-blue-600" />
-          <h2 className="text-2xl font-bold text-blue-900">Vehicle Maintenance Log</h2>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Vehicle Details Section */}
-          <div className="bg-blue-50 rounded-lg p-6 space-y-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Truck className="w-5 h-5 text-blue-600" />
-              <h3 className="text-lg font-semibold text-blue-800">Vehicle Details</h3>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-blue-700 mb-1">
-                  Vehicle ID
-                </label>
-                <input
-                  type="text"
-                  name="vehicleId"
-                  value={formData.vehicleId}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-blue-200 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                />
-                {errors.vehicleId && <p className="text-red-500 text-sm">{errors.vehicleId}</p>}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-blue-700 mb-1">
-                  Current Mileage
-                </label>
-                <input
-                  type="number"
-                  name="mileage"
-                  value={formData.mileage}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-blue-200 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                />
-                {errors.mileage && <p className="text-red-500 text-sm">{errors.mileage}</p>}
-              </div>
-            </div>
-          </div>
-
-          {/* Service Details Section */}
-          <div className="bg-blue-50 rounded-lg p-6 space-y-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Settings className="w-5 h-5 text-blue-600" />
-              <h3 className="text-lg font-semibold text-blue-800">Service Details</h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-blue-700 mb-1">
-                  Service Date
-                </label>
-                <input
-                  type="date"
-                  name="serviceDate"
-                  value={formData.serviceDate}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-blue-200 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                />
-                {errors.serviceDate && <p className="text-red-500 text-sm">{errors.serviceDate}</p>}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-blue-700 mb-1">
-                  Service Done By
-                </label>
-                <input
-                  type="text"
-                  name="serviceDoneBy"
-                  value={formData.serviceDoneBy}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-blue-200 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                />
-                {errors.serviceDoneBy && <p className="text-red-500 text-sm">{errors.serviceDoneBy}</p>}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-blue-700 mb-1">
-                  Service Type
-                </label>
-                <select
-                  name="serviceType"
-                  value={formData.serviceType}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-blue-200 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                >
-                  <option value="">Select service type</option>
-                  <option value="routine">Routine Maintenance</option>
-                  <option value="repair">Repair</option>
-                  <option value="inspection">Inspection</option>
-                  <option value="emergency">Emergency Repair</option>
-                  <option value="oil">Oil change</option>
-                </select>
-                {errors.serviceType && <p className="text-red-500 text-sm">{errors.serviceType}</p>}
-              </div>
-            </div>
-          </div>
-
-          {/* Cost Details Section */}
-          <div className="bg-blue-50 rounded-lg p-6 space-y-4">
-            <div className="flex items-center gap-2 mb-2">
-              <FileText className="w-5 h-5 text-blue-600" />
-              <h3 className="text-lg font-semibold text-blue-800">Cost Details</h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-blue-700 mb-1">
-                  Total Cost
-                </label>
-                <input
-                  type="number"
-                  name="totalCost"
-                  value={formData.totalCost}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-blue-200 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                />
-                {errors.totalCost && <p className="text-red-500 text-sm">{errors.totalCost}</p>}
-              </div>
-            </div>
-          </div>
-
-          {/* Additional Details */}
-          <div className="bg-blue-50 rounded-lg p-6 space-y-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex justify-center items-center p-6">
+      <div className="bg-white shadow-xl rounded-lg p-8 w-full max-w-3xl border border-gray-200 hover:shadow-2xl transition-shadow duration-300">
+        <h2 className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-700 mb-6 text-center">
+          Vehicle Repair
+        </h2>
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Vehicle Name */}
             <div>
-              <label className="block text-sm font-medium text-blue-700 mb-1">
-                Parts Replaced
-              </label>
-              <input
-                type="text"
-                name="partsReplaced"
-                value={formData.partsReplaced}
+              <label className="block font-medium text-gray-700 mb-1">Vehicle Name</label>
+              <select
+                name="vehicleV"
+                value={repair.vehicleV || ""}
                 onChange={handleChange}
-                className="w-full p-2 border border-blue-200 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter parts replaced (comma separated)"
+                className="form-select w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              >
+                <option value="" disabled>Select a Vehicle</option>
+                {vehicleNames.map((vehicle) => (
+                  <option key={vehicle.id} value={vehicle.name}>
+                    {vehicle.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+             {/* Status Dropdown */}
+             <div>
+              <label className="block font-medium text-gray-700 mb-1">Status</label>
+              <select
+                name="status"
+                value={repair.status} // Correctly referencing repair.status
+                onChange={handleChange}
+                className="form-select w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none"
+              >
+                <option value="Active">Active</option>
+                <option value="Not Active">Not Active</option>
+              </select>
+            </div>
+
+            {/* Last Maintenance */}
+            <div>
+              <label className="block font-medium text-gray-700 mb-1">Last Maintenance</label>
+              <input
+                type="date"
+                name="lastMaintenance"
+                value={repair.lastMaintenance || ""}
+                onChange={handleChange}
+                className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
+            {/* Next Maintenance */}
             <div>
-              <label className="block text-sm font-medium text-blue-700 mb-1">
-                Additional Notes
-              </label>
-              <textarea
-                name="notes"
-                value={formData.notes}
+              <label className="block font-medium text-gray-700 mb-1">Next Maintenance</label>
+              <input
+                type="date"
+                name="nextMaintenance"
+                value={repair.nextMaintenance || ""}
                 onChange={handleChange}
-                rows="4"
-                className="w-full p-2 border border-blue-200 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter any additional notes or comments"
-                required
-              ></textarea>
-              {errors.notes && <p className="text-red-500 text-sm">{errors.notes}</p>}
+                className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
             </div>
+
+            {/* Repair Type Dropdown */}
+            <div>
+              <label className="block font-medium text-gray-700 mb-1">Repair Type</label>
+              <select
+                name="repairType"
+                value={repair.repairType || ""}
+                onChange={handleChange}
+                className="form-select w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              >
+                <option value="" disabled>Select Repair Type</option>
+                {repairTypes.map((type, index) => (
+                  <option key={index} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+             {/* Parts Replaced */}
+             <div>
+              <label className="block font-medium text-gray-700 mb-1">Parts Replaced</label>
+              <input
+                type="text"
+                name="partReplace"
+                value={repair.partReplace || ""}
+                onChange={handleChange}
+                placeholder="Parts Replaced"
+                className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+            </div>
+
+             {/* Total Cost */}
+             <div>
+              <label className="block font-medium text-gray-700 mb-1">Total Cost</label>
+              <input
+                type="number"
+                name="totalCost"
+                value={repair.totalCost || ""}
+                onChange={handleChange}
+                placeholder="Total Cost"
+                className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+            </div>
+          
+          {/* Service Done By */}
+          <div>
+              <label className="block font-medium text-gray-700 mb-1">Service Done By</label>
+              <input
+                type="text"
+                name="serviseDoneBy"
+                value={repair.serviseDoneBy || ""}
+                onChange={handleChange}
+                placeholder="Service Done By"
+                className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+            </div>
+           {/* Mileage */}
+           <div>
+              <label className="block font-medium text-gray-700 mb-1">Mileage</label>
+              <input
+                type="number"
+                name="mileage"
+                value={repair.mileage || ""}
+                onChange={handleChange}
+                placeholder="Mileage"
+                className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+            </div>
+
+           
           </div>
 
-          <div className="flex justify-end gap-4">
-            <button
-              type="button"
-              className="px-6 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50"
-              onClick={() => setFormData({})}
-            >
-              Clear
-            </button>
-            <button
-              type="submit"
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              Submit Log
-            </button>
+          {/* Notes */}
+          <div className="mt-6">
+            <label className="block font-medium text-gray-700 mb-1">Notes</label>
+            <textarea
+              name="notes"
+              value={repair.notes || ""}
+              onChange={handleChange}
+              placeholder="Notes"
+              className="form-textarea w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              rows="4"
+            />
           </div>
+
+          <button
+            type="submit"
+            className="w-full mt-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-2 px-4 rounded-md shadow-lg transition-all duration-300"
+          >
+            Add Repair Report
+          </button>
         </form>
+        <ToastContainer position="top-right" />
       </div>
     </div>
   );

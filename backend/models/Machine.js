@@ -3,11 +3,14 @@ import mongoose from 'mongoose';
 
 const machineSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  broughtDate: { type: Date, required: true },
-  price: { type: Number, required: true },
-  description: { type: String, required: true },
-  image: {type:String, required: true},
-  nextRepairDate:{type:Date , required:true},
+  broughtDate: { type: Date,  },
+  price: { type: Number,  },
+  description: { type: String, },
+  image: {type:String, },
+  nextRepairDate:{type:Date , },
+  cost: { type: Number },
+  billNo: { type: String},
+  repairDate: { type: Date },
 });
 
 const Machine = mongoose.model('Machine', machineSchema);

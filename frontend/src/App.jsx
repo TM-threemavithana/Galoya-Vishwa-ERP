@@ -57,6 +57,7 @@ import MachineReports from "./pages/MachineMaintanance/MachineReports";
 import VehicleSidebar from "./pages/VehicleManagement/VehicleSidebar";
 import VehicleDetails from "./pages/VehicleManagement/VehicleDetails";
 import VehicleRepair from "./pages/VehicleManagement/VehicleRepair";
+import VehicleAdd from "./pages/VehicleManagement/VehicleAdd.jsx";
 import VehicleReports from "./pages/VehicleManagement/VehicleReports";
 import VehicleMaintenance from "./pages/VehicleManagement/VehicleMaintenance";
 
@@ -132,6 +133,7 @@ const MainAppContent = () => {
     { path: "/vehicle-details", element: <VehicleDetails />, withVehicleSidebar: true },
     { path: "/vehicle-repair", element: <VehicleRepair />, withVehicleSidebar: true },
     { path: "/vehicle-reports", element: <VehicleReports />, withVehicleSidebar: true },
+    { path: "/vehicle-add", element: <VehicleAdd />, withVehicleSidebar: true },
     { path: "/vehicle-maintenance", element: <VehicleMaintenance />, withVehicleSidebar: true },
 
     { path: "/raw-dashboard", element: <RawDashboard />, withRawSidebar: true },
@@ -180,6 +182,7 @@ const MainAppContent = () => {
     "/vehicle-details",
     "/vehicle-repair",
     "/vehicle-reports",
+    "/vehicle-add",
     "/vehicle-maintenance",
     "/inventories",
     "/daily-distribution",
