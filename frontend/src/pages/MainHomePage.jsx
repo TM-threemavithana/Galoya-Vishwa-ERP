@@ -43,7 +43,7 @@ const Home = () => {
       icon: resourceIcon,
       title: "Resource Management",
       description: "Optimize resource usage.",
-      link: "/resource",
+      link: "/resource-add",
     },
   ];
 
