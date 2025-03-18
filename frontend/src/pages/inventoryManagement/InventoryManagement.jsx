@@ -64,7 +64,6 @@ const InventoryManagement = () => {
   }, []);
 
   useEffect(() => {
-    // Filter data based on the selected date
     const filtered = data.filter((item) =>
       new Date(item.date).toDateString() === selectedDate.toDateString()
     );
@@ -90,12 +89,24 @@ const InventoryManagement = () => {
   return (
     <div className="container mx-auto h-screen p-4">
       <div className="flex flex-col md:flex-row gap-4">
-        {/* Calendar */}
+        {/* Calendar with Highlighted Dates */}
         <div className="bg-white shadow p-4 rounded">
           <Calendar
             onChange={setSelectedDate}
             value={selectedDate}
             className="react-calendar"
+            tileContent={({ date, view }) => {
+              if (view === 'month') {
+                const hasRecord = data.some((item) =>
+                  new Date(item.date).toDateString() === date.toDateString()
+                );
+                return hasRecord ? (
+                  <div className="flex justify-center mt-1">
+                    <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  </div>
+                ) : null;
+              }
+            }}
           />
         </div>
 
@@ -126,9 +137,7 @@ const InventoryManagement = () => {
                     </td>
                     <td className="py-2 px-4 border-b">{item.inventoryName}</td>
                     <td className="py-2 px-4 border-b">{item.quantity}</td>
-                    <td className={`py-2 px-4 border-b ${item.colorClass}`}>
-                      {item.description}
-                    </td>
+                    <td className={`py-2 px-4 border-b ${item.colorClass}`}>{item.description}</td>
                   </tr>
                 ))}
               </tbody>

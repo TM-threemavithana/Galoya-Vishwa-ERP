@@ -17,6 +17,7 @@ import vehicleMaintenanceRoutes from "./router/vehicleMaintenanceRoutes.js";
 import vehicleRoutes from './router/vehicleRoutes.js'
 import rawMaterialsLogRoutes from './router/rawMaterialsLogRoutes.js';
 import shopDetailsRoutes from './router/shopDetailsRoutes.js';
+import employeeRoutes from "./router/emplyeeRoutes.js";
 
 import multer from "multer";  
 import path from "path";
@@ -95,6 +96,7 @@ app.use('/api/vehicles',vehicleRoutes);
 app.use('/api/raw-materials-log', rawMaterialsLogRoutes);
 app.use('/api/shop-details', shopDetailsRoutes);
 app.use('/api/returned-items', returnedItemsRoutes);
+app.use('/api/employee',employeeRoutes);
 
 
 connection();

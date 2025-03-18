@@ -18,6 +18,15 @@ const VehicleDetails = () => {
     fetchVehicles();
   }, []);
 
+  const removeVehicle = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/vehicles/${id}`);
+      setVehicles(vehicles.filter(vehicle => vehicle._id !== id));
+    } catch (error) {
+      console.error('Error removing vehicle:', error);
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -40,7 +49,7 @@ const VehicleDetails = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h2 className="text-2xl font-bold mb-2 text-blue-900">{vehicle.vehicleId}</h2>
+              <h2 className="text-2xl font-bold mb-2 text-blue-900">{vehicle.vehicleV}</h2>
               <p className="text-lg text-blue-700">{vehicle.model}</p>
             </div>
 
@@ -53,10 +62,6 @@ const VehicleDetails = () => {
                   <span className="text-sm font-medium text-blue-700">Type</span>
                 </div>
                 <p className="text-sm font-medium text-blue-900">{vehicle.type}</p>
-              </div>
-
-              <div>
-               
               </div>
 
               {/* Maintenance Schedule */}
@@ -99,6 +104,14 @@ const VehicleDetails = () => {
                 <p className="text-sm font-medium text-blue-900">{vehicle.capacity}</p>
               </div>
             </div>
+
+            {/* Remove Button */}
+            <button
+              onClick={() => removeVehicle(vehicle._id)}
+              className="mt-6 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+            >
+              Remove
+            </button>
           </div>
         ))}
       </div>

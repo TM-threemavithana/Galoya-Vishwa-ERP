@@ -68,6 +68,11 @@ import RawMaterialsLog from "./pages/RawMaterialsManagement/RawMaterialsLog";
 import RawMaterialsProductions from "./pages/RawMaterialsManagement/RawMaterialsProductions";
 import RawProductionLog from "./pages/RawMaterialsManagement/RawProductionLog";
 
+import ResourceSidebar from "./pages/ResorceManegement/ResorceSidebar";
+import ResourceAdd from "./pages/ResorceManegement/ResourceAdd";
+import ResourceSalleries from "./pages/ResorceManegement/ResorceSalleries";
+import ResourceDashboard from "./pages/ResorceManegement/ResourceDashboard";
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -142,6 +147,9 @@ const MainAppContent = () => {
     { path: "/raw-materials-productions", element: <RawMaterialsProductions />, withRawSidebar: true },
     { path: "/raw-production-log", element: <RawProductionLog />, withRawSidebar: true },
     
+    { path: "/resource-add", element: <ResourceAdd />, withResourceSidebar: true },
+    { path: "/resource-sallery", element: <ResourceSalleries />, withResourceSidebar: true },
+    { path: "/resource-dashboard", element: <ResourceDashboard />, withResourceSidebar: true },
 
   ];
 
@@ -193,6 +201,7 @@ const MainAppContent = () => {
     "/machine-dashboard",
     "/machine-details",
     "/machine-reports",
+
     "/inventory-dashboard",
     "/vehicle-details",
     "/vehicle-repair",
@@ -204,6 +213,11 @@ const MainAppContent = () => {
     "/raw-materials-log",
     "/raw-materials-productions",
     "/raw-production-log",
+
+    "/resource-add",
+    "/resource-sallery",
+    "/resource-dashboard",
+
 
   ];
 
@@ -224,6 +238,7 @@ const MainAppContent = () => {
               withCalcSidebar,
               withMachineSidebar,
               withRawSidebar,
+              withResourceSidebar,
             }) => (
               <Route
                 key={path}
@@ -257,6 +272,11 @@ const MainAppContent = () => {
                   ) : withRawSidebar ? ( 
                     <div className="flex">
                       <RawSidebar />
+                      <div className="flex-grow">{element}</div>
+                    </div> 
+                  ) : withResourceSidebar ? ( 
+                    <div className="flex">
+                      <ResourceSidebar />
                       <div className="flex-grow">{element}</div>
                     </div> 
                   ) : (
