@@ -24,13 +24,13 @@ const VehicleRepair = () => {
     partReplace: "",
     serviseDoneBy: "",
     totalCost: "",
-    status: "Active", // Added status field with default value
+    status: "Active", 
     notes: "",
   });
 
   const [vehicleNames, setVehicleNames] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
 
-  // Fetch vehicle names from the API
   useEffect(() => {
     const fetchVehicleNames = async () => {
       try {
@@ -38,6 +38,7 @@ const VehicleRepair = () => {
         const latestVehicles = response.data.vehicles.map((vehicle) => ({
           name: vehicle.vehicleV || "",
           id: vehicle._id || "",
+          mileage: vehicle.mileage || 0, // Store mileage from the add vehicle page
         }));
         setVehicleNames(latestVehicles);
       } catch (error) {
@@ -48,53 +49,65 @@ const VehicleRepair = () => {
     fetchVehicleNames();
   }, []);
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     if (name === "vehicleV") {
-      const selectedVehicle = vehicleNames.find((vehicle) => vehicle.name === value);
+      const selected = vehicleNames.find((vehicle) => vehicle.name === value);
+      setSelectedVehicle(selected);
       setRepair({
         ...repair,
         vehicleV: value,
-        vehicleId: selectedVehicle ? selectedVehicle.id : "",
+        vehicleId: selected ? selected.id : "",
       });
     } else {
       setRepair({ ...repair, [name]: value });
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!repair.vehicleId) {
       toast.error("Please select a valid vehicle.");
       return;
     }
-
-    try {
-      const url = `http://localhost:5000/api/vehicle-maintenance/${repair.vehicleId}`;
-      console.log("API URL:", url);
-      await axios.put(url, repair);
-      toast.success("Vehicle repair added successfully!");
-      setRepair({
-        vehicleV: "",
-        vehicleId: "",
-        lastMaintenance: "",
-        nextMaintenance: "",
-        repairType: "",
-        mileage: "",
-        partReplace: "",
-        serviseDoneBy: "",
-        totalCost: "",
-        status: "Active", // Reset to default status
-        notes: "",
-      });
-    } catch (error) {
-      toast.error("Error adding vehicle repair");
-      console.error("Error adding vehicle repair:", error);
+  
+    // Get selected vehicle mileage
+    const selectedVehicle = vehicleNames.find((vehicle) => vehicle.id === repair.vehicleId);
+    const storedMileage = selectedVehicle ? selectedVehicle.mileage : 0;
+    const enteredMileage = parseInt(repair.mileage);
+  
+    // Check the three conditions
+    if (enteredMileage === 0 || enteredMileage >= storedMileage) {
+      try {
+        const url = `http://localhost:5000/api/vehicle-maintenance/${repair.vehicleId}`;
+        console.log("API URL:", url);
+  
+        await axios.put(url, { ...repair, mileage: enteredMileage });
+        toast.success("Vehicle repair added successfully!");
+  
+        setRepair({
+          vehicleV: "",
+          vehicleId: "",
+          lastMaintenance: "",
+          nextMaintenance: "",
+          repairType: "",
+          mileage: "",
+          partReplace: "",
+          serviseDoneBy: "",
+          totalCost: "",
+          status: "Active",
+          notes: "",
+        });
+      } catch (error) {
+        toast.error("Error adding vehicle repair");
+        console.error("Error adding vehicle repair:", error);
+      }
+    } else {
+      toast.error(`Mileage must be greater than/equal to ${storedMileage}.`);
     }
-  };
+  };  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex justify-center items-center p-6">
@@ -224,9 +237,14 @@ const VehicleRepair = () => {
                 name="mileage"
                 value={repair.mileage || ""}
                 onChange={handleChange}
-                placeholder="Mileage"
+                placeholder="Enter mileage"
                 className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
+              {selectedVehicle && (
+                <p className="text-sm text-red-600 mt-1">
+                  Last recorded mileage: {selectedVehicle.mileage} km
+                </p>
+              )}
             </div>
 
            

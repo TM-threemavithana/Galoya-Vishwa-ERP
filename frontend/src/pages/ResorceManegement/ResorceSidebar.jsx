@@ -74,13 +74,13 @@ const ResourceSidebar = () => {
           <span className="text-base">Add New Employee</span>
         </Link>
         <Link
-          to="/hr-edit-employee"
+          to="/resource-edit"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
-            activeLink === "/hr-edit-employee"
+            activeLink === "/resource-edit"
               ? "bg-gray-800 scale-105 shadow-lg"
               : "hover:bg-gray-800 hover:scale-105"
           }`}
-          onClick={() => handleLinkClick("/hr-edit-employee")}
+          onClick={() => handleLinkClick("/resource-edit")}
         >
           <FaUserEdit className="text-blue-400 text-lg mr-3" />
           <span className="text-base">Edit Employee</span>

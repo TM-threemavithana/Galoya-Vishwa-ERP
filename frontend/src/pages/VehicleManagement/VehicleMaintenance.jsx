@@ -21,12 +21,12 @@ const VehicleMaintenance = () => {
   useEffect(() => {
     const fetchRepairs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/vehicle-maintenance");
+        const response = await axios.get("http://localhost:5000/api/vehicle-maintenance/maintenance");
 
         console.log("API Response:", response.data); // Debugging
 
-        if (response.data && Array.isArray(response.data.vehicleRepairs)) {
-          setRepairs(response.data.vehicleRepairs);
+        if (response.data && Array.isArray(response.data.maintenance)) {
+          setRepairs(response.data.maintenance);
         } else {
           setRepairs([]); // Ensure it's always an array
         }
@@ -61,10 +61,10 @@ const VehicleMaintenance = () => {
                 <tr className="bg-blue-500 text-white">
                   <th className="py-2 px-4 border">Vehicle</th>
                   <th className="py-2 px-4 border">Model</th>
-                  <th className="py-2 px-4 border">Type</th>
+                  <th className="py-2 px-4 border">Repair Type</th>
                   <th className="py-2 px-4 border">Last Maintenance</th>
                   <th className="py-2 px-4 border">Next Maintenance</th>
-                  <th className="py-2 px-4 border">Cost</th>
+                  <th className="py-2 px-4 border">Maintenance Cost</th>
                 </tr>
               </thead>
               <tbody>
@@ -72,19 +72,14 @@ const VehicleMaintenance = () => {
                   <tr key={repair._id} className="text-center border hover:bg-gray-100">
                     <td className="py-2 px-4 border">
                       <div className="flex items-center justify-center space-x-2">
-                        <img
-                          src={repair.image || "https://via.placeholder.com/50"}
-                          alt={repair.vehicleV}
-                          className="w-10 h-10 object-cover rounded-full border"
-                        />
-                        <span>{repair.vehicleV}</span>
+                        <span>{repair.vehicleName}</span>
                       </div>
                     </td>
                     <td className="py-2 px-4 border">{repair.model}</td>
                     <td className="py-2 px-4 border">{repair.type}</td>
-                    <td className="py-2 px-4 border">{formatDate(repair.lastMaintenance)}</td>
-                    <td className="py-2 px-4 border">{formatDate(repair.nextMaintenance)}</td>
-                    <td className="py-2 px-4 border">${repair.totalCost || "0.00"}</td>
+                    <td className="py-2 px-4 border">{formatDate(repair.lastRepairDate)}</td>
+                    <td className="py-2 px-4 border">{formatDate(repair.nextRepairDate)}</td>
+                    <td className="py-2 px-4 border">LKR.{repair.cost || "0.00"}</td>
                   </tr>
                 ))}
               </tbody>
