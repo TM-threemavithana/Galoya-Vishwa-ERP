@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FaUsers, FaChartPie, FaUserPlus, FaSearch } from "react-icons/fa";
 
-const Card = ({ children }) => (
-  <div className="p-6 bg-white shadow-md rounded-md hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between">
+const Card = ({ children, onClick }) => (
+  <div
+    className="p-6 bg-white shadow-md rounded-md hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between cursor-pointer"
+    onClick={onClick}
+  >
     {children}
   </div>
 );
@@ -10,34 +13,16 @@ const Card = ({ children }) => (
 const Dashboard = () => {
   const [employees, setEmployees] = useState([]);
   const [totalEmployees, setTotalEmployees] = useState(0);
-  const [recentEmployees, setRecentEmployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("all-employee"); // Default: Show all employees
 
   useEffect(() => {
     fetch("http://localhost:5000/api/employee")
       .then((res) => res.json())
       .then((data) => {
         if (data.success && Array.isArray(data.employees)) {
-          // Get the current date
-          const currentDate = new Date();
-
-          // Filter employees that were added in the last 90 days
-          const filteredEmployees = data.employees.filter((employee) => {
-            const createdAtDate = new Date(employee.createdAt);
-            const timeDifference = currentDate - createdAtDate;
-            const daysDifference = timeDifference / (1000 * 3600 * 24); // Convert ms to days
-
-            return daysDifference <= 90; // If the employee was added within the last 90 days
-          });
-
-          // Sort the filtered employees by the `createdAt` field, if necessary
-          const sortedEmployees = filteredEmployees.sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt); // Sort by most recent
-          });
-
-          setEmployees(sortedEmployees);
-          setTotalEmployees(sortedEmployees.length);
-          setRecentEmployees(sortedEmployees.slice(0, 3)); // Get top 3 recent additions
+          setEmployees(data.employees);
+          setTotalEmployees(data.employees.length);
         } else {
           console.error("API returned a non-array response:", data);
           setEmployees([]);
@@ -49,19 +34,49 @@ const Dashboard = () => {
       });
   }, []);
 
-  // Filter employees based on search term
-  const filteredEmployees = employees.filter((employee) =>
+  // Step 1: Filter employees based on search term
+  let filteredEmployees = employees.filter((employee) =>
     employee.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Step 2: Apply sorting based on selection
+  if (sortBy === "all-employee") {
+    filteredEmployees = [...filteredEmployees].sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+  } else if (sortBy === "department") {
+    filteredEmployees = [...filteredEmployees].sort((a, b) =>
+      a.section.localeCompare(b.section)
+    );
+  }else if (sortBy === "recent") {
+    const currentDate = new Date();
+    filteredEmployees = filteredEmployees
+      .filter((employee) => {
+        const createdAtDate = new Date(employee.createdAt);
+        return (currentDate - createdAtDate) / (1000 * 3600 * 24) <= 90;
+      })
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      .slice(0, 3); // Show only 3 employees
+  }
+
+  // Get the 3 most recent employees for the "Recent Additions" card
+  const recentEmployees = employees
+    .filter((employee) => {
+      const currentDate = new Date();
+      const createdAtDate = new Date(employee.createdAt);
+      return (currentDate - createdAtDate) / (1000 * 3600 * 24) <= 90;
+    })
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 3);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-4xl font-bold text-center mb-6 text-blue-600">
         Employee Dashboard
       </h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <Card>
+        <Card onClick={() => setSortBy("all-employee")}> 
           <div className="flex items-center">
             <FaUsers className="text-blue-500 text-3xl mr-4" />
             <div>
@@ -70,18 +85,20 @@ const Dashboard = () => {
             </div>
           </div>
         </Card>
-        
-        <Card>
+
+        <Card onClick={() => setSortBy("department")}> 
           <div className="flex items-center">
             <FaChartPie className="text-green-500 text-3xl mr-4" />
             <div>
               <h3 className="text-xl font-semibold">Departments</h3>
-              <p className="text-gray-600 text-lg">{[...new Set(employees.map(e => e.section))].length}</p>
+              <p className="text-gray-600 text-lg">
+                {[...new Set(employees.map((e) => e.section))].length}
+              </p>
             </div>
           </div>
         </Card>
-        
-        <Card>
+
+        <Card onClick={() => setSortBy("recent")}> 
           <div className="flex items-center">
             <FaUserPlus className="text-orange-500 text-3xl mr-4" />
             <div>
@@ -105,11 +122,13 @@ const Dashboard = () => {
           <FaSearch className="absolute top-3 right-3 text-gray-400" />
         </div>
       </div>
-      
+
       <h2 className="text-2xl font-bold text-gray-700 mb-4">Employee List</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {filteredEmployees.length === 0 ? (
-          <div className="col-span-2 text-center text-lg text-gray-500">No employees found</div>
+          <div className="col-span-2 text-center text-lg text-gray-500">
+            No employees found
+          </div>
         ) : (
           filteredEmployees.map((employee) => (
             <Card key={employee.idNumber}>
@@ -122,6 +141,7 @@ const Dashboard = () => {
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold">{employee.name}</h3>
                   <p className="text-gray-600 text-lg">{employee.position}</p>
+                  <p className="text-gray-540 text-m">{employee.idNumber}</p>
                   <p className="text-gray-500 text-sm">{employee.section}</p>
                   <p className="text-gray-400 text-xs mt-2">
                     Joined on: {new Date(employee.createdAt).toLocaleDateString()}

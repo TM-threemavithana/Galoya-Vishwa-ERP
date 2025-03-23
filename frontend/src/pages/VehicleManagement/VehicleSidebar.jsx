@@ -72,18 +72,6 @@ const VehicleSidebar = () => {
           <span className="text-base">Maintenance Log</span>
         </Link>
         <Link
-          to="/vehicle-reports"
-          className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
-            activeLink === "/vehicle-reports"
-              ? "bg-gray-800 scale-105 shadow-lg"
-              : "hover:bg-gray-800 hover:scale-105"
-          }`}
-          onClick={() => handleLinkClick("/vehicle-reports")}
-        >
-          <FaFileAlt className="text-orange-400 text-lg mr-3" />
-          <span className="text-base">Vehicle Reports</span>
-        </Link>
-        <Link
           to="/vehicle-add"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
             activeLink === "/vehicle-add"

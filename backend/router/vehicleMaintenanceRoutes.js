@@ -4,7 +4,9 @@ import {
   getVehicleRepairs,
   updateVehicleRepair,
   deleteVehicleRepair,
+  getMaintenance,
 } from '../controllers/vehicleMaintenanceController.js';
+
 
 const router = express.Router();
 
@@ -17,5 +19,8 @@ router.route('/')
 router.route('/:id')
   .put(updateVehicleRepair)  // PUT to update a vehicle repair by ID
   .delete(deleteVehicleRepair); // DELETE to remove a vehicle repair by ID
+
+router.route('/maintenance')
+  .get(getMaintenance);
 
 export default router;
