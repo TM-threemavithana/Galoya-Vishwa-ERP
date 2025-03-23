@@ -129,7 +129,7 @@ const MachineReports = () => {
                 {machineRepairs.map((repair) => (
                   <tr key={repair._id} className="hover:bg-gray-50 transition-colors">
                     <td className="py-4 px-6 text-sm font-medium text-gray-800">
-                      {repair.machineName || "N/A"}
+                      {repair.name || "N/A"}
                     </td>
                     <td className="py-4 px-6 text-sm text-gray-700">
                       {repair.description || "N/A"}

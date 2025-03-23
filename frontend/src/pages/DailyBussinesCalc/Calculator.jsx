@@ -16,14 +16,15 @@ const saveTotalsData = async (totals) => {
 
 const saveReturnedItems = async (returnedItems) => {
   try {
-    await axios.post("http://localhost:5000/api/returned-items", { returnedItems });
+    await axios.post("http://localhost:5000/api/returned-items", {
+      returnedItems,
+    });
     toast.success("Returned items saved successfully!");
   } catch (error) {
     toast.error("Error saving returned items");
     console.error("Error saving returned items:", error);
   }
 };
-
 
 const DailyBusinessCalculator = () => {
   const { state } = useLocation();
@@ -765,29 +766,33 @@ const DailyBusinessCalculator = () => {
                 />
               </div>
               <div className="flex-1">
-              {expiredItems.map((item, index) => (
-        <div className="flex-1" key={index}>
-          {index === 0 && (
-            <label className="block text-sm font-medium mb-1">
-              Store Name:
-            </label>
-          )}
-          <select
-            className="w-full border rounded-lg p-2"
-            value={item.storeName}
-            onChange={(e) =>
-              handleExpiredItemChange(index, "storeName", e.target.value)
-            }
-          >
-            <option value="">Select Shop</option>
-            {shops.map((shop) => (
-              <option key={shop._id} value={shop.shopName}>
-                {shop.shopName}
-              </option>
-            ))}
-          </select>
-        </div>
-      ))}
+                {expiredItems.map((item, index) => (
+                  <div className="flex-1" key={index}>
+                    {index === 0 && (
+                      <label className="block text-sm font-medium mb-1">
+                        Store Name:
+                      </label>
+                    )}
+                    <select
+                      className="w-full border rounded-lg p-2"
+                      value={item.storeName}
+                      onChange={(e) =>
+                        handleExpiredItemChange(
+                          index,
+                          "storeName",
+                          e.target.value
+                        )
+                      }
+                    >
+                      <option value="">Select Shop</option>
+                      {shops.map((shop) => (
+                        <option key={shop._id} value={shop.shopName}>
+                          {shop.shopName}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
               </div>
               <div>
                 {index === 0 && (
@@ -888,28 +893,28 @@ const DailyBusinessCalculator = () => {
                 />
               </div>
               {sampleItems.map((item, index) => (
-        <div className="flex-1" key={index}>
-          {index === 0 && (
-            <label className="block text-sm font-medium mb-1">
-              Store Name:
-            </label>
-          )}
-          <select
-            className="w-full  border rounded-lg p-2"
-            value={item.storeName}
-            onChange={(e) =>
-              handleSampleItemChange(index, "storeName", e.target.value)
-            }
-          >
-            <option value="">Select Shop</option>
-            {shops.map((shop) => (
-              <option key={shop._id} value={shop.shopName}>
-                {shop.shopName}
-              </option>
-            ))}
-          </select>
-        </div>
-      ))}
+                <div className="flex-1" key={index}>
+                  {index === 0 && (
+                    <label className="block text-sm font-medium mb-1">
+                      Store Name:
+                    </label>
+                  )}
+                  <select
+                    className="w-full  border rounded-lg p-2"
+                    value={item.storeName}
+                    onChange={(e) =>
+                      handleSampleItemChange(index, "storeName", e.target.value)
+                    }
+                  >
+                    <option value="">Select Shop</option>
+                    {shops.map((shop) => (
+                      <option key={shop._id} value={shop.shopName}>
+                        {shop.shopName}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
               <div>
                 {index === 0 && (
                   <label className="block text-sm font-medium mb-1">
