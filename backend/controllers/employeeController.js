@@ -4,14 +4,15 @@ import ErrorHandler from '../middlewares/error.js';
 
 // Add Employee
 export const addEmployee = catchAsyncErrors(async (req, res, next) => {
-  const { name, idNumber, birthday, position, section, image, salary } = req.body;
+  const { name, idNumber, birthday, position, section, image, salary,regNumber} = req.body;
 
-  if (!name || !idNumber || !birthday || !position || !section) {
+  if (!name || !idNumber || !birthday || !position || !section || !regNumber) {
     return next(new ErrorHandler('Please fill in all required fields.', 400));
   }
 
   const employee = await Employee.create({
     name,
+    regNumber,
     idNumber,
     birthday,
     position,

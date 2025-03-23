@@ -58,7 +58,6 @@ import VehicleSidebar from "./pages/VehicleManagement/VehicleSidebar";
 import VehicleDetails from "./pages/VehicleManagement/VehicleDetails";
 import VehicleRepair from "./pages/VehicleManagement/VehicleRepair";
 import VehicleAdd from "./pages/VehicleManagement/VehicleAdd.jsx";
-import VehicleReports from "./pages/VehicleManagement/VehicleReports";
 import VehicleMaintenance from "./pages/VehicleManagement/VehicleMaintenance";
 
 import RawSidebar from "./pages/RawMaterialsManagement/RawSidebar";
@@ -72,6 +71,7 @@ import ResourceSidebar from "./pages/ResorceManegement/ResorceSidebar";
 import ResourceAdd from "./pages/ResorceManegement/ResourceAdd";
 import ResourceSalleries from "./pages/ResorceManegement/ResorceSalleries";
 import ResourceDashboard from "./pages/ResorceManegement/ResourceDashboard";
+import ResourceEdit from "./pages/ResorceManegement/ResourceEdit";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -137,7 +137,6 @@ const MainAppContent = () => {
 
     { path: "/vehicle-details", element: <VehicleDetails />, withVehicleSidebar: true },
     { path: "/vehicle-repair", element: <VehicleRepair />, withVehicleSidebar: true },
-    { path: "/vehicle-reports", element: <VehicleReports />, withVehicleSidebar: true },
     { path: "/vehicle-add", element: <VehicleAdd />, withVehicleSidebar: true },
     { path: "/vehicle-maintenance", element: <VehicleMaintenance />, withVehicleSidebar: true },
 
@@ -150,7 +149,7 @@ const MainAppContent = () => {
     { path: "/resource-add", element: <ResourceAdd />, withResourceSidebar: true },
     { path: "/resource-sallery", element: <ResourceSalleries />, withResourceSidebar: true },
     { path: "/resource-dashboard", element: <ResourceDashboard />, withResourceSidebar: true },
-
+    { path: "/resource-edit", element: <ResourceEdit />, withResourceSidebar: true },
   ];
 
   // Pages where Footer should not appear
@@ -217,7 +216,7 @@ const MainAppContent = () => {
     "/resource-add",
     "/resource-sallery",
     "/resource-dashboard",
-
+    "/resource-edit",
 
   ];
 

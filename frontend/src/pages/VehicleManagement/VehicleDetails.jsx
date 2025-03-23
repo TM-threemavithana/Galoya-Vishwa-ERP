@@ -92,7 +92,7 @@ const VehicleDetails = () => {
                   <Settings className="w-5 h-5 text-blue-600" />
                   <span className="text-sm font-medium text-blue-700">Mileage</span>
                 </div>
-                <p className="text-sm font-medium text-blue-900">{vehicle.mileage}</p>
+                <p className="text-sm font-medium text-blue-900">{vehicle.mileage} km</p>
               </div>
 
               {/* Capacity */}
