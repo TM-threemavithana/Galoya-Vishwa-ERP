@@ -8,7 +8,8 @@ const employeeSchema = new mongoose.Schema({
   position: { type: String, required: true },
   section: { type: String, required: true },
   image: { type: String },
-  salary: { type: Number }
+  salary: { type: Number },
+  monthSallery: {type: Number}
 }, { timestamps: true });
 
 const Employee = mongoose.model('Employee', employeeSchema);
