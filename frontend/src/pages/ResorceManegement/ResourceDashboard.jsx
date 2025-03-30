@@ -115,7 +115,7 @@ const Dashboard = () => {
           <input
             type="text"
             className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Search Employees"
+            placeholder="Search Employee name"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -132,23 +132,31 @@ const Dashboard = () => {
         ) : (
           filteredEmployees.map((employee) => (
             <Card key={employee.idNumber}>
-              <div className="flex items-center space-x-6">
-                <img
-                  src={employee.image || "https://via.placeholder.com/100"}
-                  alt={employee.name}
-                  className="w-24 h-24 rounded-full object-cover"
-                />
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold">{employee.name}</h3>
-                  <p className="text-gray-600 text-lg">{employee.position}</p>
-                  <p className="text-gray-540 text-m">{employee.idNumber}</p>
-                  <p className="text-gray-500 text-sm">{employee.section}</p>
-                  <p className="text-gray-400 text-xs mt-2">
-                    Joined on: {new Date(employee.createdAt).toLocaleDateString()}
-                  </p>
+              <div className="relative">
+                {/* Employee ID in top right corner */}
+                <h3 className="text-gray-500 text-sm absolute top-0 right-0 mt-1 mr-4">
+                  GV 0{employee.emplId}
+                </h3>
+                
+                <div className="flex items-center space-x-6">
+                  <img
+                    src={employee.image || "https://via.placeholder.com/100"}
+                    alt={employee.name}
+                    className="w-24 h-24 rounded-full object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold">{employee.name}</h3>
+                    <p className="text-gray-600 text-lg">{employee.position}</p>
+                    <p className="text-gray-540 text-m">{employee.idNumber}</p>
+                    <p className="text-gray-500 text-sm">{employee.section}</p>
+                    <p className="text-gray-400 text-xs mt-2">
+                      Joined on: {new Date(employee.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
                 </div>
               </div>
             </Card>
+
           ))
         )}
       </div>

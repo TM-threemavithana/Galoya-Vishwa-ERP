@@ -5,6 +5,7 @@ import {
   getMachineRepairs,
   updateMachineRepair,
   deleteMachineRepair,
+  getRepair,
 } from '../controllers/machineRepairController.js';
 
 const router = express.Router();
@@ -16,5 +17,8 @@ router.route('/')
 router.route('/:id')
   .put(updateMachineRepair)
   .delete(deleteMachineRepair);
+
+router.route('/mRepair')
+  .get(getRepair)
 
 export default router;
