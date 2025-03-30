@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from 'react-router-dom';
+import { Button, TextField, MenuItem, Select, InputLabel, FormControl, Container, Box, Typography } from "@mui/material";
 
 const SalleryEdit = () => {
   const [employees, setEmployees] = useState([]);
@@ -46,11 +48,48 @@ const SalleryEdit = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center p-6">
+      
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl">
+        
+
+          <nav style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '20px', width: '100%' }}>
+        <Link to="/salaries/edit" style={{ textDecoration: 'none', width: '30%' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ margin: '0 10px', height: '50px' }} // Consistent height for all buttons
+          >
+            Edit
+          </Button>
+        </Link>
+
+        <Link to="/resource-sallery" style={{ textDecoration: 'none', width: '30%' }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            fullWidth
+            sx={{ margin: '0 10px', height: '50px' }} // Consistent height for all buttons
+          >
+            Calculate
+          </Button>
+        </Link>
+
+        <Link to="/salary-details" style={{ textDecoration: 'none', width: '30%' }}>
+          <Button
+            variant="contained"
+            color="success"
+            fullWidth
+            sx={{ margin: '0 10px', height: '50px' }} // Consistent height for all buttons
+          >
+            Details
+          </Button>
+        </Link>
+      </nav>
+
         <h2 className="text-2xl font-bold text-gray-700 mb-6 text-center">
           Employee Salaries
         </h2>
-
         <table className="w-full border-collapse border border-gray-300 mb-4">
           <thead>
             <tr className="bg-gray-200">

@@ -1,14 +1,11 @@
 import mongoose from 'mongoose';
 
 const sallerySchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  regNumber:{type:String, required:true, unique: true},
-  position: { type: String, required: true },
-  section: { type: String, required: true },
+  emplName: { type: String },
   salaryPerDay: { type: Number },
-  monthSallery: {type: Number},
+  smonthSallery: {type: Number},
   workDays: {type: Number},
-  month: {type: String},
+  smonth: {type: String},
 }, { timestamps: true });
 
 const Sallery = mongoose.model('Sallery', sallerySchema);

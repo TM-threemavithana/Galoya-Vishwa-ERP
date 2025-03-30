@@ -73,6 +73,7 @@ import ResourceSalleries from "./pages/ResorceManegement/ResorceSalleries";
 import ResourceDashboard from "./pages/ResorceManegement/ResourceDashboard";
 import ResourceEdit from "./pages/ResorceManegement/ResourceEdit";
 import SalleryEdit from "./pages/ResorceManegement/SalleryEdit";
+import ShowSalaryDetails from "./pages/ResorceManegement/salaryShow";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -152,6 +153,7 @@ const MainAppContent = () => {
     { path: "/resource-dashboard", element: <ResourceDashboard />, withResourceSidebar: true },
     { path: "/resource-edit", element: <ResourceEdit />, withResourceSidebar: true },
     { path: "/salaries/edit", element: <SalleryEdit/>, withResourceSidebar: true },
+    { path: "/salary-details", element: <ShowSalaryDetails/>, withResourceSidebar: true },
     
   ];
 
@@ -220,6 +222,8 @@ const MainAppContent = () => {
     "/resource-sallery",
     "/resource-dashboard",
     "/resource-edit",
+    '/salary-details',
+    "/salary-edit"
 
   ];
 
