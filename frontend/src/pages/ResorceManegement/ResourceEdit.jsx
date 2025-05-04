@@ -64,15 +64,18 @@ const ResourceEdit = () => {
   };
 
   const filteredEmployees = employees.filter((emp) => {
-    const formattedId = `GV ${emp.emplId.toString().padStart(2, "0")}`; // Convert 1 → GV 01
+    const formattedId = `GV ${emp.emplId.toString().padStart(2, "0")}`;
+    const normalizedSearch = searchQuery.toLowerCase().replace(/\s+/g, '');
+    const normalizedName = emp.name.toLowerCase().replace(/\s+/g, '');
+    const normalizedId = formattedId.toLowerCase().replace(/\s+/g, '');
+  
     return (
-      emp.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      formattedId.toLowerCase().includes(searchQuery.toLowerCase()) // Case-insensitive match
+      normalizedName.includes(normalizedSearch) ||
+      normalizedId.includes(normalizedSearch)
     );
   });
   
-  
-  
+
 
   if (loading) return <p>Loading...</p>;
 
