@@ -7,7 +7,7 @@ import Sallery from "../models/Sallery.js";
 export const addEmployee = catchAsyncErrors(async (req, res, next) => {
   console.log("Received Request Body:", req.body); // Debugging Line
 
-  const { name, idNumber, birthday, position, section, image, salary, monthSallery, month, workingDays, contactNumber1, contactNumber2, residence } = req.body;
+  const { name, idNumber, birthday, position, section, image, salary, monthSallery, month, workingDays, contactNumber1, contactNumber2, residence ,joinedDate} = req.body;
 
   if (!name || !idNumber || !birthday || !position || !section) {
     return next(new ErrorHandler("Please fill in all required fields.", 400));
@@ -36,6 +36,7 @@ export const addEmployee = catchAsyncErrors(async (req, res, next) => {
       contactNumber1,
       contactNumber2,
       residence,
+      joinedDate,
     });
 
     console.log("Employee Created Successfully:", employee); // Debugging Line

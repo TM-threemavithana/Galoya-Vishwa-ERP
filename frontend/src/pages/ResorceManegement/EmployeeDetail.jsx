@@ -70,7 +70,7 @@ const EmployeeDetail = () => {
           <label className="block text-gray-700 font-semibold">BirthDay</label>
           <input
             type="text"
-            value={new Date(employee.birthday).toLocaleDateString()}
+            value={employee.birthday?.slice(0, 10) || 'N/A'}
             readOnly
             className="w-full p-2 border border-gray-300 rounded bg-gray-100"
           />
@@ -120,7 +120,7 @@ const EmployeeDetail = () => {
           <label className="block text-gray-700 font-semibold">Joined Date</label>
           <input
             type="text"
-            value={new Date(employee.createdAt).toLocaleDateString()}
+            value={employee.joinedDate?.slice(0,10) || employee.createdAt?.slice(0, 10)}
             readOnly
             className="w-full p-2 border border-gray-300 rounded bg-gray-100"
           />
@@ -130,7 +130,7 @@ const EmployeeDetail = () => {
           <label className="block text-gray-700 font-semibold">Current Salary for Day</label>
           <input
             type="text"
-            value={employee.salary}
+            value={employee.salary||"N/A"}
             readOnly
             className="w-full p-2 border border-gray-300 rounded bg-gray-100"
           />
@@ -140,7 +140,7 @@ const EmployeeDetail = () => {
           <label className="block text-gray-700 font-semibold">Last Month Salary</label>
           <input
             type="text"
-            value={employee.monthSallery}
+            value={employee.monthSallery||"N/A"}
             readOnly
             className="w-full p-2 border border-gray-300 rounded bg-gray-100"
           />
