@@ -196,7 +196,7 @@ const Dashboard = () => {
                     <p className="text-gray-540 text-m">{employee.idNumber}</p>
                     <p className="text-gray-500 text-sm">{employee.section}</p>
                     <p className="text-gray-400 text-xs mt-2">
-                      Joined on: {new Date(employee.createdAt).toLocaleDateString()}
+                      Joined on: {employee.joinedDate?.slice(0,10) || employee.createdAt?.slice(0, 10)}
                     </p>
                   </div>
                 </div>

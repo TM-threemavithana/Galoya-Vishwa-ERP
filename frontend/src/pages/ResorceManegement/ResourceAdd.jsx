@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import upload_area from "../../assets/upload_area.svg";
-import { FaUserAlt, FaIdCard, FaBirthdayCake, FaBriefcase, FaLayerGroup } from "react-icons/fa";
+import { FaUserAlt, FaIdCard, FaBirthdayCake, FaBriefcase, FaLayerGroup, FaPhoneAlt, FaHome, FaCalendarPlus } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";  // Import the toast styles
 
@@ -140,7 +140,7 @@ const ResourceAdd = () => {
 
             {/* Contact Number 1 */}
             <div className="flex items-center space-x-3">
-              <FaIdCard className="text-blue-500 text-2xl mt-9" />
+              <FaPhoneAlt className="text-blue-500 text-2xl mt-9" />
               <div className="flex-1">
                 <label className="block text-lg font-medium text-gray-700 mb-2">Contact Number 1</label>
                 <input
@@ -156,7 +156,7 @@ const ResourceAdd = () => {
 
             {/* Contact Number 2 */}
             <div className="flex items-center space-x-3">
-              <FaIdCard className="text-blue-500 text-2xl mt-9" />
+              <FaPhoneAlt className="text-blue-500 text-2xl mt-9" />
               <div className="flex-1">
                 <label className="block text-lg font-medium text-gray-700 mb-2">Contact Number 2</label>
                 <input
@@ -172,7 +172,7 @@ const ResourceAdd = () => {
 
             {/* Residence */}
             <div className="flex items-center space-x-3">
-              <FaIdCard className="text-blue-500 text-2xl mt-9" />
+              <FaHome className="text-blue-500 text-2xl mt-9" />
               <div className="flex-1">
                 <label className="block text-lg font-medium text-gray-700 mb-2">Residence</label>
                 <input
@@ -196,6 +196,21 @@ const ResourceAdd = () => {
                   onChange={changeHandler}
                   type="date"
                   name="birthday"
+                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
+                />
+              </div>
+            </div>
+
+            {/* Birthday */}
+            <div className="flex items-center space-x-3">
+              <FaCalendarPlus className="text-blue-500 text-2xl mt-9" />
+              <div className="flex-1">
+                <label className="block text-lg font-medium text-gray-700 mb-2">Joined Date</label>
+                <input
+                  value={employee.joinedDate}
+                  onChange={changeHandler}
+                  type="date"
+                  name="joinedDate"
                   className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
                 />
               </div>

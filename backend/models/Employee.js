@@ -12,6 +12,7 @@ const employeeSchema = new mongoose.Schema({
   monthSallery: {type: Number},
   month:{type: String},
   workingDays:{type:Number},
+  joinedDate: {type:Date},
   contactNumber1: {
     type: String,
     match: [/^(\+94|0)[0-9]{9}$/, "Please enter a valid Sri Lankan mobile number"], // Regex for valid mobile numbers in Sri Lanka
