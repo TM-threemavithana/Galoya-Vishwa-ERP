@@ -19,11 +19,29 @@ import {
 const ShowSalaryDetails = () => {
   const [salaries, setSalaries] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [employees, setEmployees] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/employee")
+      .then((response) => {
+        if (response.data.success && Array.isArray(response.data.employees)) {
+          setEmployees(response.data.employees);
+        } else {
+          console.error("Unexpected response format:", response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching employees:", error);
+      });
+  }, []);
 
   useEffect(() => {
     const fetchSalaries = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/employee/salary");
+        const response = await axios.get(
+          "http://localhost:5000/api/employee/salary"
+        );
         setSalaries(response.data.salaries || []);
       } catch (error) {
         console.error("Error fetching salaries:", error);
@@ -53,15 +71,24 @@ const ShowSalaryDetails = () => {
 
   const uniqueSalaries = Array.from(uniqueSalariesMap.values());
 
-  // Filter by search query
-  const filteredSalaries = uniqueSalaries.filter((salary) =>
-    salary.emplName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Filter by search query (name or GV0 ID)
+  const filteredSalaries = uniqueSalaries.filter((salary) => {
+    const matchedEmployee = employees.find(
+      (emp) => emp.name === salary.emplName
+    );
+    const emplId = matchedEmployee ? `GV0${matchedEmployee.emplId}` : "";
+
+    const lowerQuery = searchQuery.toLowerCase();
+
+    return (
+      salary.emplName.toLowerCase().includes(lowerQuery) ||
+      emplId.toLowerCase().includes(lowerQuery)
+    );
+  });
 
   return (
     <Container maxWidth="lg">
       <Box my={4} p={4} component={Paper} elevation={5} sx={{ borderRadius: 3 }}>
-
         {/* Navigation Buttons */}
         <Box display="flex" justifyContent="space-between" mb={3}>
           <Button
@@ -93,7 +120,13 @@ const ShowSalaryDetails = () => {
           </Button>
         </Box>
 
-        <Typography variant="h4" color="primary" align="center" fontWeight="bold" gutterBottom>
+        <Typography
+          variant="h4"
+          color="primary"
+          align="center"
+          fontWeight="bold"
+          gutterBottom
+        >
           Salary Details
         </Typography>
 
@@ -101,7 +134,7 @@ const ShowSalaryDetails = () => {
         <TextField
           fullWidth
           variant="outlined"
-          label="Search by Employee Name"
+          label="Search by Employee Name or ID"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           margin="normal"
@@ -113,22 +146,41 @@ const ShowSalaryDetails = () => {
           <Table>
             <TableHead>
               <TableRow sx={{ backgroundColor: "#1976d2" }}>
-                <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Employee</TableCell>
-                <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Month</TableCell>
-                <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Work Days</TableCell>
-                <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Monthly Salary</TableCell>
+                <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+                  Employee
+                </TableCell>
+                <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+                  Month
+                </TableCell>
+                <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+                  Work Days
+                </TableCell>
+                <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+                  Monthly Salary
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {filteredSalaries.length > 0 ? (
-                filteredSalaries.map((salary, index) => (
-                  <TableRow key={index} hover>
-                    <TableCell>{salary.emplName}</TableCell>
-                    <TableCell>{salary.smonth}</TableCell>
-                    <TableCell>{salary.workDays}</TableCell>
-                    <TableCell>${salary.smonthSallery}</TableCell>
-                  </TableRow>
-                ))
+                filteredSalaries.map((salary, index) => {
+                  const matchedEmployee = employees.find(
+                    (emp) => emp.name === salary.emplName
+                  );
+                  const emplId = matchedEmployee
+                    ? `GV0${matchedEmployee.emplId}`
+                    : "N/A";
+
+                  return (
+                    <TableRow key={index} hover>
+                      <TableCell>
+                        {salary.emplName} ({emplId})
+                      </TableCell>
+                      <TableCell>{salary.smonth}</TableCell>
+                      <TableCell>{salary.workDays}</TableCell>
+                      <TableCell>${salary.smonthSallery}</TableCell>
+                    </TableRow>
+                  );
+                })
               ) : (
                 <TableRow>
                   <TableCell colSpan={4} align="center">
