@@ -68,6 +68,7 @@ const MachineDashboard = () => {
                 <div className="text-center text-gray-500">No Image Available</div>
               )}
               <h2 className="text-xl font-semibold text-gray-800 mb-2">{machine.name}</h2>
+              <p className="text-gray-600 mb-3">{machine.description}</p>
               <p className="text-gray-600 mb-3">{machine.type}</p>
               <p className="text-gray-800 font-medium text-sm mb-3">
                 Price: <span className="text-green-600">RS.{machine.price}.00</span>

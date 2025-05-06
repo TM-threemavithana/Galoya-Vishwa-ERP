@@ -5,6 +5,7 @@ import {
   getMachines,
   updateMachine,
   deleteMachine,
+  getRepair,
 } from '../controllers/machineController.js';
 
 const router = express.Router();
@@ -16,5 +17,8 @@ router.route('/')
 router.route('/:id')
   .put(updateMachine)
   .delete(deleteMachine);
+
+router.route('/mRepair')
+  .get(getRepair);
 
 export default router;

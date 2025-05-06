@@ -72,6 +72,9 @@ import ResourceAdd from "./pages/ResorceManegement/ResourceAdd";
 import ResourceSalleries from "./pages/ResorceManegement/ResorceSalleries";
 import ResourceDashboard from "./pages/ResorceManegement/ResourceDashboard";
 import ResourceEdit from "./pages/ResorceManegement/ResourceEdit";
+import SalleryEdit from "./pages/ResorceManegement/SalleryEdit";
+import ShowSalaryDetails from "./pages/ResorceManegement/salaryShow";
+import EmployeeDetail from "./pages/ResorceManegement/EmployeeDetail";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -150,6 +153,10 @@ const MainAppContent = () => {
     { path: "/resource-sallery", element: <ResourceSalleries />, withResourceSidebar: true },
     { path: "/resource-dashboard", element: <ResourceDashboard />, withResourceSidebar: true },
     { path: "/resource-edit", element: <ResourceEdit />, withResourceSidebar: true },
+    { path: "/salaries/edit", element: <SalleryEdit/>, withResourceSidebar: true },
+    { path: "/salary-details", element: <ShowSalaryDetails/>, withResourceSidebar: true },
+    { path:"/employee/:id", element: <EmployeeDetail/> , withResourceSidebar: true}
+    
   ];
 
   // Pages where Footer should not appear
@@ -217,10 +224,16 @@ const MainAppContent = () => {
     "/resource-sallery",
     "/resource-dashboard",
     "/resource-edit",
-
+    '/salary-details',
+    "/salary-edit",
+    "/ShowSalaryDetails",
+    "/EmployeeDetail ",
+    "/salaries/edit",
   ];
 
-  const shouldShowFooter = !noFooterPaths.includes(location.pathname);
+  const shouldShowFooter =
+  !noFooterPaths.includes(location.pathname) &&
+  !location.pathname.startsWith("/employee/");
 
   return (
     <>
