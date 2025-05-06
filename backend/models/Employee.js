@@ -3,7 +3,12 @@ import mongoose from 'mongoose';
 const employeeSchema = new mongoose.Schema({
   name: { type: String, required: true },
   emplId: {type:Number},
-  idNumber: { type: String, required: true, unique: true },
+  idNumber: {
+    type: String,
+    required: true,
+    unique: true,
+    match: [/^(?:\d{11}V|\d{12})$/, 'Invalid ID number format. Must be 11 digits followed by "V" or 12 digits.']
+  },
   birthday: { type: Date, required: true },
   position: { type: String, required: true },
   section: { type: String, required: true },
