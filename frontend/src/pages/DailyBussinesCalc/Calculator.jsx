@@ -534,9 +534,10 @@ const DailyBusinessCalculator = () => {
                 }
               >
                 <option value="">Select Price</option>
-                <option value="10">10.00</option>
-                <option value="20">20.00</option>
-                <option value="30">30.00</option>
+                <option value="10">47</option>
+                <option value="20">48</option>
+                <option value="30">49</option>
+                <option value="30">50</option>
               </select>
             </div>
             <div className="flex items-center gap-2">
@@ -670,9 +671,10 @@ const DailyBusinessCalculator = () => {
                   }
                 >
                   <option value="">Select Price</option>
-                  <option value="10">10.00</option>
-                  <option value="20">20.00</option>
-                  <option value="30">30.00</option>
+                  <option value="10">47.00</option>
+                  <option value="20">48.00</option>
+                  <option value="30">49.00</option>
+                  <option value="30">50.00</option>
                 </select>
               </div>
 
@@ -808,9 +810,10 @@ const DailyBusinessCalculator = () => {
                   }
                 >
                   <option value="">Select Price</option>
-                  <option value="10">10.00</option>
-                  <option value="20">20.00</option>
-                  <option value="30">30.00</option>
+                  <option value="10">47.00</option>
+                  <option value="20">48.00</option>
+                  <option value="30">49.00</option>
+                  <option value="30">50.00</option>
                 </select>
               </div>
 
@@ -929,9 +932,10 @@ const DailyBusinessCalculator = () => {
                   }
                 >
                   <option value="">Select Price</option>
-                  <option value="10">10.00</option>
-                  <option value="20">20.00</option>
-                  <option value="30">30.00</option>
+                  <option value="10">47.00</option>
+                  <option value="20">48.00</option>
+                  <option value="30">49.00</option>
+                  <option value="30">50.00</option>
                 </select>
               </div>
               <div className="flex items-center gap-2">
