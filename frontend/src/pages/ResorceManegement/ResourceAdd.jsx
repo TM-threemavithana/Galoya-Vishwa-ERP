@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
 import upload_area from "../../assets/upload_area.svg";
-import { FaUserAlt, FaIdCard, FaBirthdayCake, FaBriefcase, FaLayerGroup, FaPhoneAlt, FaHome, FaCalendarPlus } from "react-icons/fa";
+import {
+  FaUserAlt,
+  FaIdCard,
+  FaBirthdayCake,
+  FaBriefcase,
+  FaLayerGroup,
+  FaPhoneAlt,
+  FaHome,
+  FaCalendarPlus,
+} from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";  // Import the toast styles
+import "react-toastify/dist/ReactToastify.css";
 
 const ResourceAdd = () => {
   const [image, setImage] = useState(null);
   const [employee, setEmployee] = useState({
-    emplId: "",  // Auto-incremented Employee ID
+    emplId: "",
     name: "",
     idNumber: "",
     birthday: "",
@@ -21,9 +30,9 @@ const ResourceAdd = () => {
     contactNumber1: "",
     contactNumber2: "",
     residence: "",
+    joinedDate: "",
   });
 
-  // Fetch the last employee ID and increment it
   useEffect(() => {
     fetch("http://localhost:5000/api/employee")
       .then((resp) => resp.json())
@@ -44,23 +53,38 @@ const ResourceAdd = () => {
     const { name, value } = e.target;
     setEmployee((prev) => ({
       ...prev,
-      [name]: name === "salary" || name === "monthSallery" || name === "workingDays"
-        ? value ? Number(value) : ""  // Prevent NaN issues
-        : value,
+      [name]:
+        name === "salary" || name === "monthSallery" || name === "workingDays"
+          ? value
+            ? Number(value)
+            : ""
+          : value,
     }));
   };
 
   const addEmployee = async () => {
-    console.log(employee);
-    let responseData;
+    const idRegex = /^(?:\d{11}V|\d{12})$/;
+    const phoneRegex = /^(\+94|0)[0-9]{9}$/;
 
-    let formData = new FormData();
-    if (image) {
-      formData.append("product", image);
+    if (!idRegex.test(employee.idNumber)) {
+      toast.error("Invalid ID number.");
+      return;
     }
 
-    // Upload image if selected
+    if (
+      (employee.contactNumber1 && !phoneRegex.test(employee.contactNumber1)) ||
+      (employee.contactNumber2 && !phoneRegex.test(employee.contactNumber2))
+    ) {
+      toast.error("Invalid Phone number.");
+      return;
+    }
+
+    let responseData;
+    let formData = new FormData();
+
     if (image) {
+      formData.append("product", image);
+
       await fetch("http://localhost:5000/upload", {
         method: "POST",
         headers: { Accept: "application/json" },
@@ -76,7 +100,6 @@ const ResourceAdd = () => {
       }
     }
 
-    // Send employee data
     await fetch("http://localhost:5000/api/employee", {
       method: "POST",
       headers: {
@@ -99,8 +122,8 @@ const ResourceAdd = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex justify-center items-center p-6">
-      <div className="bg-white shadow-2xl rounded-lg p-8 w-full max-w-3xl border border-gray-300 hover:shadow-xl transition-shadow duration-500 rounded-[8px]">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex justify-center items-center p-6 rounded-[6px]">
+      <div className="bg-white shadow-2xl p-8 w-full max-w-3xl border border-gray-300 hover:shadow-xl transition-shadow duration-500 rounded-[8px]">
         <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-700 mb-8 text-center">
           Add New Employee
         </h2>
@@ -109,15 +132,15 @@ const ResourceAdd = () => {
             {/* Name */}
             <div className="flex items-center space-x-3">
               <FaUserAlt className="text-blue-500 text-2xl mt-9" />
-              <div className="flex-1 ">
-                <label className="block text-lg font-medium text-gray-700 mb-2 ">Name</label>
+              <div className="flex-1">
+                <label className="block text-lg font-medium text-gray-700 mb-2">Name</label>
                 <input
                   value={employee.name}
                   onChange={changeHandler}
                   type="text"
                   name="name"
                   placeholder="Enter employee name"
-                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
+                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-[6px]"
                 />
               </div>
             </div>
@@ -133,7 +156,7 @@ const ResourceAdd = () => {
                   type="text"
                   name="idNumber"
                   placeholder="Enter ID number"
-                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
+                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-[6px]"
                 />
               </div>
             </div>
@@ -149,7 +172,7 @@ const ResourceAdd = () => {
                   type="text"
                   name="contactNumber1"
                   placeholder="Enter contact number 1"
-                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
+                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-[6px]"
                 />
               </div>
             </div>
@@ -165,7 +188,7 @@ const ResourceAdd = () => {
                   type="text"
                   name="contactNumber2"
                   placeholder="Enter contact number 2"
-                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
+                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-[6px]"
                 />
               </div>
             </div>
@@ -181,7 +204,7 @@ const ResourceAdd = () => {
                   type="text"
                   name="residence"
                   placeholder="Enter residence"
-                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
+                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-[6px]"
                 />
               </div>
             </div>
@@ -196,12 +219,12 @@ const ResourceAdd = () => {
                   onChange={changeHandler}
                   type="date"
                   name="birthday"
-                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
+                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-[6px]"
                 />
               </div>
             </div>
 
-            {/* Birthday */}
+            {/* Joined Date */}
             <div className="flex items-center space-x-3">
               <FaCalendarPlus className="text-blue-500 text-2xl mt-9" />
               <div className="flex-1">
@@ -211,7 +234,7 @@ const ResourceAdd = () => {
                   onChange={changeHandler}
                   type="date"
                   name="joinedDate"
-                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
+                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-[6px]"
                 />
               </div>
             </div>
@@ -227,12 +250,12 @@ const ResourceAdd = () => {
                   type="text"
                   name="position"
                   placeholder="Enter position"
-                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
+                  className="form-input w-full px-4 py-3 border-2 border-gray-300 rounded-[6px]"
                 />
               </div>
             </div>
 
-            {/* Section Dropdown */}
+            {/* Section */}
             <div className="flex items-center space-x-3">
               <FaLayerGroup className="text-blue-500 text-2xl mt-9" />
               <div className="flex-1">
@@ -241,7 +264,7 @@ const ResourceAdd = () => {
                   value={employee.section}
                   onChange={changeHandler}
                   name="section"
-                  className="form-select w-full px-4 py-3 border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 rounded-[6px]"
+                  className="form-select w-full px-4 py-3 border-2 border-gray-300 rounded-[6px]"
                 >
                   <option value="">Select Section</option>
                   <option value="cleaning">Cleaning</option>
@@ -251,34 +274,31 @@ const ResourceAdd = () => {
                 </select>
               </div>
             </div>
-
           </div>
 
-          {/* Image Upload */}
+          {/* Upload Image */}
           <div className="mt-8">
             <label className="block text-lg font-medium text-gray-700 mb-2">Upload Photo</label>
             <label htmlFor="file-input" className="block cursor-pointer mb-4">
               <img
                 src={image ? URL.createObjectURL(image) : upload_area}
                 alt="Upload"
-                className="w-40 h-40 object-cover border-2 border-gray-300 rounded-md shadow-md rounded-[8px]"
+                className="w-40 h-40 object-cover border-2 border-gray-300 shadow-md rounded-[8px]"
               />
             </label>
             <input onChange={imageHandler} type="file" name="image" id="file-input" hidden />
           </div>
 
-          {/* Add Employee Button */}
+          {/* Submit Button */}
           <button
             type="button"
             onClick={addEmployee}
-            className="w-full mt-8 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg rounded-[6px]"
+            className="w-full mt-8 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 shadow-lg rounded-[6px]"
           >
             Add Employee
           </button>
         </form>
       </div>
-
-      {/* Toast notifications */}
       <ToastContainer />
     </div>
   );
