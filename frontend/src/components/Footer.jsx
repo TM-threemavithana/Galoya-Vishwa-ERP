@@ -1,9 +1,9 @@
 import React from "react";
-import logo from "../assets/logo.png"; // Importing logo from assets folder
+import logo from "../assets/logo.png"; 
 
 const Footer = () => {
   return (
-    <div className="bg-gradient-to-r from-green-900 via-green-600 to-green-300"> {/* Updated to gradient */}
+    <div className="bg-gradient-to-r from-green-900 via-green-600 to-green-300"> {}
       <div className="flex flex-col sm:grid sm:grid-cols-[3fr_1fr_1fr] gap-10 my-5 mt-20 text-sm px-5">
         <div>
           <img src={logo} className="mb-3 w-24" alt="Company Logo" />
