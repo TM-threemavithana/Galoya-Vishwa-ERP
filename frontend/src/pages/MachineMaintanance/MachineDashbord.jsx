@@ -47,14 +47,14 @@ const MachineDashboard = () => {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto bg-white shadow-md rounded-md">
-      <h1 className="text-2xl font-bold mb-6 text-gray-700">Machine Dashboard</h1>
+    <div className="p-6 mt-[50px] max-w-6xl mx-auto bg-white shadow-md rounded-[6px]">
+      <h1 className="text-2xl font-bold mb-6 text-gray-700"></h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {machines.length > 0 ? (
           machines.map((machine) => (
             <div
               key={machine._id}
-              className="bg-white shadow-md rounded-lg p-4 border border-gray-200"
+              className="bg-white shadow-md rounded-[6px] p-4 border border-gray-200"
             >
               {machine.image ? (
                 <div className="flex justify-center mb-3">
@@ -67,7 +67,7 @@ const MachineDashboard = () => {
               ) : (
                 <div className="text-center text-gray-500">No Image Available</div>
               )}
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">{machine.name}</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">{machine.name} ({machine.placeNum})</h2>
               <p className="text-gray-600 mb-3">{machine.description}</p>
               <p className="text-gray-600 mb-3">{machine.type}</p>
               <p className="text-gray-800 font-medium text-sm mb-3">
@@ -89,7 +89,7 @@ const MachineDashboard = () => {
               {/* Remove Button */}
               <button
                 onClick={() => handleRemove(machine._id)} // Pass the machine's ID to the handleRemove function
-                className="mt-4 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+                className="mt-4 bg-red-500 text-white py-2 px-4 rounded-[6px] hover:bg-red-600 transition"
               >
                 Remove
               </button>
