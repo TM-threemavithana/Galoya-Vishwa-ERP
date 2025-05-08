@@ -20,7 +20,7 @@ const DailyDistribution = () => {
   const recordsPerPage = 5;
 
   const vehicleNumbers = ['DAH - 0876', 'PV - 0505', 'PR - 3632'];
-  const routes = ['Siyabalanduwa', 'Uhana', 'Iginiyagama' , 'Mahaoya' , 'Kethsirigama', 'Madoore','Akkarapaththu','Kalmunai','Neththa','Batticaloa'];
+  const routes = ['Siyabalanduwa', 'Uhana', 'Iginiyagala' , 'Mahaoya' , 'Kethsirigama', 'Madoore','Akkarapaththu','Kalmunai','Neththa','Batticaloa'];
   const refNames = ['P.B.', 'Theekshana', 'Anuradha'];
   const driverNames = ['Wasantha', 'Nimal', 'Kamal'];
   const inventoryNames = ['Jeli Yougurts',
@@ -54,6 +54,13 @@ const DailyDistribution = () => {
   const handleInventoryChange = (index, e) => {
     const { name, value } = e.target;
     const newInventories = [...inventories];
+  
+    // Ensure quantity is always positive
+    if (name === "quantity" && value < 0) {
+      toast.error("Quantity cannot be negative.");
+      return;
+    }
+  
     newInventories[index][name] = value;
     setInventories(newInventories);
   };
@@ -160,9 +167,9 @@ const DailyDistribution = () => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block font-medium text-gray-700 mb-1">Reference Name</label>
+            <label className="block font-medium text-gray-700 mb-1">Refe Name</label>
             <select name="refName" value={distribution.refName} onChange={handleDistributionChange} className="form-select mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="">Select a reference</option>
+              <option value="">Select a refe</option>
               {refNames.map((ref, index) => (
                 <option key={index} value={ref}>{ref}</option>
               ))}
@@ -207,7 +214,7 @@ const DailyDistribution = () => {
                 <th className="py-3 px-4 border-b">Date</th>
                 <th className="py-3 px-4 border-b">Vehicle Number</th>
                 <th className="py-3 px-4 border-b">Route</th>
-                <th className="py-3 px-4 border-b">Reference Name</th>
+                <th className="py-3 px-4 border-b">Refe Name</th>
                 <th className="py-3 px-4 border-b">Driver Name</th>
                 <th className="py-3 px-4 border-b">Product Name</th>
                 <th className="py-3 px-4 border-b">Quantity</th>
