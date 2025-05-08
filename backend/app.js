@@ -33,7 +33,7 @@ config({
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
+    origin: [process.env.FRONTEND_URL, "https://your-frontend-app-name.onrender.com"],
     methods: ["POST", "GET", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
