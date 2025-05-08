@@ -4,14 +4,12 @@ import axios from "axios";
 const MachineReports = () => {
   const [machineRepairs, setMachineRepairs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(""); // 🔍 NEW
 
   useEffect(() => {
     const fetchMachineRepairs = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/machinerepairs/mRepair");
-        console.log("API Response:", response.data); // Debugging
-
-        // Use 'machines' instead of 'machineRepairs'
         setMachineRepairs(Array.isArray(response.data.machines) ? response.data.machines : []);
       } catch (error) {
         console.error("Error fetching machine repairs:", error);
@@ -25,12 +23,8 @@ const MachineReports = () => {
   }, []);
 
   const formatCurrency = (amount) => {
-    if (!amount || isNaN(amount)) {
-      return "Rs. 0.00";
-    }
-    return `Rs. ${parseFloat(amount)
-      .toFixed(2)
-      .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`;
+    if (!amount || isNaN(amount)) return "Rs. 0.00";
+    return `Rs. ${parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`;
   };
 
   const formatDate = (date) =>
@@ -41,6 +35,13 @@ const MachineReports = () => {
           day: "numeric",
         })
       : "N/A";
+
+  const filteredRepairs = machineRepairs.filter(
+    (repair) =>
+      (repair.machine && repair.machine.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (repair.mdescription && repair.mdescription.toLowerCase().includes(searchTerm.toLowerCase()))||
+      (repair.billNumber && repair.billNumber.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
   if (loading) {
     return (
@@ -57,7 +58,18 @@ const MachineReports = () => {
           Machine Repair Reports
         </h2>
 
-        {Array.isArray(machineRepairs) && machineRepairs.length === 0 ? (
+        {/* 🔍 Search Input */}
+        <div className="mb-6">
+          <input
+            type="text"
+            placeholder="Search by Machine Name or Description"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none"
+          />
+        </div>
+
+        {filteredRepairs.length === 0 ? (
           <p className="text-center text-gray-500 py-8">No machine repairs found.</p>
         ) : (
           <div className="overflow-x-auto">
@@ -85,7 +97,7 @@ const MachineReports = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {machineRepairs.map((repair) => (
+                {filteredRepairs.map((repair) => (
                   <tr key={repair._id} className="hover:bg-gray-50 transition-colors">
                     <td className="py-4 px-6 text-sm font-medium text-gray-800">
                       {repair.machine || "N/A"}
