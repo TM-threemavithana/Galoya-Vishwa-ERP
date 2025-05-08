@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/slices/userSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { FiLogOut, FiBell, FiUserPlus, FiLogIn, FiUser } from "react-icons/fi"; // Modern icons from react-icons
+import { FiLogOut, FiUserPlus, FiLogIn, FiUser } from "react-icons/fi"; // Removed FiBell
 import logo from "@/assets/logo.png";
 import { toast } from "react-toastify";
 
@@ -19,15 +19,7 @@ const Navbar = () => {
   };
 
   return (
-    <div
-      className="flex items-center justify-between py-4 px-8 bg-gradient-to-r from-green-800 via-green-600 to-green-800 text-white shadow-md relative"
-      style={{
-        boxShadow: "0 0 15px rgba(34, 139, 34, 0.7)", // Glowing green shadow effect
-      }}
-    >
-      {/* Glowing effect around the navbar */}
-      <div className="absolute inset-0 bg-gradient-to-r from-green-800 via-green-600 to-green-800 blur-md opacity-20 pointer-events-none"></div>
-
+    <div className="flex items-center justify-between py-4 px-8 bg-[#27548A] text-white shadow-md relative">
       {/* Logo and Link to Home */}
       <Link to="/mainhomepage">
         <img
@@ -44,9 +36,7 @@ const Navbar = () => {
 
       {/* Auth Section */}
       <div
-        className={`${
-          menuOpen ? "flex" : "hidden"
-        } md:flex items-center gap-6`}
+        className={`${menuOpen ? "flex" : "hidden"} md:flex items-center gap-6`}
       >
         {!isAuthenticated ? (
           <>
@@ -87,17 +77,6 @@ const Navbar = () => {
               <FiLogOut size={18} />
               Logout
             </button>
-
-            {/* Notification Icon */}
-            <div className="relative group">
-              <FiBell
-                size={24}
-                className="cursor-pointer hover:text-yellow-300 transition-colors duration-300"
-              />
-              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">
-                3
-              </span>
-            </div>
           </>
         )}
       </div>
