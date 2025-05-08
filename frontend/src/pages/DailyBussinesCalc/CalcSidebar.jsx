@@ -23,18 +23,19 @@ const CalcSidebar = () => {
         Daily Business Calculator
       </div>
       <nav className="mt-6">
-        {/* <Link
-          to="/calc-dashboard"
+      <Link
+          to="/mainhomepage"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
-            activeLink === "/calc-dashboard"
-              ? "bg-green-800 scale-105 shadow-lg"
-              : "hover:bg-green-800 hover:scale-105"
+            activeLink === "/mainhomepage"
+              ? "bg-gray-800 scale-105 shadow-lg"
+              : "hover:bg-gray-800 hover:scale-105"
           }`}
-          onClick={() => handleLinkClick("/calc-dashboard")}
+          onClick={() => handleLinkClick("/mainhomepage")}
         >
-          <FaChartBar className="text-yellow-400 text-lg mr-3" />
-          <span className="text-base">Dashboard</span>
-        </Link> */}
+          <FaHome className="text-pink-400 text-lg mr-3" />
+          <span className="text-base">Home</span>
+        </Link>
+        
         <Link
           to="/distributed-list"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
@@ -83,18 +84,7 @@ const CalcSidebar = () => {
           <span className="mr-2">🛒</span>
           Shop Details
         </Link>
-        <Link
-          to="/mainhomepage"
-          className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
-            activeLink === "/mainhomepage"
-              ? "bg-gray-800 scale-105 shadow-lg"
-              : "hover:bg-gray-800 hover:scale-105"
-          }`}
-          onClick={() => handleLinkClick("/mainhomepage")}
-        >
-          <FaHome className="text-pink-400 text-lg mr-3" />
-          <span className="text-base">Home</span>
-        </Link>
+        
       </nav>
     </div>
   );
