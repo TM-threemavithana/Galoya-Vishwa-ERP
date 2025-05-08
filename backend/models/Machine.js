@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 const machineSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  placeNum:{type:Number},
   broughtDate: { type: Date,  },
   price: { type: Number,  },
   description: { type: String, },

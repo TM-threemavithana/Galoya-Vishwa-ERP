@@ -43,6 +43,10 @@ const ResourceEdit = () => {
       name: selected.name,
       position: selected.position,
       section: selected.section,
+      contactNumber1: selected.contactNumber1,
+      contactNumber2: selected.contactNumber2,
+      residence: selected.residence,
+
     });
     setDropdownOpen(false);
   };
@@ -121,6 +125,18 @@ const ResourceEdit = () => {
         {/* Form to Edit Employee Details */}
         {selectedEmployee && (
           <form onSubmit={handleSubmit}>
+            {/* Employee ID - own row */}
+            <div className="mb-6">
+              <label className="block font-medium text-gray-700 mb-1">Employee ID</label>
+              <input
+                type="text"
+                value={`GV ${selectedEmployee.emplId.toString().padStart(2, "0")}`}
+                disabled
+                className="form-input w-[48%] px-4 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm text-gray-700"
+              />
+            </div>
+
+            {/* Name and Position side by side */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block font-medium text-gray-700 mb-1">Employee Name</label>
@@ -142,24 +158,38 @@ const ResourceEdit = () => {
                   value={employee.position || ""}
                   onChange={handleChange}
                   placeholder="Position"
-                  className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="form-input w-full text-gray-700 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
               </div>
+            </div>
 
-              {/* Dropdown for Department Selection */}
+            {/* Section, Residence, Contacts */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
               <div>
                 <label className="block font-medium text-gray-700 mb-1">Section</label>
                 <select
                   name="section"
                   value={employee.section || ""}
                   onChange={handleChange}
-                  className="form-select w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="form-select w-full text-gray-700 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
                   <option value="cleaning">Cleaning</option>
                   <option value="distributing">Distributing</option>
                   <option value="produce and manufacturing">Produce and Manufacturing</option>
                   <option value="management">Management</option>
                 </select>
+              </div>
+
+              <div>
+                <label className="block font-medium text-gray-700 mb-1">Residence</label>
+                <input
+                  type="text"
+                  name="residence"
+                  value={employee.residence || ""}
+                  onChange={handleChange}
+                  placeholder="Residence Address"
+                  className="form-input w-full px-4 py-2 border text-gray-700 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
               </div>
 
               <div>
@@ -170,7 +200,7 @@ const ResourceEdit = () => {
                   value={employee.contactNumber1 || ""}
                   onChange={handleChange}
                   placeholder="Contact Number 1"
-                  className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="form-input text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
               </div>
 
@@ -182,22 +212,9 @@ const ResourceEdit = () => {
                   value={employee.contactNumber2 || ""}
                   onChange={handleChange}
                   placeholder="Contact Number 2"
-                  className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="form-input text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
               </div>
-
-              <div>
-                <label className="block font-medium text-gray-700 mb-1">Residence</label>
-                <input
-                  type="text"
-                  name="residence"
-                  value={employee.residence || ""}
-                  onChange={handleChange}
-                  placeholder="Residence Address"
-                  className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                />
-              </div>
-
             </div>
 
             <button

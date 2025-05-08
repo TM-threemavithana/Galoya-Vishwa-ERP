@@ -5,14 +5,15 @@ import ErrorHandler from '../middlewares/error.js';
 import MachineRepair from '../models/MachineRepair.js';
 
 export const addMachine = catchAsyncErrors(async (req, res, next) => {
-  const { name, broughtDate, price, description,image,nextRepairDate,cost,billNo,repairDate } = req.body;
+  const { name, broughtDate, price, description,image,nextRepairDate,cost,billNo,repairDate,placeNum, } = req.body;
 
-  if (!name || !broughtDate || !price || !description|| !image || !nextRepairDate) {
+  if (!name || !broughtDate || !price || !description|| !image || !nextRepairDate|| !placeNum) {
     return next(new ErrorHandler('Please fill in all fields.', 400));
   }
 
   const machine = await Machine.create({
     name,
+    placeNum,
     broughtDate,
     price,
     description,
