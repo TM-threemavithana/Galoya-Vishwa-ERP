@@ -18,8 +18,8 @@ const VehicleSidebar = () => {
   };
 
   return (
-    <div className="w-64 bg-gradient-to-b from-green-900 to-green-700 text-white min-h-screen shadow-lg">
-      <div className="p-6 text-2xl font-bold text-center border-b border-green-800">
+    <div className="w-64 bg-gradient-to-b from-[#27548A] to-[#1A365D] text-white min-h-screen shadow-lg">
+      <div className="p-6 text-2xl font-bold text-center border-b border-[#1E4976]">
         Vehicle Management
       </div>
       <nav className="mt-6">
@@ -80,7 +80,8 @@ const VehicleSidebar = () => {
           }`}
           onClick={() => handleLinkClick("/vehicle-add")}
         >
-          <FaPlusSquare className="text-purple-400 text-lg mr-3" /> {/* Updated icon */}
+          <FaPlusSquare className="text-purple-400 text-lg mr-3" />{" "}
+          {/* Updated icon */}
           <span className="text-base">Add Vehicle</span>
         </Link>
       </nav>

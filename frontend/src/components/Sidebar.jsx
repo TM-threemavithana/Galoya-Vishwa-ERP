@@ -10,7 +10,9 @@ import productionIcon from "../assets/production.png"; // Added production icon
 
 const Sidebar = () => {
   return (
-    <div className="w-64 bg-gradient-to-b from-green-900 to-green-700 text-white min-h-screen shadow-lg"> {/* Fixed position with overflow */}
+    <div className="w-64 bg-gradient-to-b from-[#27548A] to-[#1A365D] text-white min-h-screen shadow-lg">
+      {" "}
+      {/* Fixed position with overflow */}
       <div>
         <div className="px-5 py-4 text-xl font-semibold text-center">
           WELCOME
@@ -21,11 +23,7 @@ const Sidebar = () => {
               to="/MainHomePage"
               className="flex items-center p-3 hover:bg-[#3A6D8C] rounded transition-colors duration-150"
             >
-              <img
-                src={homepageIcon}
-                alt="Homepage"
-                className="h-6 w-6 mr-3"
-              />
+              <img src={homepageIcon} alt="Homepage" className="h-6 w-6 mr-3" />
               <span>Homepage</span>
             </Link>
           </li>
@@ -99,11 +97,7 @@ const Sidebar = () => {
               to="/profile"
               className="flex items-center p-3 hover:bg-[#3A6D8C] rounded transition-colors duration-150"
             >
-              <img
-                src={profileIcon}
-                alt="Profile"
-                className="h-6 w-6 mr-3"
-              />
+              <img src={profileIcon} alt="Profile" className="h-6 w-6 mr-3" />
               <span>Profile</span>
             </Link>
           </li>

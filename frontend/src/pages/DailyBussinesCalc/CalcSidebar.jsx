@@ -18,8 +18,10 @@ const CalcSidebar = () => {
   };
 
   return (
-    <div className="w-64 bg-gradient-to-b from-green-900 to-green-700 text-white min-h-screen shadow-lg">
-      <div className="p-4 text-lg font-bold">Daily Business Calculator</div>
+    <div className="w-64 bg-gradient-to-b from-[#27548A] to-[#1A365D] text-white min-h-screen shadow-lg">
+      <div className="p-4 text-lg font-bold border-b border-[#1E4976]">
+        Daily Business Calculator
+      </div>
       <nav className="mt-6">
         {/* <Link
           to="/calc-dashboard"
@@ -37,8 +39,8 @@ const CalcSidebar = () => {
           to="/distributed-list"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
             activeLink === "/distributed-list"
-              ? "bg-green-800 scale-105 shadow-lg"
-              : "hover:bg-green-800 hover:scale-105"
+              ? "bg-gray-800 scale-105 shadow-lg"
+              : "hover:bg-gray-800 hover:scale-105"
           }`}
           onClick={() => handleLinkClick("/distributed-list")}
         >
@@ -49,8 +51,8 @@ const CalcSidebar = () => {
           to="/calc-records"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
             activeLink === "/calc-records"
-              ? "bg-green-800 scale-105 shadow-lg"
-              : "hover:bg-green-800 hover:scale-105"
+              ? "bg-gray-800 scale-105 shadow-lg"
+              : "hover:bg-gray-800 hover:scale-105"
           }`}
           onClick={() => handleLinkClick("/calc-records")}
         >
@@ -73,8 +75,8 @@ const CalcSidebar = () => {
           to="/calc-reports"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
             activeLink === "/calc-report"
-              ? "bg-green-800 scale-105 shadow-lg"
-              : "hover:bg-green-800 hover:scale-105"
+              ? "bg-gray-800 scale-105 shadow-lg"
+              : "hover:bg-gray-800 hover:scale-105"
           }`}
           onClick={() => handleLinkClick("/calc-reports")}
         >
@@ -85,8 +87,8 @@ const CalcSidebar = () => {
           to="/mainhomepage"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
             activeLink === "/mainhomepage"
-              ? "bg-green-800 scale-105 shadow-lg"
-              : "hover:bg-green-800 hover:scale-105"
+              ? "bg-gray-800 scale-105 shadow-lg"
+              : "hover:bg-gray-800 hover:scale-105"
           }`}
           onClick={() => handleLinkClick("/mainhomepage")}
         >

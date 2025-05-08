@@ -18,12 +18,11 @@ const ResourceSidebar = () => {
   };
 
   return (
-    <div className="w-64 bg-gradient-to-b from-green-900 to-green-700 text-white min-h-screen shadow-lg">
-      <div className="p-6 text-2xl font-bold text-center border-b border-green-800">
+    <div className="w-64 bg-gradient-to-b from-[#27548A] to-[#1A365D] text-white min-h-screen shadow-lg">
+      <div className="p-6 text-2xl font-bold text-center border-b border-[#1E4976]">
         Human Resource Management
       </div>
       <nav className="mt-6">
-        
         <Link
           to="/mainhomepage"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
@@ -36,7 +35,7 @@ const ResourceSidebar = () => {
           <FaHome className="text-pink-400 text-lg mr-3" />
           <span className="text-base">Home</span>
         </Link>
-        
+
         <Link
           to="/resource-dashboard"
           className={`flex items-center p-3 mb-4 rounded-lg transition-all duration-300 ${
