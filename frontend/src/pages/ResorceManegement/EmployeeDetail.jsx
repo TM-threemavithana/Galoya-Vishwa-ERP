@@ -22,7 +22,7 @@ const EmployeeDetail = () => {
   }
 
   return (
-    <div className="p-6 min-w-[560px] mx-auto bg-white shadow-lg rounded-lg ml-80 mr-80 mt-10 mb-20">
+    <div className="p-6 min-w-[560px] mx-auto bg-white shadow-lg rounded-[8px] ml-80 mr-80 mt-10 mb-20">
 
       <div className="flex flex-col items-center mb-6">
         <img

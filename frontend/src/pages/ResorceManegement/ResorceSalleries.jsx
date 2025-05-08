@@ -67,7 +67,7 @@ const ResourceSallery = () => {
     const workPay = Number(workDays) * salaryPerDay;
     const otPay = Number(otHours) * otPayPerHour;
     const deductionAmount = deductions ? parseFloat(deductions) : 0;
-    const allowancesAmount = deductions ? parseFloat(allowances) : 0;
+    const allowancesAmount = allowances ? parseFloat(allowances) : 0;
 
     const finalSalary = workPay + otPay - deductionAmount + bonus + allowancesAmount;
     setTotalSalary(finalSalary);
@@ -137,7 +137,6 @@ const ResourceSallery = () => {
   return (
     <Container maxWidth="sm" sx={{ padding: "20px" }}>
       <Box sx={{ backgroundColor: "white", padding: "20px", borderRadius: "8px", boxShadow: 3 }}>
-        {/* Navigation Buttons */}
         <nav style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '20px', width: '100%' }}>
           <Link to="/salaries/edit" style={{ textDecoration: 'none', width: '30%' }}>
             <Button variant="contained" color="primary" fullWidth sx={{ height: '50px' }}>Edit</Button>
@@ -152,7 +151,6 @@ const ResourceSallery = () => {
 
         <Typography variant="h4" gutterBottom>Salary Calculator</Typography>
 
-        {/* Search Employee */}
         <TextField
           label="Search Employee (Name or ID)"
           variant="outlined"
@@ -162,7 +160,6 @@ const ResourceSallery = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
 
-        {/* Employee Dropdown */}
         <FormControl fullWidth margin="normal">
           <InputLabel>Select Employee</InputLabel>
           <Select
@@ -196,11 +193,15 @@ const ResourceSallery = () => {
           margin="normal"
         />
 
+        {/* Numeric fields with positive-only validation */}
         <TextField
           label="Work Days"
           type="number"
           value={workDays}
-          onChange={(e) => setWorkDays(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value === '' || Number(value) >= 0) setWorkDays(value);
+          }}
           fullWidth
           margin="normal"
         />
@@ -209,7 +210,10 @@ const ResourceSallery = () => {
           label="OT Hours"
           type="number"
           value={otHours}
-          onChange={(e) => setOtHours(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value === '' || Number(value) >= 0) setOtHours(value);
+          }}
           fullWidth
           margin="normal"
         />
@@ -218,7 +222,10 @@ const ResourceSallery = () => {
           label="Absence Days"
           type="number"
           value={absenceDays}
-          onChange={(e) => setAbsenceDays(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value === '' || Number(value) >= 0) setAbsenceDays(value);
+          }}
           fullWidth
           margin="normal"
         />
@@ -227,7 +234,10 @@ const ResourceSallery = () => {
           label="Deductions (LKR)"
           type="number"
           value={deductions}
-          onChange={(e) => setDeductions(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value === '' || Number(value) >= 0) setDeductions(value);
+          }}
           fullWidth
           margin="normal"
         />
@@ -236,7 +246,10 @@ const ResourceSallery = () => {
           label="Allowances (LKR)"
           type="number"
           value={allowances}
-          onChange={(e) => setAllowances(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value === '' || Number(value) >= 0) setAllowances(value);
+          }}
           fullWidth
           margin="normal"
         />
@@ -260,11 +273,32 @@ const ResourceSallery = () => {
         {confirmStep && (
           <Box sx={{ marginTop: "20px" }}>
             <Typography variant="h6" gutterBottom>Re-enter Details for Verification</Typography>
-            <TextField label="Re-enter Work Days" type="number" value={confirmWorkDays} onChange={(e) => setConfirmWorkDays(e.target.value)} fullWidth margin="normal" />
-            <TextField label="Re-enter OT Hours" type="number" value={confirmOtHours} onChange={(e) => setConfirmOtHours(e.target.value)} fullWidth margin="normal" />
-            <TextField label="Re-enter Absence Days" type="number" value={confirmAbsenceDays} onChange={(e) => setConfirmAbsenceDays(e.target.value)} fullWidth margin="normal" />
-            <TextField label="Re-enter Deductions" type="number" value={confirmDeductions} onChange={(e) => setConfirmDeductions(e.target.value)} fullWidth margin="normal" />
-            <TextField label="Re-enter Allowances" type="number" value={confirmAllowances} onChange={(e) => setConfirmAllowances(e.target.value)} fullWidth margin="normal" />
+
+            {/* Confirm fields with validation */}
+            <TextField label="Re-enter Work Days" type="number" value={confirmWorkDays} onChange={(e) => {
+              const value = e.target.value;
+              if (value === '' || Number(value) >= 0) setConfirmWorkDays(value);
+            }} fullWidth margin="normal" />
+
+            <TextField label="Re-enter OT Hours" type="number" value={confirmOtHours} onChange={(e) => {
+              const value = e.target.value;
+              if (value === '' || Number(value) >= 0) setConfirmOtHours(value);
+            }} fullWidth margin="normal" />
+
+            <TextField label="Re-enter Absence Days" type="number" value={confirmAbsenceDays} onChange={(e) => {
+              const value = e.target.value;
+              if (value === '' || Number(value) >= 0) setConfirmAbsenceDays(value);
+            }} fullWidth margin="normal" />
+
+            <TextField label="Re-enter Deductions" type="number" value={confirmDeductions} onChange={(e) => {
+              const value = e.target.value;
+              if (value === '' || Number(value) >= 0) setConfirmDeductions(value);
+            }} fullWidth margin="normal" />
+
+            <TextField label="Re-enter Allowances" type="number" value={confirmAllowances} onChange={(e) => {
+              const value = e.target.value;
+              if (value === '' || Number(value) >= 0) setConfirmAllowances(value);
+            }} fullWidth margin="normal" />
           </Box>
         )}
 
@@ -284,4 +318,4 @@ const ResourceSallery = () => {
   );
 };
 
-export default ResourceSallery;
+export default ResourceSallery; 
