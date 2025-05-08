@@ -47,7 +47,7 @@ const AddMachines = () => {
       const formData = new FormData();
       formData.append("product", image);
 
-      const uploadResp = await fetch("http://localhost:5000/upload", {
+      const uploadResp = await fetch("https://galoya-vishwa-erp-backend.onrender.com/upload", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -60,7 +60,7 @@ const AddMachines = () => {
       if (responseData.success) {
         machine.image = responseData.image_url;
 
-        const saveResp = await fetch("http://localhost:5000/api/machines", {
+        const saveResp = await fetch("https://galoya-vishwa-erp-backend.onrender.com/api/machines", {
           method: "POST",
           headers: {
             Accept: "application/json",

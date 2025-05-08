@@ -9,7 +9,7 @@ const MachineDashboard = () => {
 
   const fetchMachines = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/machines");
+      const response = await fetch("https://galoya-vishwa-erp-backend.onrender.com/api/machines");
       const data = await response.json();
       if (data.success && data.machines) {
         const sortedMachines = data.machines.sort((a, b) => {
@@ -31,7 +31,7 @@ const MachineDashboard = () => {
   // Function to handle the removal of a machine
   const handleRemove = async (machineId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/machines/${machineId}`, {
+      const response = await fetch(`https://galoya-vishwa-erp-backend.onrender.com/api/machines/${machineId}`, {
         method: "DELETE",
       });
 

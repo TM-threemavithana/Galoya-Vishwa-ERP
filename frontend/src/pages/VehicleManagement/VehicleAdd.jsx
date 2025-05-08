@@ -42,7 +42,7 @@ const VehicleAdd = () => {
     let formData = new FormData();
     formData.append("product", image);
 
-    await fetch("http://localhost:5000/upload", {
+    await fetch("https://galoya-vishwa-erp-backend.onrender.com/upload", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -57,7 +57,7 @@ const VehicleAdd = () => {
     if (responseData.success) {
       vehicle.image = responseData.image_url;
       console.log(vehicle);
-      await fetch("http://localhost:5000/api/vehicles", {
+      await fetch("https://galoya-vishwa-erp-backend.onrender.com/api/vehicles", {
         method: "POST",
         headers: {
           Accept: "application/json",

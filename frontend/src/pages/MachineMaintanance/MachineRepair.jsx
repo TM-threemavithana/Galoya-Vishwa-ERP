@@ -19,7 +19,7 @@ const MachineRepair = () => {
   useEffect(() => {
     const fetchMachineNames = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/machines");
+        const response = await axios.get("https://galoya-vishwa-erp-backend.onrender.com/api/machines");
         const latestMachines = response.data.machines.map((machine) => ({
           name: machine.name,
           id: machine._id,
@@ -63,7 +63,7 @@ const MachineRepair = () => {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/machinerepairs/${repair.machineId}`, repair);
+      await axios.put(`https://galoya-vishwa-erp-backend.onrender.com/api/machinerepairs/${repair.machineId}`, repair);
       toast.success("Machine repair added successfully!");
       setRepair({
         machineName: "",

@@ -21,7 +21,7 @@ const ResourceEdit = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/employee");
+        const response = await axios.get("https://galoya-vishwa-erp-backend.onrender.com/api/employee");
         setEmployees(response.data.employees);
         setLoading(false);
       } catch (error) {
@@ -59,7 +59,7 @@ const ResourceEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/employee/${selectedEmployee._id}`, employee);
+      await axios.put(`https://galoya-vishwa-erp-backend.onrender.com/api/employee/${selectedEmployee._id}`, employee);
       toast.success("Employee details updated successfully!");
     } catch (error) {
       console.error("Error updating employee:", error);

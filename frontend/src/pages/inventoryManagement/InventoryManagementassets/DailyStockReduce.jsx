@@ -34,7 +34,7 @@ const DailyStockReduce = () => {
 
   const fetchRecords = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/stock-reductions');
+      const response = await axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/stock-reductions');
       setRecords(response.data.stockReductions || []);
     } catch (error) {
       console.error('Error fetching records:', error);
@@ -55,12 +55,12 @@ const DailyStockReduce = () => {
     }
     try {
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/stock-reductions/${editId}`, stockReduce);
+        await axios.put(`https://galoya-vishwa-erp-backend.onrender.com/api/stock-reductions/${editId}`, stockReduce);
         toast.success('Stock reduction updated successfully!');
         setIsEditing(false);
         setEditId(null);
       } else {
-        await axios.post('http://localhost:5000/api/stock-reductions', stockReduce);
+        await axios.post('https://galoya-vishwa-erp-backend.onrender.com/api/stock-reductions', stockReduce);
         toast.success('Stock reduction added successfully!');
       }
       setStockReduce({
@@ -84,7 +84,7 @@ const DailyStockReduce = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/stock-reductions/${id}`);
+      await axios.delete(`https://galoya-vishwa-erp-backend.onrender.com/api/stock-reductions/${id}`);
       toast.success('Stock reduction deleted successfully!');
       fetchRecords();
     } catch (error) {

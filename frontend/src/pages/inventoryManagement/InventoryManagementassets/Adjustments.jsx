@@ -19,7 +19,7 @@ const Adjustments = () => {
   // Fetch all adjustments
   const fetchAdjustments = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/adjustments');
+      const response = await axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/adjustments');
       setAdjustments(response.data.adjustments);
     } catch (error) {
       console.error("Error fetching adjustments", error);
@@ -29,7 +29,7 @@ const Adjustments = () => {
   // Fetch all products for selection
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/products');
+      const response = await axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/products');
       setProducts(response.data.products);
     } catch (error) {
       console.error("Error fetching products", error);
@@ -43,7 +43,7 @@ const Adjustments = () => {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/api/adjustments', newAdjustment);
+      await axios.post('https://galoya-vishwa-erp-backend.onrender.com/api/adjustments', newAdjustment);
       fetchAdjustments();
       setNewAdjustment({ productId: '', type: 'Damaged', quantity: 0, reason: '' });
     } catch (error) {

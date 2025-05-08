@@ -57,7 +57,7 @@ const AddProduct = () => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:5000/api/products', product);
+      const response = await axios.post('https://galoya-vishwa-erp-backend.onrender.com/api/products', product);
       addProduct(response.data);
       toast.success('Product added successfully!');
       setProduct({

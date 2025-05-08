@@ -8,7 +8,7 @@ const DistributedList = () => {
   useEffect(() => {
     const fetchDistributions = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/distributions");
+        const response = await fetch("https://galoya-vishwa-erp-backend.onrender.com/api/distributions");
         const data = await response.json();
         if (data.success && Array.isArray(data.distributions)) {
           setDistributions(data.distributions);

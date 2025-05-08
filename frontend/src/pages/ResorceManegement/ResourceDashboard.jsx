@@ -24,7 +24,7 @@ const Dashboard = () => {
 
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/employee")
+    fetch("https://galoya-vishwa-erp-backend.onrender.com/api/employee")
       .then((res) => res.json())
       .then((data) => {
         if (data.success && Array.isArray(data.employees)) {

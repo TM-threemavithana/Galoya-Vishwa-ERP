@@ -37,7 +37,7 @@ const ResourceSallery = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/employee")
+    axios.get("https://galoya-vishwa-erp-backend.onrender.com/api/employee")
       .then(response => {
         if (response.data.success && Array.isArray(response.data.employees)) {
           setEmployees(response.data.employees);
@@ -111,7 +111,7 @@ const ResourceSallery = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/employee/${selectedEmployee}`,
+        `https://galoya-vishwa-erp-backend.onrender.com/api/employee/${selectedEmployee}`,
         salaryData
       );
       if (response.data.success) {

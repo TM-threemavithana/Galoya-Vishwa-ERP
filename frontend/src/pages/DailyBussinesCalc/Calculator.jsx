@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 
 const saveTotalsData = async (totals) => {
   try {
-    await axios.post("http://localhost:5000/api/totals", totals);
+    await axios.post("https://galoya-vishwa-erp-backend.onrender.com/api/totals", totals);
     toast.success("Totals data saved successfully!");
   } catch (error) {
     toast.error("Error saving totals data");
@@ -16,7 +16,7 @@ const saveTotalsData = async (totals) => {
 
 const saveReturnedItems = async (returnedItems) => {
   try {
-    await axios.post("http://localhost:5000/api/returned-items", {
+    await axios.post("https://galoya-vishwa-erp-backend.onrender.com/api/returned-items", {
       returnedItems,
     });
     toast.success("Returned items saved successfully!");
@@ -55,7 +55,7 @@ const DailyBusinessCalculator = () => {
   useEffect(() => {
     const fetchDistributionData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/distributions");
+        const response = await fetch("https://galoya-vishwa-erp-backend.onrender.com/api/distributions");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -359,7 +359,7 @@ const DailyBusinessCalculator = () => {
   const handleNewShopSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/shops", newShop);
+      await axios.post("https://galoya-vishwa-erp-backend.onrender.com/api/shops", newShop);
       toast.success("New shop added successfully!");
       setNewShop({
         shopName: "",
@@ -379,7 +379,7 @@ const DailyBusinessCalculator = () => {
     const fetchShops = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/shop-details"
+          "https://galoya-vishwa-erp-backend.onrender.com/api/shop-details"
         );
         setShops(response.data);
       } catch (error) {

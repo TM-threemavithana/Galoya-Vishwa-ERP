@@ -8,7 +8,7 @@ const VehicleDetails = () => {
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/vehicles');
+        const response = await axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/vehicles');
         setVehicles(response.data.vehicles);
       } catch (error) {
         console.error('Error fetching vehicles:', error);
@@ -20,7 +20,7 @@ const VehicleDetails = () => {
 
   const removeVehicle = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/vehicles/${id}`);
+      await axios.delete(`https://galoya-vishwa-erp-backend.onrender.com/api/vehicles/${id}`);
       setVehicles(vehicles.filter(vehicle => vehicle._id !== id));
     } catch (error) {
       console.error('Error removing vehicle:', error);

@@ -33,7 +33,7 @@ config({
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL, "https://your-frontend-app-name.onrender.com"],
+    origin: [process.env.FRONTEND_URL, "https://galoya-vishwa-erp.onrender.com"],
     methods: ["POST", "GET", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
@@ -63,7 +63,7 @@ app.post("/upload", upload.single("product"), (req, res) => {
   try {
     res.json({
       success: 1,
-      image_url: `http://localhost:5000/images/${req.file.filename}`,
+      image_url: `https://galoya-vishwa-erp.onrender.com//images/${req.file.filename}`,
     });
   } catch (error) {
     console.error("Error uploading file:", error);

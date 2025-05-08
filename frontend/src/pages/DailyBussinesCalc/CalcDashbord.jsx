@@ -14,7 +14,7 @@ const DailyBusinessCalculator = () => {
   useEffect(() => {
     const fetchDistributions = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/distributions');
+        const response = await axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/distributions');
         console.log('Distributions API response:', response.data);
         setDistributions(Array.isArray(response.data) ? response.data : []);
       } catch (error) {

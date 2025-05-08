@@ -23,7 +23,7 @@ const ShowSalaryDetails = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/employee")
+      .get("https://galoya-vishwa-erp-backend.onrender.com/api/employee")
       .then((response) => {
         if (response.data.success && Array.isArray(response.data.employees)) {
           setEmployees(response.data.employees);
@@ -40,7 +40,7 @@ const ShowSalaryDetails = () => {
     const fetchSalaries = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/employee/salary"
+          "https://galoya-vishwa-erp-backend.onrender.com/api/employee/salary"
         );
         setSalaries(response.data.salaries || []);
       } catch (error) {

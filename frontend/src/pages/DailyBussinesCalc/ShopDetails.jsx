@@ -16,7 +16,7 @@ const ShopDetails = () => {
     e.preventDefault();
     try {
       const newShop = { shopName, route, ownerPhoneNumber, ownerName, address };
-      const response = await axios.post('http://localhost:5000/api/shop-details', newShop);
+      const response = await axios.post('https://galoya-vishwa-erp-backend.onrender.com/api/shop-details', newShop);
       toast.success('Shop details saved successfully!');
       console.log('Shop details saved:', response.data);
 
@@ -40,7 +40,7 @@ const ShopDetails = () => {
 
   const fetchShops = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/shop-details');
+      const response = await axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/shop-details');
       setShops(response.data);
 
       // Extract unique routes

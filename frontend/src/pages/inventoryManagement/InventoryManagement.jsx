@@ -14,9 +14,9 @@ const InventoryManagement = () => {
     const fetchData = async () => {
       try {
         const [productionResponse, distributionResponse, stockReduceResponse] = await Promise.all([
-          axios.get('http://localhost:5000/api/inventories'),
-          axios.get('http://localhost:5000/api/distributions'),
-          axios.get('http://localhost:5000/api/stock-reductions'),
+          axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/inventories'),
+          axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/distributions'),
+          axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/stock-reductions'),
         ]);
 
         const productionData = Array.isArray(productionResponse.data.inventories)

@@ -21,7 +21,7 @@ const VehicleMaintenance = () => {
   useEffect(() => {
     const fetchRepairs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/vehicle-maintenance/maintenance");
+        const response = await axios.get("https://galoya-vishwa-erp-backend.onrender.com/api/vehicle-maintenance/maintenance");
 
         console.log("API Response:", response.data); // Debugging
 

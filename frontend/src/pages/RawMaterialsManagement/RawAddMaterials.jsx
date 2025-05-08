@@ -76,7 +76,7 @@ const RawAddMaterials = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/raw-materials-log', { date, items });
+      const response = await axios.post('https://galoya-vishwa-erp-backend.onrender.com/api/raw-materials-log', { date, items });
       toast.success('Data saved successfully!');
       navigate('/raw-materials-log', { state: response.data.rawMaterialsLog });
     } catch (error) {

@@ -34,7 +34,7 @@ const ResourceAdd = () => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/employee")
+    fetch("https://galoya-vishwa-erp-backend.onrender.com/api/employee")
       .then((resp) => resp.json())
       .then((data) => {
         if (data.success) {
@@ -85,7 +85,7 @@ const ResourceAdd = () => {
     if (image) {
       formData.append("product", image);
 
-      await fetch("http://localhost:5000/upload", {
+      await fetch("https://galoya-vishwa-erp-backend.onrender.com/upload", {
         method: "POST",
         headers: { Accept: "application/json" },
         body: formData,
@@ -100,7 +100,7 @@ const ResourceAdd = () => {
       }
     }
 
-    await fetch("http://localhost:5000/api/employee", {
+    await fetch("https://galoya-vishwa-erp-backend.onrender.com/api/employee", {
       method: "POST",
       headers: {
         Accept: "application/json",

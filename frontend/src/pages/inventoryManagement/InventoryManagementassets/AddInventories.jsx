@@ -58,7 +58,7 @@ const AddInventories = () => {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/api/inventories', inventory);
+      await axios.post('https://galoya-vishwa-erp-backend.onrender.com/api/inventories', inventory);
       toast.success('Inventory added successfully!');
       setInventory({
         date: '',

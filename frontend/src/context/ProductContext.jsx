@@ -10,7 +10,7 @@ export const ProductProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products');
+        const response = await axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/products');
         setProducts(response.data);
         setUpdatedProducts(response.data); // Ensure this is set
       } catch (error) {
@@ -46,7 +46,7 @@ export const ProductProvider = ({ children }) => {
       const product = updatedProducts.find(product => product.name === name);
       if (product) {
         const updatedProduct = { ...product, quantity: product.quantity - usedQuantity };
-        await axios.put(`http://localhost:5000/api/products/quantity/${name}`, { quantity: updatedProduct.quantity });
+        await axios.put(`https://galoya-vishwa-erp-backend.onrender.com/api/products/quantity/${name}`, { quantity: updatedProduct.quantity });
         setUpdatedProducts(updatedProducts.map(product => 
           product.name === name ? updatedProduct : product
         ));

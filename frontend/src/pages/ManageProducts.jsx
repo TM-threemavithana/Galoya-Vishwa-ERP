@@ -12,7 +12,7 @@ const ManageProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products");
+        const response = await axios.get("https://galoya-vishwa-erp-backend.onrender.com/api/products");
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -34,7 +34,7 @@ const ManageProducts = () => {
 
   const handleUpdate = () => {
     axios
-      .put(`http://localhost:5000/api/products/${editingProduct._id}`, editingProduct)
+      .put(`https://galoya-vishwa-erp-backend.onrender.com/api/products/${editingProduct._id}`, editingProduct)
       .then((response) => {
         setProducts(
           products.map((product, index) =>
@@ -50,7 +50,7 @@ const ManageProducts = () => {
   const handleDelete = (index) => {
     const productToDelete = products[index];
     axios
-      .delete(`http://localhost:5000/api/products/${productToDelete._id}`)
+      .delete(`https://galoya-vishwa-erp-backend.onrender.com/api/products/${productToDelete._id}`)
       .then(() => {
         setProducts(products.filter((_, i) => i !== index));
       })

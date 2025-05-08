@@ -9,7 +9,7 @@ const MachineReports = () => {
   useEffect(() => {
     const fetchMachineRepairs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/machinerepairs/mRepair");
+        const response = await axios.get("https://galoya-vishwa-erp-backend.onrender.com/api/machinerepairs/mRepair");
         setMachineRepairs(Array.isArray(response.data.machines) ? response.data.machines : []);
       } catch (error) {
         console.error("Error fetching machine repairs:", error);

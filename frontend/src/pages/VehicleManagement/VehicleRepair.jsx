@@ -34,7 +34,7 @@ const VehicleRepair = () => {
   useEffect(() => {
     const fetchVehicleNames = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/vehicles");
+        const response = await axios.get("https://galoya-vishwa-erp-backend.onrender.com/api/vehicles");
         const latestVehicles = response.data.vehicles.map((vehicle) => ({
           name: vehicle.vehicleV || "",
           id: vehicle._id || "",
@@ -81,7 +81,7 @@ const VehicleRepair = () => {
     // Check the three conditions
     if (enteredMileage === 0 || enteredMileage >= storedMileage) {
       try {
-        const url = `http://localhost:5000/api/vehicle-maintenance/${repair.vehicleId}`;
+        const url = `https://galoya-vishwa-erp-backend.onrender.com/api/vehicle-maintenance/${repair.vehicleId}`;
         console.log("API URL:", url);
   
         await axios.put(url, { ...repair, mileage: enteredMileage });

@@ -7,7 +7,7 @@ const BusinessRecords = () => {
   useEffect(() => {
     const fetchTotals = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/totals');
+        const response = await axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/totals');
         setTotals(response.data);
       } catch (error) {
         console.error('Error fetching totals data:', error);
@@ -19,7 +19,7 @@ const BusinessRecords = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/totals/${id}`);
+      await axios.delete(`https://galoya-vishwa-erp-backend.onrender.com/api/totals/${id}`);
       setTotals(totals.filter(total => total._id !== id));
     } catch (error) {
       console.error('Error deleting totals data:', error);

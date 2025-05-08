@@ -9,7 +9,7 @@ const RawMaterialsLog = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/raw-materials-log');
+        const response = await axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/raw-materials-log');
         setLogs(response.data.rawMaterialsLogs);
       } catch (error) {
         console.error('Error fetching data:', error);

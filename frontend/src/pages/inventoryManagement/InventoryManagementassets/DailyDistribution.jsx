@@ -39,7 +39,7 @@ const DailyDistribution = () => {
 
   const fetchRecords = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/distributions');
+      const response = await axios.get('https://galoya-vishwa-erp-backend.onrender.com/api/distributions');
       setRecords(Array.isArray(response.data.distributions) ? response.data.distributions : []);
     } catch (error) {
       console.error('Error fetching records:', error);
@@ -86,12 +86,12 @@ const DailyDistribution = () => {
     }
     try {
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/distributions/${editId}`, { ...distribution, inventories });
+        await axios.put(`https://galoya-vishwa-erp-backend.onrender.com/api/distributions/${editId}`, { ...distribution, inventories });
         toast.success('Distribution updated successfully!');
         setIsEditing(false);
         setEditId(null);
       } else {
-        await axios.post('http://localhost:5000/api/distributions', { ...distribution, inventories });
+        await axios.post('https://galoya-vishwa-erp-backend.onrender.com/api/distributions', { ...distribution, inventories });
         toast.success('Distribution added successfully!');
       }
       setDistribution({
@@ -124,7 +124,7 @@ const DailyDistribution = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/distributions/${id}`);
+      await axios.delete(`https://galoya-vishwa-erp-backend.onrender.com/api/distributions/${id}`);
       toast.success('Distribution deleted successfully!');
       fetchRecords();
     } catch (error) {
