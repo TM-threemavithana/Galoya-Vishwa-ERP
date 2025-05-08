@@ -34,7 +34,7 @@ import InventoryDashboard from "./pages/inventoryManagement/InventoryDashboard";
 import AddInventories from "./pages/inventoryManagement/InventoryManagementassets/AddInventories";
 import DailyDistribution from "./pages/inventoryManagement/InventoryManagementassets/DailyDistribution";
 import DailyStockReduce from "./pages/inventoryManagement/InventoryManagementassets/DailyStockReduce";
-import InventoryManagement from "./pages/InventoryManagement/InventoryManagement";
+import InventoryManagement from "./pages/inventoryManagement/InventoryManagement";
 
 import CalcDashbord from "./pages/DailyBussinesCalc/CalcDashbord";
 import Calculator from "./pages/DailyBussinesCalc/Calculator";
