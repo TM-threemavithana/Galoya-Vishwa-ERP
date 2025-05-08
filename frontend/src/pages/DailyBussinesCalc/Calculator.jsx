@@ -145,15 +145,22 @@ const DailyBusinessCalculator = () => {
   ]);
 
   const handleSoldItemChange = (index, field, value) => {
+    if (field === "quantity" || field === "price") {
+      if (value < 0) {
+        toast.error("Value cannot be negative.");
+        return;
+      }
+    }
+  
     const newSoldItems = [...soldItems];
     newSoldItems[index][field] = value;
-
+  
     if (field === "quantity" || field === "price") {
       const quantity = parseFloat(newSoldItems[index].quantity) || 0;
       const price = parseFloat(newSoldItems[index].price) || 0;
       newSoldItems[index].value = (quantity * price).toFixed(2);
     }
-
+  
     setSoldItems(newSoldItems);
   };
 

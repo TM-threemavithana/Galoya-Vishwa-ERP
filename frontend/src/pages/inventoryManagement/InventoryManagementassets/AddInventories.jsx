@@ -29,6 +29,12 @@ const AddInventories = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    if (name === "quantity" && value < 0) {
+      toast.error("Quantity cannot be negative.");
+      return;
+    }
+  
     setInventory({ ...inventory, [name]: value });
   };
 
